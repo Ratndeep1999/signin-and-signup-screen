@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:signin_and_signup_screens/Custom%20Widgets/custom_field_labels.dart';
 
 class SigninScreen extends StatelessWidget {
   const SigninScreen({super.key});
@@ -101,16 +102,7 @@ class SigninScreen extends StatelessWidget {
                           const SizedBox(height: 30),
 
                           /// Email Label of Field
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Email Address',
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                          ),
+                          const CustomFieldLabels(label: 'Email Address'),
 
                           const SizedBox(height: 8.0),
 
