@@ -109,7 +109,10 @@ class SigninScreen extends StatelessWidget {
                           const SizedBox(height: 8.0),
 
                           /// Email Address Field
-                          CustomTextfieldWidget(),
+                          CustomTextfieldWidget(
+                            hintText: "Your Email Address",
+                            suffixIcon: Icons.person,
+                          ),
 
                           SizedBox(height: 25.0),
                         ],
