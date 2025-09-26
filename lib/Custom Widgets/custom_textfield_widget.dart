@@ -4,6 +4,7 @@ class CustomTextfieldWidget extends StatelessWidget {
   const CustomTextfieldWidget({
     super.key,
     required this.hintText,
+    required this.keyboardType,
     this.suffixIcon,
     required this.obscureText,
     required this.dynamicSuffixIcon,
@@ -11,6 +12,7 @@ class CustomTextfieldWidget extends StatelessWidget {
   });
 
   // Attributes
+  final TextInputType keyboardType;
   final String hintText;
   final IconData? suffixIcon;
   final bool obscureText;
@@ -20,7 +22,7 @@ class CustomTextfieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: keyboardType,
       obscureText: obscureText,
       obscuringCharacter: '*',
       // Input Text Style

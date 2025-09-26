@@ -126,6 +126,7 @@ class _SigninScreenState extends State<SigninScreen> {
                             /// Email Address Field
                             CustomTextfieldWidget(
                               hintText: "Your Email Address",
+                              keyboardType: TextInputType.emailAddress,
                               suffixIcon: Icons.person,
                               obscureText: false,
                               dynamicSuffixIcon: false,
@@ -141,6 +142,7 @@ class _SigninScreenState extends State<SigninScreen> {
                             /// Password Field
                             CustomTextfieldWidget(
                               hintText: "Enter Your Password",
+                              keyboardType: TextInputType.visiblePassword,
                               suffixIcon: obscureText
                                   ? Icons.lock
                                   : Icons.lock_open,
