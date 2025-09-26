@@ -100,7 +100,39 @@ class SigninScreen extends StatelessWidget {
 
                           SizedBox(height: 35),
 
+                          // Email Label of Field
+                          Text(
+                            'Email Address',
+                            textAlign: TextAlign.start,
+                            textDirection: TextDirection.ltr,
+                          ),
+                          SizedBox(height: 8.0),
 
+                          // Email Address Field
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              hintText: "Your Email Address",
+                              hintStyle: TextStyle(
+                                color: Colors.black45,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 28.0,
+                                vertical: 16.0,
+                              ),
+                              suffixIcon: Icon(Icons.person),
+                              suffixIconColor: Colors.black54,
+                              suffixIconConstraints: BoxConstraints(
+                                minWidth: 80.0,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height: 25.0),
 
                         ],
                       ),
