@@ -14,6 +14,7 @@ class SigninScreen extends StatefulWidget {
 class _SigninScreenState extends State<SigninScreen> {
   // variable for suffix-icon dynamic
   bool suffixTap = false;
+
   // show or hide input text
   bool obscureText = false;
 
@@ -140,7 +141,9 @@ class _SigninScreenState extends State<SigninScreen> {
                             /// Password Field
                             CustomTextfieldWidget(
                               hintText: "Enter Your Password",
-                              suffixIcon: Icons.lock,
+                              suffixIcon: obscureText
+                                  ? Icons.lock
+                                  : Icons.lock_open,
                               obscureText: obscureText,
                               dynamicSuffixIcon: true,
                               suffixTap: () {

@@ -23,6 +23,8 @@ class CustomTextfieldWidget extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       obscureText: obscureText,
       obscuringCharacter: '*',
+      // Input Text Style
+      style: TextStyle(),
       decoration: InputDecoration(
         // hintText
         hintText: hintText,
@@ -38,6 +40,8 @@ class CustomTextfieldWidget extends StatelessWidget {
                 // suffixIcon it can be null
                 icon: Icon(suffixIcon),
                 onPressed: suffixTap,
+                splashRadius: 5,
+                highlightColor: Colors.transparent,
               )
             : Icon(suffixIcon),
         suffixIconColor: Colors.black54,
