@@ -116,7 +116,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               ),
                             ),
 
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 25),
 
                             /// Email Label
                             const CustomLabelWidget(label: 'Email Address'),
@@ -132,7 +132,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               dynamicSuffixIcon: false,
                             ),
 
-                            SizedBox(height: 25.0),
+                            SizedBox(height: 18.0),
 
                             /// Password Label
                             const CustomLabelWidget(label: 'Password'),
