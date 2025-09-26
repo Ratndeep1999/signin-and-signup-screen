@@ -103,7 +103,7 @@ class SigninScreen extends StatelessWidget {
 
                           const SizedBox(height: 30),
 
-                          /// Email Label of Field
+                          /// Email Label
                           const CustomLabelWidget(label: 'Email Address'),
 
                           const SizedBox(height: 8.0),
@@ -112,6 +112,20 @@ class SigninScreen extends StatelessWidget {
                           CustomTextfieldWidget(
                             hintText: "Your Email Address",
                             suffixIcon: Icons.person,
+                          ),
+
+                          SizedBox(height: 25.0),
+
+
+                          /// Password Label
+                          const CustomLabelWidget(label: 'Password'),
+
+                          const SizedBox(height: 8.0),
+
+                          /// Email Address Field
+                          CustomTextfieldWidget(
+                            hintText: "Enter Your Password",
+                            suffixIcon: Icons.lock,
                           ),
 
                           SizedBox(height: 25.0),
