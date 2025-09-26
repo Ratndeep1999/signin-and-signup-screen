@@ -12,6 +12,10 @@ class SigninScreen extends StatefulWidget {
 }
 
 class _SigninScreenState extends State<SigninScreen> {
+  // variable for suffix-icon dynamic
+  bool suffixTap = false;
+  // show or hide input text
+  bool obscureText = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,6 @@ class _SigninScreenState extends State<SigninScreen> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-
                   /// Heading Text
                   const Text.rich(
                     textAlign: TextAlign.center,
@@ -84,13 +87,11 @@ class _SigninScreenState extends State<SigninScreen> {
                         ),
                         child: Column(
                           children: [
-
                             /// 2nd Heading
                             const Text.rich(
                               textAlign: TextAlign.center,
                               TextSpan(
                                 children: [
-
                                   /// Second Heading
                                   TextSpan(
                                     text: "Login Account\n",
@@ -103,7 +104,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                   /// Small description text
                                   TextSpan(
                                     text:
-                                    "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                                        "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                                     style: TextStyle(
                                       fontSize: 11,
                                       color: Colors.black45,
@@ -140,8 +141,14 @@ class _SigninScreenState extends State<SigninScreen> {
                             CustomTextfieldWidget(
                               hintText: "Enter Your Password",
                               suffixIcon: Icons.lock,
-                              obscureText: true,
-                              dynamicSuffixIcon: true, suffixTap: ,
+                              obscureText: obscureText,
+                              dynamicSuffixIcon: true,
+                              suffixTap: () {
+                                setState(() {
+                                  suffixTap = !suffixTap;
+                                  obscureText = suffixTap;
+                                });
+                              },
                             ),
 
                             SizedBox(height: 25.0),
@@ -159,5 +166,3 @@ class _SigninScreenState extends State<SigninScreen> {
     );
   }
 }
-
-
