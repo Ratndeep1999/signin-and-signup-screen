@@ -55,9 +55,9 @@ class SigninScreen extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
 
-                //
+                /// Card
                 SizedBox(
                   width: double.infinity,
                   child: Card(
@@ -70,8 +70,8 @@ class SigninScreen extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          // 2nd Heading
-                          Text.rich(
+                          /// 2nd Heading
+                          const Text.rich(
                             textAlign: TextAlign.center,
                             TextSpan(
                               children: [
@@ -98,13 +98,18 @@ class SigninScreen extends StatelessWidget {
                             ),
                           ),
 
-                          SizedBox(height: 35),
+                          const SizedBox(height: 35),
 
                           /// Email Label of Field
-                          Text(
-                            'Email Address',
-                            textAlign: TextAlign.start,
-                            textDirection: TextDirection.ltr,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: const Text(
+                              'Email Address',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
                           ),
 
                           SizedBox(height: 8.0),
