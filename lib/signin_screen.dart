@@ -114,7 +114,7 @@ class SigninScreen extends StatelessWidget {
 
                           const SizedBox(height: 8.0),
 
-                          // Email Address Field
+                          /// Email Address Field
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
