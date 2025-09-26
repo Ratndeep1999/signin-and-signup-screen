@@ -16,7 +16,7 @@ class _SigninScreenState extends State<SigninScreen> {
   bool suffixTap = false;
 
   // show or hide input text
-  bool obscureText = false;
+  bool _obscureText = false;
 
   @override
   Widget build(BuildContext context) {
@@ -143,15 +143,15 @@ class _SigninScreenState extends State<SigninScreen> {
                             CustomTextfieldWidget(
                               hintText: "Enter Your Password",
                               keyboardType: TextInputType.visiblePassword,
-                              suffixIcon: obscureText
+                              suffixIcon: _obscureText
                                   ? Icons.lock
                                   : Icons.lock_open,
-                              obscureText: obscureText,
+                              obscureText: _obscureText,
                               dynamicSuffixIcon: true,
                               suffixTap: () {
                                 setState(() {
                                   suffixTap = !suffixTap;
-                                  obscureText = suffixTap;
+                                  _obscureText = suffixTap;
                                 });
                               },
                             ),
