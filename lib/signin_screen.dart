@@ -28,7 +28,7 @@ class SigninScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 /// Heading Text
-                Text.rich(
+                const Text.rich(
                   textAlign: TextAlign.center,
                   TextSpan(
                     children: [
@@ -54,8 +54,26 @@ class SigninScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+
+                SizedBox(height: 40),
+
+                //
+                SizedBox(
+                  width: double.infinity,
+                  child: Card(
+                    margin: EdgeInsets.symmetric(horizontal: 20.0),
+                    elevation: 5.0,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 32.0,
+                      ),
+                      child: Column(children: []),
+                    ),
+                  ),
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),
