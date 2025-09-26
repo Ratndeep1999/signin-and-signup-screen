@@ -27,7 +27,7 @@ class SigninScreen extends StatelessWidget {
                   child: ColoredBox(color: Colors.orange.shade300),
                 ),
               ),
-        
+
               //
               Column(
                 mainAxisSize: MainAxisSize.max,
@@ -60,9 +60,9 @@ class SigninScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-        
+
                   const SizedBox(height: 40),
-        
+
                   /// Card
                   SizedBox(
                     width: double.infinity,
@@ -89,7 +89,7 @@ class SigninScreen extends StatelessWidget {
                                       fontSize: 30,
                                     ),
                                   ),
-        
+
                                   /// Small description text
                                   TextSpan(
                                     text:
@@ -103,35 +103,37 @@ class SigninScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-        
+
                             const SizedBox(height: 30),
-        
+
                             /// Email Label
                             const CustomLabelWidget(label: 'Email Address'),
-        
+
                             const SizedBox(height: 8.0),
-        
+
                             /// Email Address Field
                             CustomTextfieldWidget(
                               hintText: "Your Email Address",
                               suffixIcon: Icons.person,
                               obscureText: false,
+                              dynamicSuffixIcon: false,
                             ),
-        
+
                             SizedBox(height: 25.0),
-        
+
                             /// Password Label
                             const CustomLabelWidget(label: 'Password'),
-        
+
                             const SizedBox(height: 8.0),
-        
+
                             /// Email Address Field
                             CustomTextfieldWidget(
                               hintText: "Enter Your Password",
                               suffixIcon: Icons.lock,
                               obscureText: true,
+                              dynamicSuffixIcon: true,
                             ),
-        
+
                             SizedBox(height: 25.0),
                           ],
                         ),
