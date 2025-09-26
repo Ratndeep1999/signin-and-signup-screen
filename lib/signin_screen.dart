@@ -21,6 +21,41 @@ class SigninScreen extends StatelessWidget {
                 child: ColoredBox(color: Colors.orange.shade300),
               ),
             ),
+
+            //
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                /// Heading Text
+                Text.rich(
+                  textAlign: TextAlign.center,
+                  TextSpan(
+                    children: [
+                      // First text
+                      TextSpan(
+                        text: "Hello\n",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 40,
+                          letterSpacing: 1.5,
+                          height: 0.0,
+                        ),
+                      ),
+                      // Second text
+                      TextSpan(
+                        text: "Welcome Back!",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 23,
+                          height: 0.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
