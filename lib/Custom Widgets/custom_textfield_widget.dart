@@ -7,6 +7,7 @@ class CustomTextfieldWidget extends StatelessWidget {
     this.suffixIcon,
     required this.obscureText,
     required this.dynamicSuffixIcon,
+    this.suffixTap,
   });
 
   // Attributes
@@ -14,6 +15,7 @@ class CustomTextfieldWidget extends StatelessWidget {
   final IconData? suffixIcon;
   final bool obscureText;
   final bool dynamicSuffixIcon;
+  final VoidCallback? suffixTap;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,11 @@ class CustomTextfieldWidget extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 16.0),
         // suffixIcon it can be clickable using dynamicSuffixIcon
         suffixIcon: dynamicSuffixIcon
-            ? IconButton(onPressed: () {}, icon: Icon(suffixIcon))
+            ? IconButton(
+                // suffixIcon it can be null
+                icon: Icon(suffixIcon),
+                onPressed: suffixTap,
+              )
             : Icon(suffixIcon),
         suffixIconColor: Colors.black54,
         // min right padding of icon
