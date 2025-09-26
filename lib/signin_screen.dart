@@ -72,7 +72,7 @@ class SigninScreen extends StatelessWidget {
                       elevation: 5.0,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
+                          horizontal: 20.0,
                           vertical: 32.0,
                         ),
                         child: Column(
