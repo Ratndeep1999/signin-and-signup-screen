@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_label_widget.dart';
 
+import 'Custom Widgets/custom_textfield_widget.dart';
+
 class SigninScreen extends StatelessWidget {
   const SigninScreen({super.key});
 
@@ -107,28 +109,7 @@ class SigninScreen extends StatelessWidget {
                           const SizedBox(height: 8.0),
 
                           /// Email Address Field
-                          TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              hintText: "Your Email Address",
-                              hintStyle: TextStyle(
-                                color: Colors.black45,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: 28.0,
-                                vertical: 16.0,
-                              ),
-                              suffixIcon: Icon(Icons.person),
-                              suffixIconColor: Colors.black54,
-                              suffixIconConstraints: BoxConstraints(
-                                minWidth: 80.0,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                              ),
-                            ),
-                          ),
+                          CustomTextfieldWidget(),
 
                           SizedBox(height: 25.0),
                         ],
