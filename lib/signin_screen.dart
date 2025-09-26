@@ -70,7 +70,6 @@ class SigninScreen extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-
                           // 2nd Heading
                           Text.rich(
                             textAlign: TextAlign.center,
@@ -106,6 +105,7 @@ class SigninScreen extends StatelessWidget {
                             textAlign: TextAlign.start,
                             textDirection: TextDirection.ltr,
                           ),
+
                           SizedBox(height: 8.0),
 
                           // Email Address Field
@@ -133,7 +133,6 @@ class SigninScreen extends StatelessWidget {
                           ),
 
                           SizedBox(height: 25.0),
-
                         ],
                       ),
                     ),
