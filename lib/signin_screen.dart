@@ -4,8 +4,14 @@ import 'package:signin_and_signup_screens/Custom%20Widgets/custom_label_widget.d
 import 'Custom Widgets/custom_textfield_widget.dart';
 import 'customClippingDesign.dart';
 
-class SigninScreen extends StatelessWidget {
+class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
+
+  @override
+  State<SigninScreen> createState() => _SigninScreenState();
+}
+
+class _SigninScreenState extends State<SigninScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +40,7 @@ class SigninScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+
                   /// Heading Text
                   const Text.rich(
                     textAlign: TextAlign.center,
@@ -77,11 +84,13 @@ class SigninScreen extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
+
                             /// 2nd Heading
                             const Text.rich(
                               textAlign: TextAlign.center,
                               TextSpan(
                                 children: [
+
                                   /// Second Heading
                                   TextSpan(
                                     text: "Login Account\n",
@@ -94,7 +103,7 @@ class SigninScreen extends StatelessWidget {
                                   /// Small description text
                                   TextSpan(
                                     text:
-                                        "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                                    "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                                     style: TextStyle(
                                       fontSize: 11,
                                       color: Colors.black45,
@@ -127,12 +136,12 @@ class SigninScreen extends StatelessWidget {
 
                             const SizedBox(height: 8.0),
 
-                            /// Email Address Field
+                            /// Password Field
                             CustomTextfieldWidget(
                               hintText: "Enter Your Password",
                               suffixIcon: Icons.lock,
                               obscureText: true,
-                              dynamicSuffixIcon: true,
+                              dynamicSuffixIcon: true, suffixTap: ,
                             ),
 
                             SizedBox(height: 25.0),
