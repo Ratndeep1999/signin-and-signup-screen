@@ -75,7 +75,7 @@ class SigninScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                             TextSpan(
                               children: [
-                                //
+                                /// Second Heading
                                 TextSpan(
                                   text: "Login Account\n",
                                   style: TextStyle(
@@ -83,7 +83,8 @@ class SigninScreen extends StatelessWidget {
                                     fontSize: 30,
                                   ),
                                 ),
-                                //
+
+                                /// Small description text
                                 TextSpan(
                                   text:
                                       "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
@@ -99,7 +100,7 @@ class SigninScreen extends StatelessWidget {
 
                           SizedBox(height: 35),
 
-                          // Email Label of Field
+                          /// Email Label of Field
                           Text(
                             'Email Address',
                             textAlign: TextAlign.start,
