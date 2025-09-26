@@ -68,7 +68,42 @@ class SigninScreen extends StatelessWidget {
                         horizontal: 16.0,
                         vertical: 32.0,
                       ),
-                      child: Column(children: []),
+                      child: Column(
+                        children: [
+
+                          // 2nd Heading
+                          Text.rich(
+                            textAlign: TextAlign.center,
+                            TextSpan(
+                              children: [
+                                //
+                                TextSpan(
+                                  text: "Login Account\n",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 30,
+                                  ),
+                                ),
+                                //
+                                TextSpan(
+                                  text:
+                                      "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          SizedBox(height: 35),
+
+
+
+                        ],
+                      ),
                     ),
                   ),
                 ),
