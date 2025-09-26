@@ -98,21 +98,21 @@ class SigninScreen extends StatelessWidget {
                             ),
                           ),
 
-                          const SizedBox(height: 35),
+                          const SizedBox(height: 30),
 
                           /// Email Label of Field
-                          Align(
+                          const Align(
                             alignment: Alignment.centerLeft,
-                            child: const Text(
+                            child: Text(
                               'Email Address',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 15.0,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
                           ),
 
-                          SizedBox(height: 8.0),
+                          const SizedBox(height: 8.0),
 
                           // Email Address Field
                           TextFormField(
