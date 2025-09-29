@@ -18,6 +18,9 @@ class _SigninScreenState extends State<SigninScreen> {
   // show or hide input text
   bool _obscureText = false;
 
+  // save password
+  bool _savePassword = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +48,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+
                   /// Heading Text
                   const Text.rich(
                     textAlign: TextAlign.center,
@@ -75,7 +79,7 @@ class _SigninScreenState extends State<SigninScreen> {
 
                   const SizedBox(height: 40),
 
-                  /// Card
+                  /// TextField Section
                   SizedBox(
                     width: double.infinity,
                     child: Card(
@@ -88,11 +92,13 @@ class _SigninScreenState extends State<SigninScreen> {
                         ),
                         child: Column(
                           children: [
+
                             /// 2nd Heading
                             const Text.rich(
                               textAlign: TextAlign.center,
                               TextSpan(
                                 children: [
+
                                   /// Second Heading
                                   TextSpan(
                                     text: "Login Account\n",
@@ -105,7 +111,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                   /// Small description text
                                   TextSpan(
                                     text:
-                                        "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                                    "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                                     style: TextStyle(
                                       fontSize: 11,
                                       color: Colors.black45,
@@ -157,6 +163,47 @@ class _SigninScreenState extends State<SigninScreen> {
                             ),
 
                             SizedBox(height: 25.0),
+
+                            /// Save password and Forgot password section
+                            Row(
+                              children: [
+                                // Save Password
+                                Flexible(
+                                  child: CheckboxListTile(
+                                    value: _savePassword,
+                                    title: Text(
+                                      'Save Password',
+                                      style: TextStyle(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                    ),
+                                    checkColor: Colors.white,
+
+                                    checkboxShape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        _savePassword = value!;
+                                      });
+                                    },
+                                  ),
+                                ),
+
+                                // Forgot Password
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: Text(
+                                    'Forgot Password?',
+                                    style: TextStyle(
+                                      fontSize: 13.0,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
