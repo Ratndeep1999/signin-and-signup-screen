@@ -210,8 +210,43 @@ class _SigninScreenState extends State<SigninScreen> {
                               ],
                             ),
 
+                            SizedBox(height: 18.0),
+
                             /// Login Button
-                            ElevatedButton(onPressed: (){}, child: )
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.orange.shade300,
+                                  foregroundColor: Colors.black,
+                                  elevation: 3.0,
+                                  padding: EdgeInsets.symmetric(vertical: 15.0),
+                                ),
+                                child: Text(
+                                  'Login Account',
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: 25.0),
+
+                            /// Create Account text Button
+                            InkWell(
+                              onTap: (){},
+                              child: Text(
+                                'Create New Account',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
