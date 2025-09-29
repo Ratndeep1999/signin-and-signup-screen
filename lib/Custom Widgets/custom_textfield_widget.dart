@@ -39,6 +39,22 @@ class CustomTextfieldWidget extends StatelessWidget {
         ),
         // padding of hintText
         contentPadding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 16.0),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50.0),
+          borderSide: BorderSide(color: Colors.black12, width: 1.0), // default border color
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50.0),
+          borderSide: BorderSide(color: Colors.black12, width: 2.0), // active border color
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50.0),
+          borderSide: BorderSide(color: Colors.red, width: 2.0), // error state
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50.0),
+          borderSide: BorderSide(color: Colors.deepOrange, width: 2.0),
+        ),
         // suffixIcon it can be clickable using dynamicSuffixIcon
         suffixIcon: dynamicSuffixIcon
             ? IconButton(
