@@ -12,13 +12,13 @@ class BackgroundDesign extends CustomClipper<Path> {
     final height = size.height;
 
     // First line
-    path.lineTo(0, height - 350);
+    path.lineTo(0, height - 320);
 
     // First curve
-    path.quadraticBezierTo(5, height - 230, 250, height - 100);
+    path.quadraticBezierTo(5, height - 260, 220, height - 150);
 
     // Second curve
-    path.quadraticBezierTo(350, height - 100, width, height - 140);
+    path.quadraticBezierTo(350, height - 130, width, height - 160);
 
     // Final line
     path.lineTo(width, 0);
