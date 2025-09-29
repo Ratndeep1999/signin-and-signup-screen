@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_label_widget.dart';
-
 import 'Custom Widgets/custom_textfield_widget.dart';
 import 'customClippingDesign.dart';
 
@@ -20,6 +19,10 @@ class _SigninScreenState extends State<SigninScreen> {
 
   // save password
   bool _savePassword = false;
+
+  // controllers
+  final TextEditingController _emailAddress = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +136,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               suffixIcon: Icons.person,
                               obscureText: false,
                               dynamicSuffixIcon: false,
+                              textController: _emailAddress,
                             ),
 
                             SizedBox(height: 18.0),
@@ -157,6 +161,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                   _obscureText = suffixTap;
                                 });
                               },
+                              textController: _password,
                             ),
 
                             SizedBox(height: 18.0),
@@ -237,7 +242,7 @@ class _SigninScreenState extends State<SigninScreen> {
 
                             /// Create Account text Button
                             InkWell(
-                              onTap: (){},
+                              onTap: () {},
                               child: Text(
                                 'Create New Account',
                                 style: TextStyle(
