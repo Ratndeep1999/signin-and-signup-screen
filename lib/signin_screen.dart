@@ -192,7 +192,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                 ),
 
                                 // Forgot Password
-                                GestureDetector(
+
+                                InkWell(
                                   onTap: () {},
                                   child: Text(
                                     'Forgot Password?',
