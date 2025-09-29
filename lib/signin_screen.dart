@@ -31,13 +31,14 @@ class _SigninScreenState extends State<SigninScreen> {
       // resizeToAvoidBottomInset: false,
       /// Appbar
       appBar: AppBar(backgroundColor: Colors.orange.shade300),
-      // Remaining Body
+
+      /// Body
       body: SingleChildScrollView(
         child: SafeArea(
           child: Stack(
             children: [
               ClipPath(
-                // background custom deign
+                /// Background Custom Design
                 clipper: BackgroundDesign(),
                 child: SizedBox(
                   height: 600,
@@ -46,7 +47,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 ),
               ),
 
-              //
+              /// Vertical Widget
               Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,7 +62,7 @@ class _SigninScreenState extends State<SigninScreen> {
                           text: "Hello\n",
                           style: TextStyle(
                             fontWeight: FontWeight.w900,
-                            fontSize: 40,
+                            fontSize: 45,
                             letterSpacing: 1.5,
                             height: 0.0,
                           ),
@@ -71,7 +72,7 @@ class _SigninScreenState extends State<SigninScreen> {
                           text: "Welcome Back!",
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 23,
+                            fontSize: 25,
                             height: 0.0,
                           ),
                         ),
@@ -81,16 +82,18 @@ class _SigninScreenState extends State<SigninScreen> {
 
                   const SizedBox(height: 40),
 
-                  /// TextField Section
+                  /// Main Section
                   SizedBox(
                     width: double.infinity,
+                    // Card
                     child: Card(
                       margin: EdgeInsets.symmetric(horizontal: 20.0),
                       elevation: 5.0,
                       child: Padding(
+                        // Content Padding
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20.0,
-                          vertical: 32.0,
+                          vertical: 36.0,
                         ),
                         child: Column(
                           children: [
@@ -108,12 +111,12 @@ class _SigninScreenState extends State<SigninScreen> {
                                     ),
                                   ),
 
-                                  /// Small description text
+                                  /// Small Description Text
                                   TextSpan(
                                     text:
                                         "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                                     style: TextStyle(
-                                      fontSize: 11,
+                                      fontSize: 11.0,
                                       color: Colors.black45,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -122,7 +125,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               ),
                             ),
 
-                            const SizedBox(height: 25),
+                            const SizedBox(height: 32.0),
 
                             /// Email Label
                             const CustomLabelWidget(label: 'Email Address'),
@@ -139,7 +142,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               textController: _emailAddress,
                             ),
 
-                            SizedBox(height: 18.0),
+                            SizedBox(height: 24.0),
 
                             /// Password Label
                             const CustomLabelWidget(label: 'Password'),
@@ -164,30 +167,39 @@ class _SigninScreenState extends State<SigninScreen> {
                               textController: _password,
                             ),
 
-                            SizedBox(height: 18.0),
+                            SizedBox(height: 20.0),
 
-                            /// Save password and Forgot password section
+                            /// Save Password and Forgot Password Section
                             Row(
                               children: [
-                                // Save Password
-                                Checkbox(
-                                  visualDensity: VisualDensity.compact,
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  // removes extra hitbox
-                                  activeColor: Colors.green,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  value: _savePassword,
-                                  onChanged: (value) {
+                                /// Save Password Custom Checkbox
+                                InkWell(
+                                  onTap: (){
                                     setState(() {
-                                      _savePassword = value!;
+                                      _savePassword = !_savePassword;
                                     });
                                   },
+                                  splashColor: Colors.transparent,
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.black26,
+                                    radius: 10.5,
+                                    child: CircleAvatar(
+                                      radius: 10.0,
+                                      backgroundColor: _savePassword ? Colors.green : Color(0xFFF7F0FA),
+                                      child: Visibility(
+                                        visible: _savePassword,
+                                        child: Icon(
+                                          Icons.check,
+                                          size: 16.0,
+                                          color: Colors.white,
+                                          weight: 50,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-
-                                // Label of forget password
+                                SizedBox(width: 8.0,),
+                                /// Label of Forget Password
                                 Text(
                                   'Save Password',
                                   style: TextStyle(
