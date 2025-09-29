@@ -41,7 +41,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 /// Background Custom Design
                 clipper: BackgroundDesign(),
                 child: SizedBox(
-                  height: 600,
+                  height: 525,
                   width: double.infinity,
                   child: ColoredBox(color: Colors.orange.shade300),
                 ),
@@ -93,7 +93,7 @@ class _SigninScreenState extends State<SigninScreen> {
                         // Content Padding
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20.0,
-                          vertical: 36.0,
+                          vertical: 32.0,
                         ),
                         child: Column(
                           children: [
@@ -167,14 +167,14 @@ class _SigninScreenState extends State<SigninScreen> {
                               textController: _password,
                             ),
 
-                            SizedBox(height: 20.0),
+                            SizedBox(height: 24.0),
 
                             /// Save Password and Forgot Password Section
                             Row(
                               children: [
                                 /// Save Password Custom Checkbox
                                 InkWell(
-                                  onTap: (){
+                                  onTap: () {
                                     setState(() {
                                       _savePassword = !_savePassword;
                                     });
@@ -185,7 +185,9 @@ class _SigninScreenState extends State<SigninScreen> {
                                     radius: 10.5,
                                     child: CircleAvatar(
                                       radius: 10.0,
-                                      backgroundColor: _savePassword ? Colors.green : Color(0xFFF7F0FA),
+                                      backgroundColor: _savePassword
+                                          ? Color(0xFF93c743)
+                                          : Color(0xFFF7F0FA),
                                       child: Visibility(
                                         visible: _savePassword,
                                         child: Icon(
@@ -198,7 +200,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 8.0,),
+                                SizedBox(width: 8.0),
+
                                 /// Label of Forget Password
                                 Text(
                                   'Save Password',
@@ -210,7 +213,7 @@ class _SigninScreenState extends State<SigninScreen> {
 
                                 Spacer(),
 
-                                // Forgot Password
+                                /// Forgot Password
                                 InkWell(
                                   onTap: () {},
                                   splashColor: Colors.transparent,
@@ -227,7 +230,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               ],
                             ),
 
-                            SizedBox(height: 18.0),
+                            SizedBox(height: 24.0),
 
                             /// Login Button
                             SizedBox(
