@@ -10,10 +10,13 @@ class CustomTextField extends StatelessWidget {
     required this.dynamicSuffixIcon,
     this.suffixTap,
     required this.textController,
+    required this.validation,
   });
 
   // Attributes
   TextEditingController textController = TextEditingController();
+  // type definition
+  final String? Function(String?)? validation;
   final TextInputType keyboardType;
   final String hintText;
   final IconData? suffixIcon;
@@ -25,6 +28,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textController,
+      validator: validation,
       keyboardType: keyboardType,
       obscureText: obscureText,
       obscuringCharacter: '*',
@@ -55,15 +59,24 @@ class CustomTextField extends StatelessWidget {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50.0),
-          borderSide: BorderSide(color: Colors.black12, width: 1.0), // default border color
+          borderSide: BorderSide(
+            color: Colors.black12,
+            width: 1.0,
+          ), // default border color
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50.0),
-          borderSide: BorderSide(color: Colors.black12, width: 2.0), // active border color
+          borderSide: BorderSide(
+            color: Colors.black12,
+            width: 2.0,
+          ), // active border color
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50.0),
-          borderSide: BorderSide(color: Colors.orange.shade300, width: 2.0), // error state
+          borderSide: BorderSide(
+            color: Colors.orange.shade300,
+            width: 2.0,
+          ), // error state
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50.0),
