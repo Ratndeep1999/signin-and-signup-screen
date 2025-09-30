@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Custom Widgets/customClippingDesign.dart';
+import 'Custom Widgets/custom_heading.dart';
 
 class SignupFirstScreen extends StatelessWidget {
   const SignupFirstScreen({super.key});
@@ -22,9 +23,24 @@ class SignupFirstScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                /// Heading Text
+                CustomHeading(bigText: "Hello\n", smallText: "Welcome Back!"),
+                const SizedBox(height: 40),
 
+                /// Card
+                Card(
+                  margin: EdgeInsets.symmetric(horizontal: 20.0),
+                  elevation: 5.0,
+                  child: Padding(
+                    /// Content Padding
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 32.0,
+                    ),
+                  ),
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),
