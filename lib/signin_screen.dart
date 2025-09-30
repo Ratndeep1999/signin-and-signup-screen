@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_label_widget.dart';
+import 'Custom Widgets/custom_button.dart';
+import 'Custom Widgets/custom_clickable_text.dart';
 import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_second_heading.dart';
 import 'Custom Widgets/custom_textfield_widget.dart';
@@ -56,7 +58,6 @@ class _SigninScreenState extends State<SigninScreen> {
                 children: [
                   /// Heading Text
                   CustomHeading(bigText: "Hello\n", smallText: "Welcome Back!"),
-
                   const SizedBox(height: 40),
 
                   /// Main Section
@@ -80,12 +81,10 @@ class _SigninScreenState extends State<SigninScreen> {
                               smallText:
                                   "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                             ),
-
                             const SizedBox(height: 32.0),
 
                             /// Email Label
                             const CustomLabelWidget(label: 'Email Address'),
-
                             const SizedBox(height: 8.0),
 
                             /// Email Address Field
@@ -97,12 +96,10 @@ class _SigninScreenState extends State<SigninScreen> {
                               dynamicSuffixIcon: false,
                               textController: _emailAddress,
                             ),
-
                             SizedBox(height: 24.0),
 
                             /// Password Label
                             const CustomLabelWidget(label: 'Password'),
-
                             const SizedBox(height: 8.0),
 
                             /// Password Field
@@ -122,7 +119,6 @@ class _SigninScreenState extends State<SigninScreen> {
                               },
                               textController: _password,
                             ),
-
                             SizedBox(height: 24.0),
 
                             /// Save Password and Forgot Password Section
@@ -185,44 +181,15 @@ class _SigninScreenState extends State<SigninScreen> {
                                 ),
                               ],
                             ),
-
                             SizedBox(height: 24.0),
 
                             /// Login Button
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.orange.shade300,
-                                  foregroundColor: Colors.black,
-                                  elevation: 3.0,
-                                  padding: EdgeInsets.symmetric(vertical: 15.0),
-                                ),
-                                child: Text(
-                                  'Login Account',
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            CustomButton(label: 'Login Account'),
 
                             SizedBox(height: 25.0),
 
                             /// Create Account text Button
-                            InkWell(
-                              onTap: () {},
-                              child: Text(
-                                'Create New Account',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                            CustomClickableText(label: 'Create New Account'),
                           ],
                         ),
                       ),
