@@ -117,32 +117,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                   });
                                 },
                                 textController: _password,
-                                validation: (String? password) {
-                                  if (password == null || password.isEmpty) {
-                                    return "Please enter your password";
-                                  }
-                                  if (password.length > 8) {
-                                    return "Password must be at least 8 characters";
-                                  }
-                                  if (password.contains(' ')) {
-                                    return "Space is not allowed";
-                                  }
-                                  if (!RegExp(r'[A-Z]').hasMatch(password)) {
-                                    return "Password must contain at least one uppercase letter";
-                                  }
-                                  if (!RegExp(r'[a-z]').hasMatch(password)) {
-                                    return "Password must contain at least one lowercase letter";
-                                  }
-                                  if (!RegExp(r'[0-9]').hasMatch(password)) {
-                                    return "Password must contain at least one number";
-                                  }
-                                  if (!RegExp(
-                                    r'[!@\$&*~_]',
-                                  ).hasMatch(password)) {
-                                    return "Password must contain at least one special character (!@#\$&*~_)";
-                                  }
-                                  return null;
-                                },
+                                validation: _passwordValidation,
                               ),
                               const SizedBox(height: 24.0),
 
@@ -190,6 +165,32 @@ class _SigninScreenState extends State<SigninScreen> {
     }
     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(emailAddress)) {
       return "Email address must contain '@' and '.com'";
+    }
+    return null;
+  }
+
+  /// Password Validation Method
+  String? _passwordValidation(String? password) {
+    if (password == null || password.isEmpty) {
+      return "Please enter your password";
+    }
+    if (password.length > 8) {
+      return "Password must be at least 8 characters";
+    }
+    if (password.contains(' ')) {
+      return "Space is not allowed";
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(password)) {
+      return "Password must contain at least one uppercase letter";
+    }
+    if (!RegExp(r'[a-z]').hasMatch(password)) {
+      return "Password must contain at least one lowercase letter";
+    }
+    if (!RegExp(r'[0-9]').hasMatch(password)) {
+      return "Password must contain at least one number";
+    }
+    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) {
+      return "Password must contain at least one special character (!@#\$&*~_)";
     }
     return null;
   }
