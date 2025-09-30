@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../signup_first_screen.dart';
 
 class CustomClickableText extends StatelessWidget {
   const CustomClickableText({super.key, required this.label});
@@ -8,7 +9,12 @@ class CustomClickableText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SignupFirstScreen()),
+        );
+      },
       child: Text(
         label,
         style: TextStyle(
