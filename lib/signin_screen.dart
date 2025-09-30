@@ -28,6 +28,7 @@ class _SigninScreenState extends State<SigninScreen> {
   // controllers
   final TextEditingController _emailAddress = TextEditingController();
   final TextEditingController _password = TextEditingController();
+
   // formKey
   final _formKey = GlobalKey<FormState>();
 
@@ -136,7 +137,25 @@ class _SigninScreenState extends State<SigninScreen> {
                               const SizedBox(height: 24.0),
 
                               /// Login Button
-                              const CustomButton(label: 'Login Account'),
+                              CustomButton(
+                                label: 'Login Account',
+                                loginClick: () {
+                                  /// If Details is valid then Login..
+                                  if (_formKey.currentState!.validate()) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Login....Please wait'),
+                                      ),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Please Check Your Email Address and Password'),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
                               const SizedBox(height: 25.0),
 
                               /// Create Account text Button
