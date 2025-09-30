@@ -123,7 +123,14 @@ class _SigninScreenState extends State<SigninScreen> {
                             SizedBox(height: 24.0),
 
                             /// Save Password and Forgot Password Section
-                            CustomHelpingClickableText(),
+                            CustomHelpingClickableText(
+                              onTap: () {
+                                setState(() {
+                                  _savePassword = !_savePassword;
+                                });
+                              },
+                              savePassword: _savePassword,
+                            ),
                             SizedBox(height: 24.0),
 
                             /// Login Button
