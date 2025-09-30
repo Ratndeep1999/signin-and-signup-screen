@@ -10,6 +10,7 @@ class SignupFirstScreen extends StatelessWidget {
   SignupFirstScreen({super.key});
 
   final TextEditingController _firstName = TextEditingController();
+  final TextEditingController _lastName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +63,7 @@ class SignupFirstScreen extends StatelessWidget {
                         /// First and Last Name
                         Row(
                           children: [
+                            // First Name
                             CustomTextField(
                               hintText: 'First Name',
                               keyboardType: TextInputType.name,
@@ -70,6 +72,21 @@ class SignupFirstScreen extends StatelessWidget {
                               textController: _firstName,
                               validation: (String? firstName) {
                                 if (firstName == null || firstName.isEmpty) {
+                                  return 'Please enter your first name';
+                                }
+                                return null;
+                              },
+                            ),
+
+                            // Last Name
+                            CustomTextField(
+                              hintText: 'Last Name',
+                              keyboardType: TextInputType.name,
+                              obscureText: false,
+                              dynamicSuffixIcon: false,
+                              textController: _lastName,
+                              validation: (String? lastName) {
+                                if (lastName == null || lastName.isEmpty) {
                                   return 'Please enter your first name';
                                 }
                                 return null;
