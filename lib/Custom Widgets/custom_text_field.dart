@@ -16,15 +16,15 @@ class CustomTextField extends StatelessWidget {
   // Attributes
   TextEditingController textController = TextEditingController();
 
-  // type definition
   final TextInputType keyboardType;
   final String hintText;
   final IconData? suffixIcon;
   final bool obscureText;
   final bool dynamicSuffixIcon;
   final VoidCallback? suffixTap;
+
   // Fun. return type   Function(value of the text field might be null) variable
-  final String? Function(String?)? validation;
+  final String? Function(String?)? validation; // type definition
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +36,7 @@ class CustomTextField extends StatelessWidget {
       obscuringCharacter: '*',
       // Input Text Style
       style: TextStyle(),
+
       decoration: InputDecoration(
         // hintText
         hintText: hintText,
@@ -43,6 +44,7 @@ class CustomTextField extends StatelessWidget {
           color: Colors.black45,
           fontWeight: FontWeight.w500,
         ),
+        errorStyle: TextStyle(color: Colors.orange.shade300),
         // padding of hintText
         contentPadding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 16.0),
         // suffixIcon it can be clickable using dynamicSuffixIcon
