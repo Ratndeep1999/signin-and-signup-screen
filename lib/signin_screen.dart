@@ -28,6 +28,8 @@ class _SigninScreenState extends State<SigninScreen> {
   // controllers
   final TextEditingController _emailAddress = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  // formKey
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,7 @@ class _SigninScreenState extends State<SigninScreen> {
                           vertical: 32.0,
                         ),
                         child: Form(
+                          key: _formKey,
                           child: Column(
                             children: [
                               /// 2nd Heading
