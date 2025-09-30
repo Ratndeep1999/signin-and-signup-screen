@@ -15,7 +15,6 @@ class CustomTextField extends StatelessWidget {
 
   // Attributes
   TextEditingController textController = TextEditingController();
-
   final TextInputType keyboardType;
   final String hintText;
   final IconData? suffixIcon;
@@ -84,7 +83,7 @@ class CustomTextField extends StatelessWidget {
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50.0),
-          borderSide: BorderSide(color: Colors.deepOrange, width: 2.0),
+          borderSide: BorderSide(color: Colors.orange.shade300, width: 2.0),
         ),
       ),
     );
