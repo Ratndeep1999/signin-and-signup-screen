@@ -22,152 +22,156 @@ class SignupFirstScreen extends StatelessWidget {
       appBar: AppBar(backgroundColor: Colors.orange.shade300),
 
       /// Body
-      body: SafeArea(
-        child: Stack(
-          children: [
-            /// Background Custom Design
-            const CustomClippingDesign(),
-
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: InkWell(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          splashColor: Colors.transparent,
+          child: SafeArea(
+            child: Stack(
               children: [
-                /// Heading Text
-                CustomHeading(
-                  bigText: "Join Us\n",
-                  smallText: "Create Free Account",
-                ),
-                const SizedBox(height: 40),
+                /// Background Custom Design
+                const CustomClippingDesign(),
 
-                /// Card
-                Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20.0),
-                  elevation: 5.0,
-                  child: Padding(
-                    /// Content Padding
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                      vertical: 32.0,
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    /// Heading Text
+                    CustomHeading(
+                      bigText: "Join Us\n",
+                      smallText: "Create Free Account",
                     ),
-                    child: Column(
-                      children: [
-                        /// 2nd Heading
-                        CustomSecondHeading(
-                          bigText: "Personal Info\n",
-                          smallText:
-                              "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                    const SizedBox(height: 40),
+
+                    /// Card
+                    Card(
+                      margin: EdgeInsets.symmetric(horizontal: 20.0),
+                      elevation: 5.0,
+                      child: Padding(
+                        /// Content Padding
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0,
+                          vertical: 32.0,
                         ),
-                        const SizedBox(height: 32.0),
-
-                        /// Your Name Label
-                        const CustomTextFieldLabel(label: 'Your Name'),
-                        const SizedBox(height: 8.0),
-
-                        /// First and Last Name
-                        Row(
-                          //mainAxisSize: MainAxisSize.min,
+                        child: Column(
                           children: [
-                            // First Name
-                            Flexible(
-                              child: CustomTextField(
-                                hintText: 'First Name',
-                                keyboardType: TextInputType.name,
-                                obscureText: false,
-                                dynamicSuffixIcon: false,
-                                textController: _firstName,
-                                validation: (String? firstName) {
-                                  if (firstName == null || firstName.isEmpty) {
-                                    return 'Please enter your first name';
-                                  }
-                                  return null;
-                                },
-                              ),
+                            /// 2nd Heading
+                            CustomSecondHeading(
+                              bigText: "Personal Info\n",
+                              smallText:
+                                  "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                            ),
+                            const SizedBox(height: 32.0),
+
+                            /// Your Name Label
+                            const CustomTextFieldLabel(label: 'Your Name'),
+                            const SizedBox(height: 8.0),
+
+                            /// First and Last Name
+                            Row(
+                              //mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // First Name
+                                Flexible(
+                                  child: CustomTextField(
+                                    hintText: 'First Name',
+                                    keyboardType: TextInputType.name,
+                                    obscureText: false,
+                                    dynamicSuffixIcon: false,
+                                    textController: _firstName,
+                                    validation: (String? firstName) {
+                                      if (firstName == null ||
+                                          firstName.isEmpty) {
+                                        return 'Please enter your first name';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+
+                                SizedBox(width: 10.0),
+
+                                // Last Name
+                                Flexible(
+                                  child: CustomTextField(
+                                    hintText: 'Last Name',
+                                    keyboardType: TextInputType.name,
+                                    obscureText: false,
+                                    dynamicSuffixIcon: false,
+                                    textController: _lastName,
+                                    validation: (String? lastName) {
+                                      if (lastName == null ||
+                                          lastName.isEmpty) {
+                                        return 'Please enter your first name';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
 
-                            SizedBox(width: 10.0),
+                            const SizedBox(height: 24.0),
 
-                            // Last Name
-                            Flexible(
-                              child: CustomTextField(
-                                hintText: 'Last Name',
-                                keyboardType: TextInputType.name,
-                                obscureText: false,
-                                dynamicSuffixIcon: false,
-                                textController: _lastName,
-                                validation: (String? lastName) {
-                                  if (lastName == null || lastName.isEmpty) {
-                                    return 'Please enter your first name';
-                                  }
-                                  return null;
-                                },
-                              ),
+                            /// Email Label
+                            const CustomTextFieldLabel(label: 'Email Address'),
+                            const SizedBox(height: 8.0),
+
+                            /// Email Address Field
+                            CustomTextField(
+                              hintText: "Your Email Address",
+                              keyboardType: TextInputType.emailAddress,
+                              suffixIcon: Icons.email,
+                              obscureText: false,
+                              dynamicSuffixIcon: false,
+                              textController: _emailAddress,
+                              validation: _emailValidation,
                             ),
+                            const SizedBox(height: 24.0),
+
+                            /// Username Label
+                            const CustomTextFieldLabel(label: 'Username'),
+                            const SizedBox(height: 8.0),
+
+                            /// Username Field
+                            CustomTextField(
+                              hintText: "example1234",
+                              keyboardType: TextInputType.emailAddress,
+                              suffixIcon: Icons.email,
+                              obscureText: false,
+                              dynamicSuffixIcon: false,
+                              textController: _emailAddress,
+                              validation: _emailValidation,
+                            ),
+                            const SizedBox(height: 24.0),
+
+                            /// Save & Continue Button
+                            CustomButton(
+                              label: 'Save & Continue',
+                              loginClick: () {
+                                /// If Details is valid then Login..
+                              },
+                            ),
+                            const SizedBox(height: 25.0),
+
+                            /// Create Account text Button
+                            const CustomClickableText(label: 'Back to Login'),
                           ],
                         ),
-
-                        const SizedBox(height: 24.0),
-
-                        /// Email Label
-                        const CustomTextFieldLabel(
-                          label: 'Email Address',
-                        ),
-                        const SizedBox(height: 8.0),
-
-                        /// Email Address Field
-                        CustomTextField(
-                          hintText: "Your Email Address",
-                          keyboardType: TextInputType.emailAddress,
-                          suffixIcon: Icons.email,
-                          obscureText: false,
-                          dynamicSuffixIcon: false,
-                          textController: _emailAddress,
-                          validation: _emailValidation,
-                        ),
-                        const SizedBox(height: 24.0),
-
-                        /// Username Label
-                        const CustomTextFieldLabel(
-                          label: 'Username',
-                        ),
-                        const SizedBox(height: 8.0),
-
-                        /// Username Field
-                        CustomTextField(
-                          hintText: "example1234",
-                          keyboardType: TextInputType.emailAddress,
-                          suffixIcon: Icons.email,
-                          obscureText: false,
-                          dynamicSuffixIcon: false,
-                          textController: _emailAddress,
-                          validation: _emailValidation,
-                        ),
-                        const SizedBox(height: 24.0),
-
-                        /// Save & Continue Button
-                        CustomButton(
-                          label: 'Save & Continue',
-                          loginClick: () {
-                            /// If Details is valid then Login..
-                          },
-                        ),
-                        const SizedBox(height: 25.0),
-
-                        /// Create Account text Button
-                        const CustomClickableText(
-                          label: 'Back to Login',
-                        ),
-
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
+
   /// Email Validation Method
   String? _emailValidation(String? emailAddress) {
     if (emailAddress == null || emailAddress.isEmpty) {
