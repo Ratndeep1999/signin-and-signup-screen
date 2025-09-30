@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:signin_and_signup_screens/Custom%20Widgets/custom_helping_clickable_text.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_label_widget.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
@@ -15,7 +16,7 @@ class SigninScreen extends StatefulWidget {
 }
 
 class _SigninScreenState extends State<SigninScreen> {
-  // variable for suffix-icon dynamic
+  // variable for suffix-icon enable-disable
   bool suffixTap = false;
 
   // show or hide input text
@@ -122,70 +123,11 @@ class _SigninScreenState extends State<SigninScreen> {
                             SizedBox(height: 24.0),
 
                             /// Save Password and Forgot Password Section
-                            Row(
-                              children: [
-                                /// Save Password Custom Checkbox
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      _savePassword = !_savePassword;
-                                    });
-                                  },
-                                  splashColor: Colors.transparent,
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.black26,
-                                    radius: 10.5,
-                                    child: CircleAvatar(
-                                      radius: 10.0,
-                                      backgroundColor: _savePassword
-                                          ? Color(0xFF93c743)
-                                          : Color(0xFFF7F0FA),
-                                      child: Visibility(
-                                        visible: _savePassword,
-                                        child: Icon(
-                                          Icons.check,
-                                          size: 16.0,
-                                          color: Colors.white,
-                                          weight: 50,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8.0),
-
-                                /// Label of Forget Password
-                                Text(
-                                  'Save Password',
-                                  style: TextStyle(
-                                    fontSize: 13.0,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-
-                                Spacer(),
-
-                                /// Forgot Password
-                                InkWell(
-                                  onTap: () {},
-                                  splashColor: Colors.transparent,
-                                  child: Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
-                                      fontSize: 13.5,
-                                      fontWeight: FontWeight.w800,
-                                      decoration: TextDecoration.underline,
-                                      decorationThickness: 2.0,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            CustomHelpingClickableText(),
                             SizedBox(height: 24.0),
 
                             /// Login Button
                             CustomButton(label: 'Login Account'),
-
                             SizedBox(height: 25.0),
 
                             /// Create Account text Button
