@@ -62,35 +62,42 @@ class SignupFirstScreen extends StatelessWidget {
 
                         /// First and Last Name
                         Row(
+                          //mainAxisSize: MainAxisSize.min,
                           children: [
                             // First Name
-                            CustomTextField(
-                              hintText: 'First Name',
-                              keyboardType: TextInputType.name,
-                              obscureText: false,
-                              dynamicSuffixIcon: false,
-                              textController: _firstName,
-                              validation: (String? firstName) {
-                                if (firstName == null || firstName.isEmpty) {
-                                  return 'Please enter your first name';
-                                }
-                                return null;
-                              },
+                            Flexible(
+                              child: CustomTextField(
+                                hintText: 'First Name',
+                                keyboardType: TextInputType.name,
+                                obscureText: false,
+                                dynamicSuffixIcon: false,
+                                textController: _firstName,
+                                validation: (String? firstName) {
+                                  if (firstName == null || firstName.isEmpty) {
+                                    return 'Please enter your first name';
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
 
+                            SizedBox(width: 10.0),
+
                             // Last Name
-                            CustomTextField(
-                              hintText: 'Last Name',
-                              keyboardType: TextInputType.name,
-                              obscureText: false,
-                              dynamicSuffixIcon: false,
-                              textController: _lastName,
-                              validation: (String? lastName) {
-                                if (lastName == null || lastName.isEmpty) {
-                                  return 'Please enter your first name';
-                                }
-                                return null;
-                              },
+                            Flexible(
+                              child: CustomTextField(
+                                hintText: 'Last Name',
+                                keyboardType: TextInputType.name,
+                                obscureText: false,
+                                dynamicSuffixIcon: false,
+                                textController: _lastName,
+                                validation: (String? lastName) {
+                                  if (lastName == null || lastName.isEmpty) {
+                                    return 'Please enter your first name';
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
                           ],
                         ),
