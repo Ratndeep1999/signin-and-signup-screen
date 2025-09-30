@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomLabelWidget extends StatelessWidget {
-  const CustomLabelWidget({super.key, required this.label});
+class CustomTextFieldLabel extends StatelessWidget {
+  const CustomTextFieldLabel({super.key, required this.label});
 
   final String label;
 
