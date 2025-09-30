@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:signin_and_signup_screens/Custom%20Widgets/custom_text_field.dart';
 
 import 'Custom Widgets/customClippingDesign.dart';
 import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_second_heading.dart';
+import 'Custom Widgets/custom_text_field_label.dart';
 
 class SignupFirstScreen extends StatelessWidget {
-  const SignupFirstScreen({super.key});
+  SignupFirstScreen({super.key});
+
+  final TextEditingController _firstName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,29 @@ class SignupFirstScreen extends StatelessWidget {
                               "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                         ),
                         const SizedBox(height: 32.0),
+
+                        /// Email Label
+                        const CustomTextFieldLabel(label: 'Your Name'),
+                        const SizedBox(height: 8.0),
+
+                        /// First and Last Name
+                        Row(
+                          children: [
+                            CustomTextField(
+                              hintText: 'First Name',
+                              keyboardType: TextInputType.name,
+                              obscureText: false,
+                              dynamicSuffixIcon: false,
+                              textController: _firstName,
+                              validation: (String? firstName) {
+                                if (firstName == null || firstName.isEmpty) {
+                                  return 'Please enter your first name';
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
