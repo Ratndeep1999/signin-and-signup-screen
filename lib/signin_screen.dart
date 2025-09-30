@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_label_widget.dart';
+import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_textfield_widget.dart';
 import 'customClippingDesign.dart';
 
@@ -37,8 +38,8 @@ class _SigninScreenState extends State<SigninScreen> {
         child: SafeArea(
           child: Stack(
             children: [
+              /// Background Custom Design
               ClipPath(
-                /// Background Custom Design
                 clipper: BackgroundDesign(),
                 child: SizedBox(
                   height: 525,
@@ -53,32 +54,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   /// Heading Text
-                  const Text.rich(
-                    textAlign: TextAlign.center,
-                    TextSpan(
-                      children: [
-                        // First text
-                        TextSpan(
-                          text: "Hello\n",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 45,
-                            letterSpacing: 1.5,
-                            height: 0.0,
-                          ),
-                        ),
-                        // Second text
-                        TextSpan(
-                          text: "Welcome Back!",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 25,
-                            height: 0.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  CustomHeading(),
 
                   const SizedBox(height: 40),
 
@@ -281,3 +257,4 @@ class _SigninScreenState extends State<SigninScreen> {
     );
   }
 }
+
