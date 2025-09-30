@@ -11,7 +11,7 @@ class CustomClickableText extends StatelessWidget {
     return InkWell(
       onTap: () {
         /// Navigate to Signup First Screen
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => SignupFirstScreen()),
         );
