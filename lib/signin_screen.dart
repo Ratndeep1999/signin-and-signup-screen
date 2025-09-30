@@ -29,8 +29,6 @@ class _SigninScreenState extends State<SigninScreen> {
   final TextEditingController _emailAddress = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,11 +78,13 @@ class _SigninScreenState extends State<SigninScreen> {
                                     "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                               ),
                               const SizedBox(height: 32.0),
-                          
+
                               /// Email Label
-                              const CustomTextFieldLabel(label: 'Email Address'),
+                              const CustomTextFieldLabel(
+                                label: 'Email Address',
+                              ),
                               const SizedBox(height: 8.0),
-                          
+
                               /// Email Address Field
                               CustomTextField(
                                 hintText: "Your Email Address",
@@ -93,13 +93,27 @@ class _SigninScreenState extends State<SigninScreen> {
                                 obscureText: false,
                                 dynamicSuffixIcon: false,
                                 textController: _emailAddress,
+                                validation: (String? emailAddress) {
+                                  if (emailAddress == null ||
+                                      emailAddress.isEmpty) {
+                                    return 'Please enter your email';
+                                  }
+                                  if (emailAddress.contains(' ')) {
+                                    return 'Space is not allow';
+                                  }
+                                  if (!RegExp(
+                                    r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$',
+                                  ).hasMatch(emailAddress)) {
+                                    return "Email address must contain '@' and '.com'";
+                                  }
+                                },
                               ),
                               const SizedBox(height: 24.0),
-                          
+
                               /// Password Label
                               const CustomTextFieldLabel(label: 'Password'),
                               const SizedBox(height: 8.0),
-                          
+
                               /// Password Field
                               CustomTextField(
                                 hintText: "Enter Your Password",
@@ -118,7 +132,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                 textController: _password,
                               ),
                               const SizedBox(height: 24.0),
-                          
+
                               /// Save Password and Forgot Password Section
                               CustomHelpingClickableText(
                                 onTap: () {
@@ -129,11 +143,11 @@ class _SigninScreenState extends State<SigninScreen> {
                                 savePassword: _savePassword,
                               ),
                               const SizedBox(height: 24.0),
-                          
+
                               /// Login Button
                               const CustomButton(label: 'Login Account'),
                               const SizedBox(height: 25.0),
-                          
+
                               /// Create Account text Button
                               const CustomClickableText(
                                 label: 'Create New Account',
