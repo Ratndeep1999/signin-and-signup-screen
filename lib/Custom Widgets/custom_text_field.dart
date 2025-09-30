@@ -10,7 +10,7 @@ class CustomTextField extends StatelessWidget {
     required this.dynamicSuffixIcon,
     this.suffixTap,
     required this.textController,
-    this.validation,
+    required this.validation,
   });
 
   // Attributes
