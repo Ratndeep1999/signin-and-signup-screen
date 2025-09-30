@@ -10,10 +10,12 @@ class CustomTextField extends StatelessWidget {
     required this.dynamicSuffixIcon,
     this.suffixTap,
     required this.textController,
+    this.validation,
   });
 
   // Attributes
   TextEditingController textController = TextEditingController();
+
   // type definition
   final TextInputType keyboardType;
   final String hintText;
@@ -21,12 +23,14 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final bool dynamicSuffixIcon;
   final VoidCallback? suffixTap;
+  // Fun. return type   Function(value of the text field might be null) variable
+  final String? Function(String?)? validation;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textController,
-      //validator: validation,
+      validator: validation,
       keyboardType: keyboardType,
       obscureText: obscureText,
       obscuringCharacter: '*',
