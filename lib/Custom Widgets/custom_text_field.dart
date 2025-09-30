@@ -40,22 +40,24 @@ class CustomTextField extends StatelessWidget {
         // hintText
         hintText: hintText,
         hintStyle: TextStyle(
+          //fontSize: 10.0,
           color: Colors.black45,
           fontWeight: FontWeight.w500,
         ),
+        hintMaxLines: 1,
         errorStyle: TextStyle(color: Colors.orange.shade300),
         // padding of hintText
-        contentPadding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 16.0),
+        contentPadding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 14.0),
         // suffixIcon it can be clickable using dynamicSuffixIcon
         suffixIcon: dynamicSuffixIcon
             ? IconButton(
                 // suffixIcon it can be null
-                icon: Icon(suffixIcon),
+                icon: Icon(suffixIcon, size: 20),
                 onPressed: suffixTap,
                 splashRadius: 5,
                 highlightColor: Colors.transparent,
               )
-            : Icon(suffixIcon),
+            : Icon(suffixIcon, size: 20),
         suffixIconColor: Colors.black54,
         // min right padding of icon
         suffixIconConstraints: BoxConstraints(minWidth: 80.0),
