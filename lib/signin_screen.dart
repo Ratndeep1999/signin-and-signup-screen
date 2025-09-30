@@ -5,7 +5,6 @@ import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
 import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_second_heading.dart';
-import 'Custom Widgets/custom_snackbar.dart';
 import 'Custom Widgets/custom_text_field.dart';
 import 'Custom Widgets/customClippingDesign.dart';
 
@@ -152,12 +151,14 @@ class _SigninScreenState extends State<SigninScreen> {
                                   loginClick: () {
                                     /// If Details is valid then Login..
                                     if (_formKey.currentState!.validate()) {
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        CustomSnackBar() as SnackBar,
-                                      );
-                                    } else {}
+                                      _showSnackBar();
+                                    } else {
+                                      // ScaffoldMessenger.of(context).showSnackBar(
+                                      //   const SnackBar(
+                                      //     content: Text('Please Check Your Email Address and Password'),
+                                      //   ),
+                                      // );
+                                    }
                                   },
                                 ),
                                 const SizedBox(height: 25.0),
@@ -220,5 +221,22 @@ class _SigninScreenState extends State<SigninScreen> {
       return "Password must contain at least one special character (!@#\$&*~_)";
     }
     return null;
+  }
+
+  /// SnackBar Method
+  void _showSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: CustomTextFieldLabel(label: 'Login....Please wait'),
+        backgroundColor: Color(0xFFfeb64d),
+        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 28.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12.0),
+            topRight: Radius.circular(12.0),
+          ),
+        ),
+      ),
+    );
   }
 }
