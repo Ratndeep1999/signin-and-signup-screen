@@ -43,7 +43,7 @@ class _SigninScreenState extends State<SigninScreen> {
           child: Stack(
             children: [
               /// Background Custom Design
-              CustomClippingDesign(),
+              const CustomClippingDesign(),
 
               /// Vertical Widget
               Column(
@@ -57,12 +57,13 @@ class _SigninScreenState extends State<SigninScreen> {
                   /// Main Section
                   SizedBox(
                     width: double.infinity,
-                    // Card
+
+                    /// Card
                     child: Card(
                       margin: EdgeInsets.symmetric(horizontal: 20.0),
                       elevation: 5.0,
                       child: Padding(
-                        // Content Padding
+                        /// Content Padding
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20.0,
                           vertical: 32.0,
@@ -90,7 +91,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               dynamicSuffixIcon: false,
                               textController: _emailAddress,
                             ),
-                            SizedBox(height: 24.0),
+                            const SizedBox(height: 24.0),
 
                             /// Password Label
                             const CustomLabelWidget(label: 'Password'),
@@ -113,7 +114,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               },
                               textController: _password,
                             ),
-                            SizedBox(height: 24.0),
+                            const SizedBox(height: 24.0),
 
                             /// Save Password and Forgot Password Section
                             CustomHelpingClickableText(
@@ -124,14 +125,16 @@ class _SigninScreenState extends State<SigninScreen> {
                               },
                               savePassword: _savePassword,
                             ),
-                            SizedBox(height: 24.0),
+                            const SizedBox(height: 24.0),
 
                             /// Login Button
-                            CustomButton(label: 'Login Account'),
-                            SizedBox(height: 25.0),
+                            const CustomButton(label: 'Login Account'),
+                            const SizedBox(height: 25.0),
 
                             /// Create Account text Button
-                            CustomClickableText(label: 'Create New Account'),
+                            const CustomClickableText(
+                              label: 'Create New Account',
+                            ),
                           ],
                         ),
                       ),
