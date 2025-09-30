@@ -10,6 +10,7 @@ class CustomClickableText extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        /// Navigate to Signup Second Screen
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => SignupFirstScreen()),
