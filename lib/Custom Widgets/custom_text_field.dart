@@ -10,13 +10,11 @@ class CustomTextField extends StatelessWidget {
     required this.dynamicSuffixIcon,
     this.suffixTap,
     required this.textController,
-    required this.validation,
   });
 
   // Attributes
   TextEditingController textController = TextEditingController();
   // type definition
-  final String? Function(String?)? validation;
   final TextInputType keyboardType;
   final String hintText;
   final IconData? suffixIcon;
@@ -28,7 +26,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textController,
-      validator: validation,
+      //validator: validation,
       keyboardType: keyboardType,
       obscureText: obscureText,
       obscuringCharacter: '*',

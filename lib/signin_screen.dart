@@ -29,6 +29,8 @@ class _SigninScreenState extends State<SigninScreen> {
   final TextEditingController _emailAddress = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +93,6 @@ class _SigninScreenState extends State<SigninScreen> {
                                 obscureText: false,
                                 dynamicSuffixIcon: false,
                                 textController: _emailAddress,
-                                validation: _emailValiadation,
                               ),
                               const SizedBox(height: 24.0),
                           
@@ -115,7 +116,6 @@ class _SigninScreenState extends State<SigninScreen> {
                                   });
                                 },
                                 textController: _password,
-                                validation: _passwordValiadation,
                               ),
                               const SizedBox(height: 24.0),
                           
@@ -151,44 +151,5 @@ class _SigninScreenState extends State<SigninScreen> {
         ),
       ),
     );
-  }
-
-  /// Email Validation Method
-  String? _emailValiadation(String? emailAddress) {
-    if (emailAddress == null || emailAddress.isEmpty) {
-      return "Please enter your email";
-    }
-    if (emailAddress.contains(' ')) {
-      // if space trigger then true
-      return "Space is not allow";
-    }
-    // Regular Expression for valid email pattern
-    else if (!RegExp(
-      r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$',
-    ).hasMatch(emailAddress)) {
-      return "Please enter a valid email address";
-    }
-    return null;
-  }
-
-  /// Password Validation Method
-  String? _passwordValiadation(String? password) {
-    if (password == null || password.isEmpty) {
-      return 'Please enter your username properly';
-    } else if (password.length < 8) {
-      return 'Password must be at least 8 characters';
-    } else if (!RegExp(r'[A-Z]').hasMatch(password)) {
-      return 'Password must be contain at least one Uppercase letter';
-    } else if (!RegExp(r'[a-z]').hasMatch(password)) {
-      return 'Password must be contain at least one Lowercase letter';
-    } else if (!RegExp(r'[0-9]').hasMatch(password)) {
-      return 'Password must be contain at least one number';
-    } else if (!RegExp(r'[!@#$&*_]').hasMatch(password)) {
-      return 'Password must be contain at least one special character (!@#\$&*_)';
-    }
-    if (password.contains(' ')) {
-      return 'Space not allow';
-    }
-    return null;
   }
 }
