@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_helping_clickable_text.dart';
-import 'package:signin_and_signup_screens/Custom%20Widgets/custom_label_widget.dart';
+import 'package:signin_and_signup_screens/Custom%20Widgets/custom_text_field_label.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
 import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_second_heading.dart';
-import 'Custom Widgets/custom_textfield_widget.dart';
+import 'Custom Widgets/custom_text_field.dart';
 import 'customClippingDesign.dart';
 
 class SigninScreen extends StatefulWidget {
@@ -83,7 +83,7 @@ class _SigninScreenState extends State<SigninScreen> {
                             const SizedBox(height: 8.0),
 
                             /// Email Address Field
-                            CustomTextfieldWidget(
+                            CustomTextField(
                               hintText: "Your Email Address",
                               keyboardType: TextInputType.emailAddress,
                               suffixIcon: Icons.person,
@@ -98,7 +98,7 @@ class _SigninScreenState extends State<SigninScreen> {
                             const SizedBox(height: 8.0),
 
                             /// Password Field
-                            CustomTextfieldWidget(
+                            CustomTextField(
                               hintText: "Enter Your Password",
                               keyboardType: TextInputType.visiblePassword,
                               suffixIcon: _obscureText
