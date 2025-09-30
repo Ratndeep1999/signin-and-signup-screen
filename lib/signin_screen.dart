@@ -5,6 +5,7 @@ import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
 import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_second_heading.dart';
+import 'Custom Widgets/custom_snackbar.dart';
 import 'Custom Widgets/custom_text_field.dart';
 import 'Custom Widgets/customClippingDesign.dart';
 
@@ -42,135 +43,139 @@ class _SigninScreenState extends State<SigninScreen> {
 
       /// Body
       body: SingleChildScrollView(
-        child: SafeArea(
-          child: Stack(
-            children: [
-              /// Background Custom Design
-              const CustomClippingDesign(),
+        child: InkWell(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          //highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          child: SafeArea(
+            child: Stack(
+              children: [
+                /// Background Custom Design
+                const CustomClippingDesign(),
 
-              /// Vertical Widget
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  /// Heading Text
-                  CustomHeading(bigText: "Hello\n", smallText: "Welcome Back!"),
-                  const SizedBox(height: 40),
+                /// Vertical Widget
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    /// Heading Text
+                    CustomHeading(
+                      bigText: "Hello\n",
+                      smallText: "Welcome Back!",
+                    ),
+                    const SizedBox(height: 40),
 
-                  /// Main Section
-                  SizedBox(
-                    width: double.infinity,
+                    /// Main Section
+                    SizedBox(
+                      width: double.infinity,
 
-                    /// Card
-                    child: Card(
-                      margin: EdgeInsets.symmetric(horizontal: 20.0),
-                      elevation: 5.0,
-                      child: Padding(
-                        /// Content Padding
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 32.0,
-                        ),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              /// 2nd Heading
-                              CustomSecondHeading(
-                                bigText: "Login Account\n",
-                                smallText:
-                                    "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
-                              ),
-                              const SizedBox(height: 32.0),
+                      /// Card
+                      child: Card(
+                        margin: EdgeInsets.symmetric(horizontal: 20.0),
+                        elevation: 5.0,
+                        child: Padding(
+                          /// Content Padding
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0,
+                            vertical: 32.0,
+                          ),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                /// 2nd Heading
+                                CustomSecondHeading(
+                                  bigText: "Login Account\n",
+                                  smallText:
+                                      "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                                ),
+                                const SizedBox(height: 32.0),
 
-                              /// Email Label
-                              const CustomTextFieldLabel(
-                                label: 'Email Address',
-                              ),
-                              const SizedBox(height: 8.0),
+                                /// Email Label
+                                const CustomTextFieldLabel(
+                                  label: 'Email Address',
+                                ),
+                                const SizedBox(height: 8.0),
 
-                              /// Email Address Field
-                              CustomTextField(
-                                hintText: "Your Email Address",
-                                keyboardType: TextInputType.emailAddress,
-                                suffixIcon: Icons.person,
-                                obscureText: false,
-                                dynamicSuffixIcon: false,
-                                textController: _emailAddress,
-                                validation: _emailValidation,
-                              ),
-                              const SizedBox(height: 24.0),
+                                /// Email Address Field
+                                CustomTextField(
+                                  hintText: "Your Email Address",
+                                  keyboardType: TextInputType.emailAddress,
+                                  suffixIcon: Icons.person,
+                                  obscureText: false,
+                                  dynamicSuffixIcon: false,
+                                  textController: _emailAddress,
+                                  validation: _emailValidation,
+                                ),
+                                const SizedBox(height: 24.0),
 
-                              /// Password Label
-                              const CustomTextFieldLabel(label: 'Password'),
-                              const SizedBox(height: 8.0),
+                                /// Password Label
+                                const CustomTextFieldLabel(label: 'Password'),
+                                const SizedBox(height: 8.0),
 
-                              /// Password Field
-                              CustomTextField(
-                                hintText: "Enter Your Password",
-                                keyboardType: TextInputType.visiblePassword,
-                                suffixIcon: _obscureText
-                                    ? Icons.lock
-                                    : Icons.lock_open,
-                                obscureText: _obscureText,
-                                dynamicSuffixIcon: true,
-                                suffixTap: () {
-                                  setState(() {
-                                    suffixTap = !suffixTap;
-                                    _obscureText = suffixTap;
-                                  });
-                                },
-                                textController: _password,
-                                validation: _passwordValidation,
-                              ),
-                              const SizedBox(height: 24.0),
+                                /// Password Field
+                                CustomTextField(
+                                  hintText: "Enter Your Password",
+                                  keyboardType: TextInputType.visiblePassword,
+                                  suffixIcon: _obscureText
+                                      ? Icons.lock
+                                      : Icons.lock_open,
+                                  obscureText: _obscureText,
+                                  dynamicSuffixIcon: true,
+                                  suffixTap: () {
+                                    setState(() {
+                                      suffixTap = !suffixTap;
+                                      _obscureText = suffixTap;
+                                    });
+                                  },
+                                  textController: _password,
+                                  validation: _passwordValidation,
+                                ),
+                                const SizedBox(height: 24.0),
 
-                              /// Save Password and Forgot Password Section
-                              CustomHelpingClickableText(
-                                onTap: () {
-                                  setState(() {
-                                    _savePassword = !_savePassword;
-                                  });
-                                },
-                                savePassword: _savePassword,
-                              ),
-                              const SizedBox(height: 24.0),
+                                /// Save Password and Forgot Password Section
+                                CustomHelpingClickableText(
+                                  onTap: () {
+                                    setState(() {
+                                      _savePassword = !_savePassword;
+                                    });
+                                  },
+                                  savePassword: _savePassword,
+                                ),
+                                const SizedBox(height: 24.0),
 
-                              /// Login Button
-                              CustomButton(
-                                label: 'Login Account',
-                                loginClick: () {
-                                  /// If Details is valid then Login..
-                                  if (_formKey.currentState!.validate()) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Login....Please wait'),
-                                      ),
-                                    );
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Please Check Your Email Address and Password'),
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                              const SizedBox(height: 25.0),
+                                /// Login Button
+                                CustomButton(
+                                  label: 'Login Account',
+                                  loginClick: () {
+                                    /// If Details is valid then Login..
+                                    if (_formKey.currentState!.validate()) {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        CustomSnackBar() as SnackBar,
+                                      );
+                                    } else {}
+                                  },
+                                ),
+                                const SizedBox(height: 25.0),
 
-                              /// Create Account text Button
-                              const CustomClickableText(
-                                label: 'Create New Account',
-                              ),
-                            ],
+                                /// Create Account text Button
+                                const CustomClickableText(
+                                  label: 'Create New Account',
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -196,7 +201,7 @@ class _SigninScreenState extends State<SigninScreen> {
     if (password == null || password.isEmpty) {
       return "Please enter your password";
     }
-    if (password.length > 8) {
+    if (password.length < 8) {
       return "Password must be at least 8 characters";
     }
     if (password.contains(' ')) {
