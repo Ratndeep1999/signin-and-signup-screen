@@ -6,7 +6,7 @@ import 'Custom Widgets/custom_clickable_text.dart';
 import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_second_heading.dart';
 import 'Custom Widgets/custom_text_field.dart';
-import 'customClippingDesign.dart';
+import 'Custom Widgets/customClippingDesign.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
@@ -68,74 +68,78 @@ class _SigninScreenState extends State<SigninScreen> {
                           horizontal: 20.0,
                           vertical: 32.0,
                         ),
-                        child: Column(
-                          children: [
-                            /// 2nd Heading
-                            CustomSecondHeading(
-                              bigText: "Login Account\n",
-                              smallText:
-                                  "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
-                            ),
-                            const SizedBox(height: 32.0),
-
-                            /// Email Label
-                            const CustomTextFieldLabel(label: 'Email Address'),
-                            const SizedBox(height: 8.0),
-
-                            /// Email Address Field
-                            CustomTextField(
-                              hintText: "Your Email Address",
-                              keyboardType: TextInputType.emailAddress,
-                              suffixIcon: Icons.person,
-                              obscureText: false,
-                              dynamicSuffixIcon: false,
-                              textController: _emailAddress,
-                            ),
-                            const SizedBox(height: 24.0),
-
-                            /// Password Label
-                            const CustomTextFieldLabel(label: 'Password'),
-                            const SizedBox(height: 8.0),
-
-                            /// Password Field
-                            CustomTextField(
-                              hintText: "Enter Your Password",
-                              keyboardType: TextInputType.visiblePassword,
-                              suffixIcon: _obscureText
-                                  ? Icons.lock
-                                  : Icons.lock_open,
-                              obscureText: _obscureText,
-                              dynamicSuffixIcon: true,
-                              suffixTap: () {
-                                setState(() {
-                                  suffixTap = !suffixTap;
-                                  _obscureText = suffixTap;
-                                });
-                              },
-                              textController: _password,
-                            ),
-                            const SizedBox(height: 24.0),
-
-                            /// Save Password and Forgot Password Section
-                            CustomHelpingClickableText(
-                              onTap: () {
-                                setState(() {
-                                  _savePassword = !_savePassword;
-                                });
-                              },
-                              savePassword: _savePassword,
-                            ),
-                            const SizedBox(height: 24.0),
-
-                            /// Login Button
-                            const CustomButton(label: 'Login Account'),
-                            const SizedBox(height: 25.0),
-
-                            /// Create Account text Button
-                            const CustomClickableText(
-                              label: 'Create New Account',
-                            ),
-                          ],
+                        child: Form(
+                          child: Column(
+                            children: [
+                              /// 2nd Heading
+                              CustomSecondHeading(
+                                bigText: "Login Account\n",
+                                smallText:
+                                    "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                              ),
+                              const SizedBox(height: 32.0),
+                          
+                              /// Email Label
+                              const CustomTextFieldLabel(label: 'Email Address'),
+                              const SizedBox(height: 8.0),
+                          
+                              /// Email Address Field
+                              CustomTextField(
+                                hintText: "Your Email Address",
+                                keyboardType: TextInputType.emailAddress,
+                                suffixIcon: Icons.person,
+                                obscureText: false,
+                                dynamicSuffixIcon: false,
+                                textController: _emailAddress,
+                                validation: _emailValiadation,
+                              ),
+                              const SizedBox(height: 24.0),
+                          
+                              /// Password Label
+                              const CustomTextFieldLabel(label: 'Password'),
+                              const SizedBox(height: 8.0),
+                          
+                              /// Password Field
+                              CustomTextField(
+                                hintText: "Enter Your Password",
+                                keyboardType: TextInputType.visiblePassword,
+                                suffixIcon: _obscureText
+                                    ? Icons.lock
+                                    : Icons.lock_open,
+                                obscureText: _obscureText,
+                                dynamicSuffixIcon: true,
+                                suffixTap: () {
+                                  setState(() {
+                                    suffixTap = !suffixTap;
+                                    _obscureText = suffixTap;
+                                  });
+                                },
+                                textController: _password,
+                                validation: _passwordValiadation,
+                              ),
+                              const SizedBox(height: 24.0),
+                          
+                              /// Save Password and Forgot Password Section
+                              CustomHelpingClickableText(
+                                onTap: () {
+                                  setState(() {
+                                    _savePassword = !_savePassword;
+                                  });
+                                },
+                                savePassword: _savePassword,
+                              ),
+                              const SizedBox(height: 24.0),
+                          
+                              /// Login Button
+                              const CustomButton(label: 'Login Account'),
+                              const SizedBox(height: 25.0),
+                          
+                              /// Create Account text Button
+                              const CustomClickableText(
+                                label: 'Create New Account',
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -147,5 +151,44 @@ class _SigninScreenState extends State<SigninScreen> {
         ),
       ),
     );
+  }
+
+  /// Email Validation Method
+  String? _emailValiadation(String? emailAddress) {
+    if (emailAddress == null || emailAddress.isEmpty) {
+      return "Please enter your email";
+    }
+    if (emailAddress.contains(' ')) {
+      // if space trigger then true
+      return "Space is not allow";
+    }
+    // Regular Expression for valid email pattern
+    else if (!RegExp(
+      r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$',
+    ).hasMatch(emailAddress)) {
+      return "Please enter a valid email address";
+    }
+    return null;
+  }
+
+  /// Password Validation Method
+  String? _passwordValiadation(String? password) {
+    if (password == null || password.isEmpty) {
+      return 'Please enter your username properly';
+    } else if (password.length < 8) {
+      return 'Password must be at least 8 characters';
+    } else if (!RegExp(r'[A-Z]').hasMatch(password)) {
+      return 'Password must be contain at least one Uppercase letter';
+    } else if (!RegExp(r'[a-z]').hasMatch(password)) {
+      return 'Password must be contain at least one Lowercase letter';
+    } else if (!RegExp(r'[0-9]').hasMatch(password)) {
+      return 'Password must be contain at least one number';
+    } else if (!RegExp(r'[!@#$&*_]').hasMatch(password)) {
+      return 'Password must be contain at least one special character (!@#\$&*_)';
+    }
+    if (password.contains(' ')) {
+      return 'Space not allow';
+    }
+    return null;
   }
 }
