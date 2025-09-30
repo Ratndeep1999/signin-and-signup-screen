@@ -106,6 +106,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                   ).hasMatch(emailAddress)) {
                                     return "Email address must contain '@' and '.com'";
                                   }
+                                  return null;
                                 },
                               ),
                               const SizedBox(height: 24.0),
