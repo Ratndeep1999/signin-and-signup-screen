@@ -1,5 +1,21 @@
 import 'package:flutter/material.dart';
 
+class CustomClippingDesign extends StatelessWidget {
+  const CustomClippingDesign({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+      clipper: BackgroundDesign(),
+      child: SizedBox(
+        height: 525,
+        width: double.infinity,
+        child: ColoredBox(color: Colors.orange.shade300),
+      ),
+    );
+  }
+}
+
 /// Clipped background Design
 class BackgroundDesign extends CustomClipper<Path> {
   @override

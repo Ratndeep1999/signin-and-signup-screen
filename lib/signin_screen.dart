@@ -43,14 +43,7 @@ class _SigninScreenState extends State<SigninScreen> {
           child: Stack(
             children: [
               /// Background Custom Design
-              ClipPath(
-                clipper: BackgroundDesign(),
-                child: SizedBox(
-                  height: 525,
-                  width: double.infinity,
-                  child: ColoredBox(color: Colors.orange.shade300),
-                ),
-              ),
+              CustomClippingDesign(),
 
               /// Vertical Widget
               Column(
