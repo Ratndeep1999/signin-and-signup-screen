@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_text_field.dart';
 
 import 'Custom Widgets/customClippingDesign.dart';
+import 'Custom Widgets/custom_button.dart';
+import 'Custom Widgets/custom_clickable_text.dart';
 import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_second_heading.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
@@ -11,6 +13,7 @@ class SignupFirstScreen extends StatelessWidget {
 
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
+  final TextEditingController _emailAddress = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class SignupFirstScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 32.0),
 
-                        /// Email Label
+                        /// Your Name Label
                         const CustomTextFieldLabel(label: 'Your Name'),
                         const SizedBox(height: 8.0),
 
@@ -101,6 +104,59 @@ class SignupFirstScreen extends StatelessWidget {
                             ),
                           ],
                         ),
+
+                        const SizedBox(height: 24.0),
+
+                        /// Email Label
+                        const CustomTextFieldLabel(
+                          label: 'Email Address',
+                        ),
+                        const SizedBox(height: 8.0),
+
+                        /// Email Address Field
+                        CustomTextField(
+                          hintText: "Your Email Address",
+                          keyboardType: TextInputType.emailAddress,
+                          suffixIcon: Icons.email,
+                          obscureText: false,
+                          dynamicSuffixIcon: false,
+                          textController: _emailAddress,
+                          validation: _emailValidation,
+                        ),
+                        const SizedBox(height: 24.0),
+
+                        /// Username Label
+                        const CustomTextFieldLabel(
+                          label: 'Username',
+                        ),
+                        const SizedBox(height: 8.0),
+
+                        /// Username Field
+                        CustomTextField(
+                          hintText: "example1234",
+                          keyboardType: TextInputType.emailAddress,
+                          suffixIcon: Icons.email,
+                          obscureText: false,
+                          dynamicSuffixIcon: false,
+                          textController: _emailAddress,
+                          validation: _emailValidation,
+                        ),
+                        const SizedBox(height: 24.0),
+
+                        /// Save & Continue Button
+                        CustomButton(
+                          label: 'Save & Continue',
+                          loginClick: () {
+                            /// If Details is valid then Login..
+                          },
+                        ),
+                        const SizedBox(height: 25.0),
+
+                        /// Create Account text Button
+                        const CustomClickableText(
+                          label: 'Back to Login',
+                        ),
+
                       ],
                     ),
                   ),
@@ -111,5 +167,18 @@ class SignupFirstScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  /// Email Validation Method
+  String? _emailValidation(String? emailAddress) {
+    if (emailAddress == null || emailAddress.isEmpty) {
+      return 'Please enter your email';
+    }
+    if (emailAddress.contains(' ')) {
+      return 'Space is not allow';
+    }
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(emailAddress)) {
+      return "Email address must contain '@' and '.com'";
+    }
+    return null;
   }
 }
