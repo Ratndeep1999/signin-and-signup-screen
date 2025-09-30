@@ -152,13 +152,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                     /// If Details is valid then Login..
                                     if (_formKey.currentState!.validate()) {
                                       _showSnackBar();
-                                    } else {
-                                      // ScaffoldMessenger.of(context).showSnackBar(
-                                      //   const SnackBar(
-                                      //     content: Text('Please Check Your Email Address and Password'),
-                                      //   ),
-                                      // );
-                                    }
+                                    } else {}
                                   },
                                 ),
                                 const SizedBox(height: 25.0),
