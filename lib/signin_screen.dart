@@ -93,21 +93,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                 obscureText: false,
                                 dynamicSuffixIcon: false,
                                 textController: _emailAddress,
-                                validation: (String? emailAddress) {
-                                  if (emailAddress == null ||
-                                      emailAddress.isEmpty) {
-                                    return 'Please enter your email';
-                                  }
-                                  if (emailAddress.contains(' ')) {
-                                    return 'Space is not allow';
-                                  }
-                                  if (!RegExp(
-                                    r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$',
-                                  ).hasMatch(emailAddress)) {
-                                    return "Email address must contain '@' and '.com'";
-                                  }
-                                  return null;
-                                },
+                                validation: _emailValidation,
                               ),
                               const SizedBox(height: 24.0),
 
@@ -192,5 +178,19 @@ class _SigninScreenState extends State<SigninScreen> {
         ),
       ),
     );
+  }
+
+  /// Email Validation Method
+  String? _emailValidation(String? emailAddress) {
+    if (emailAddress == null || emailAddress.isEmpty) {
+      return 'Please enter your email';
+    }
+    if (emailAddress.contains(' ')) {
+      return 'Space is not allow';
+    }
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(emailAddress)) {
+      return "Email address must contain '@' and '.com'";
+    }
+    return null;
   }
 }
