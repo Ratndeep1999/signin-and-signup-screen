@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_label_widget.dart';
 import 'Custom Widgets/custom_heading.dart';
+import 'Custom Widgets/custom_second_heading.dart';
 import 'Custom Widgets/custom_textfield_widget.dart';
 import 'customClippingDesign.dart';
 
@@ -54,7 +55,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   /// Heading Text
-                  CustomHeading(),
+                  CustomHeading(bigText: "Hello\n", smallText: "Welcome Back!"),
 
                   const SizedBox(height: 40),
 
@@ -74,31 +75,10 @@ class _SigninScreenState extends State<SigninScreen> {
                         child: Column(
                           children: [
                             /// 2nd Heading
-                            const Text.rich(
-                              textAlign: TextAlign.center,
-                              TextSpan(
-                                children: [
-                                  /// Second Heading
-                                  TextSpan(
-                                    text: "Login Account\n",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 30,
-                                    ),
-                                  ),
-
-                                  /// Small Description Text
-                                  TextSpan(
-                                    text:
-                                        "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
-                                    style: TextStyle(
-                                      fontSize: 11.0,
-                                      color: Colors.black45,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            CustomSecondHeading(
+                              bigText: "Login Account\n",
+                              smallText:
+                                  "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                             ),
 
                             const SizedBox(height: 32.0),
@@ -257,4 +237,3 @@ class _SigninScreenState extends State<SigninScreen> {
     );
   }
 }
-
