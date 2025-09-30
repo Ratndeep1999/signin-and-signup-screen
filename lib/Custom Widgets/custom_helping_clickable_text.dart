@@ -1,78 +1,82 @@
 import 'package:flutter/material.dart';
 
 class CustomHelpingClickableText extends StatelessWidget {
-  const CustomHelpingClickableText({super.key});
+  const CustomHelpingClickableText({
+    super.key,
+    required this.savePassword,
+    required this.onTap,
+  });
+
+  final bool savePassword;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
+      children: <Widget>[
         /// Save Password Custom Checkbox
         buildSavePassword(),
         SizedBox(width: 8.0),
 
         /// Label of Forget Password
-        Text(
-          'Save Password',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-
+        buildSavePasswordLabel('Save Password'),
         Spacer(),
 
         /// Forgot Password
-        buildForgetPassword(),
+        buildForgetPassword('Forgot Password?'),
       ],
     );
   }
 
+  /// SavePassword Label Widget
+  Text buildSavePasswordLabel(String label) {
+    return Text(
+      label,
+      style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w800),
+    );
+  }
+
   /// ForgetPassword Widget
-  InkWell buildForgetPassword() {
+  InkWell buildForgetPassword(String clickableLabel) {
     return InkWell(
-        onTap: () {},
-        splashColor: Colors.transparent,
-        child: Text(
-          'Forgot Password?',
-          style: TextStyle(
-            fontSize: 13.5,
-            fontWeight: FontWeight.w800,
-            decoration: TextDecoration.underline,
-            decorationThickness: 2.0,
-          ),
+      onTap: () {},
+      splashColor: Colors.transparent,
+      child: Text(
+        clickableLabel,
+        style: TextStyle(
+          fontSize: 13.5,
+          fontWeight: FontWeight.w800,
+          decoration: TextDecoration.underline,
+          decorationThickness: 2.0,
         ),
-      );
+      ),
+    );
   }
 
   /// SavePassword Widget
   Widget buildSavePassword() {
     return InkWell(
-        onTap: () {
-          setState(() {
-            _savePassword = !_savePassword;
-          });
-        },
-        splashColor: Colors.transparent,
+      onTap: () {
+        onTap();
+      },
+      splashColor: Colors.transparent,
+      child: CircleAvatar(
+        backgroundColor: Colors.black26,
+        radius: 10.5,
         child: CircleAvatar(
-          backgroundColor: Colors.black26,
-          radius: 10.5,
-          child: CircleAvatar(
-            radius: 10.0,
-            backgroundColor: _savePassword
-                ? Color(0xFF93c743)
-                : Color(0xFFF7F0FA),
-            child: Visibility(
-              visible: _savePassword,
-              child: Icon(
-                Icons.check,
-                size: 16.0,
-                color: Colors.white,
-                weight: 50,
-              ),
+          radius: 10.0,
+          backgroundColor: savePassword ? Color(0xFF93c743) : Color(0xFFF7F0FA),
+          child: Visibility(
+            visible: savePassword,
+            child: Icon(
+              Icons.check,
+              size: 16.0,
+              color: Colors.white,
+              weight: 50,
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 }
