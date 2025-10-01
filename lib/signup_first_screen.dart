@@ -15,6 +15,7 @@ class SignupFirstScreen extends StatelessWidget {
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _emailAddress = TextEditingController();
+  final TextEditingController _userName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -130,12 +131,12 @@ class SignupFirstScreen extends StatelessWidget {
                               /// Username Field
                               CustomTextField(
                                 hintText: "example1234",
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.name,
                                 suffixIcon: Icons.email,
                                 obscureText: false,
                                 dynamicSuffixIcon: false,
-                                textController: _emailAddress,
-                                validation: _emailValidation,
+                                textController: _userName,
+                                validation: _userNameValidation,
                               ),
                               const SizedBox(height: 24.0),
 
@@ -216,4 +217,6 @@ class SignupFirstScreen extends StatelessWidget {
     }
     return null;
   }
+
+  ///
 }
