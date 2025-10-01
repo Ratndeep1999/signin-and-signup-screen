@@ -40,14 +40,14 @@ class CustomTextField extends StatelessWidget {
         // hintText
         hintText: hintText,
         hintStyle: TextStyle(
-          //fontSize: 10.0,
+          fontSize: 12.0,
           color: Colors.black45,
           fontWeight: FontWeight.w500,
         ),
         hintMaxLines: 1,
         errorStyle: TextStyle(color: Colors.orange.shade300),
         // padding of hintText
-        contentPadding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 14.0),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
         // suffixIcon it can be clickable using dynamicSuffixIcon
         suffixIcon: dynamicSuffixIcon
             ? IconButton(
