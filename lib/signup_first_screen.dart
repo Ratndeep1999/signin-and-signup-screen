@@ -20,6 +20,7 @@ class SignupFirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       /// Appbar
       appBar: AppBar(backgroundColor: Color(0xFFefb744)),
 
@@ -33,6 +34,7 @@ class SignupFirstScreen extends StatelessWidget {
           child: SafeArea(
             child: Stack(
               children: [
+
                 /// Background Custom Design
                 const CustomClippingDesign(),
 
@@ -40,6 +42,7 @@ class SignupFirstScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+
                     /// Heading Text
                     CustomHeading(
                       bigText: "Join Us\n",
@@ -52,6 +55,7 @@ class SignupFirstScreen extends StatelessWidget {
                       margin: EdgeInsets.symmetric(horizontal: 20.0),
                       elevation: 5.0,
                       child: Padding(
+
                         /// Content Padding
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20.0,
@@ -61,11 +65,12 @@ class SignupFirstScreen extends StatelessWidget {
                           key: _formKey,
                           child: Column(
                             children: [
+
                               /// 2nd Heading
                               CustomSecondHeading(
                                 bigText: "Personal Info\n",
                                 smallText:
-                                    "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                                "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                               ),
                               const SizedBox(height: 35.0),
 
@@ -178,6 +183,7 @@ class SignupFirstScreen extends StatelessWidget {
 
   /// Email Validation Method
   String? _emailValidation(String? emailAddress) {
+    emailAddress = emailAddress?.trim();
     if (emailAddress == null || emailAddress.isEmpty) {
       return 'Please enter your email';
     }
@@ -192,6 +198,7 @@ class SignupFirstScreen extends StatelessWidget {
 
   /// First Name Validation
   String? _firstNameValidation(String? firstName) {
+    firstName = firstName?.trim();
     if (firstName == null || firstName.isEmpty) {
       return 'Please enter your first name';
     }
@@ -206,6 +213,7 @@ class SignupFirstScreen extends StatelessWidget {
 
   /// Last Name Validation
   String? _lastNameValidation(String? lastName) {
+    lastName = lastName?.trim();
     if (lastName == null || lastName.isEmpty) {
       return 'Please enter your last name';
     }
@@ -218,5 +226,23 @@ class SignupFirstScreen extends StatelessWidget {
     return null;
   }
 
-  ///
+  /// Username Validation
+  String? _userNameValidation(String? userName) {
+    userName = userName?.trim();
+    if (userName == null || userName.isEmpty) {
+      return 'Please enter your username';
+    }
+    if (userName.length < 3) {
+      return 'Username is too short';
+    }
+    if (userName == _emailAddress.text ||
+        userName == _firstName.text ||
+        userName == _lastName.text) {
+      return "Username need to difference from others";
+    }
+    if () {
+      return 'Username is already taken';
+    }
+    return null;
+  }
 }
