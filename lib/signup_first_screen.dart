@@ -103,7 +103,6 @@ class SignupFirstScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-
                               const SizedBox(height: 24.0),
 
                               /// Email Label
