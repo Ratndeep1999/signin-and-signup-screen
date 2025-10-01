@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:signin_and_signup_screens/Custom%20Widgets/customClippingDesign.dart';
 
 class SignupSecondScreen extends StatelessWidget {
   const SignupSecondScreen({super.key});
@@ -8,7 +9,9 @@ class SignupSecondScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(backgroundColor: Color(0xFFefb744)),
       /// Body
-      body: SafeArea(child: Stack(children: [],)),
+      body: SafeArea(child: Stack(children: [
+        CustomClippingDesign()
+      ],)),
     );
   }
 }
