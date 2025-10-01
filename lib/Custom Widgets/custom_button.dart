@@ -14,7 +14,7 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: loginClick,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.orange.shade300,
+          backgroundColor: Color(0xFFefb744),
           foregroundColor: Colors.black,
           elevation: 3.0,
           padding: EdgeInsets.symmetric(vertical: 15.0),
