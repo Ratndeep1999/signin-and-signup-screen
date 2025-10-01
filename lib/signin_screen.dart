@@ -43,6 +43,7 @@ class _SigninScreenState extends State<SigninScreen> {
       /// Body
       body: SingleChildScrollView(
         child: InkWell(
+          /// Method to Disable Hardware Keyboard
           onTap: () {
             FocusScope.of(context).unfocus();
           },
@@ -73,7 +74,7 @@ class _SigninScreenState extends State<SigninScreen> {
                         /// Content Padding
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20.0,
-                          vertical: 32.0,
+                          vertical: 36.0,
                         ),
                         child: Form(
                           key: _formKey,
