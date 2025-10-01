@@ -10,7 +10,7 @@ class CustomClippingDesign extends StatelessWidget {
       child: SizedBox(
         height: 525,
         width: double.infinity,
-        child: ColoredBox(color: Colors.orange.shade300),
+        child: ColoredBox(color: Color(0xFFefb744)),
       ),
     );
   }
