@@ -45,7 +45,7 @@ class CustomTextField extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
         hintMaxLines: 1,
-        errorStyle: TextStyle(color: Colors.orange.shade300),
+        errorStyle: TextStyle(color: Color(0xFFefb744)),
         // padding of hintText
         contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
         // suffixIcon it can be clickable using dynamicSuffixIcon
@@ -79,13 +79,13 @@ class CustomTextField extends StatelessWidget {
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50.0),
           borderSide: BorderSide(
-            color: Colors.orange.shade300,
+            color: Color(0xFFefb744),
             width: 2.0,
           ), // error state
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50.0),
-          borderSide: BorderSide(color: Colors.orange.shade300, width: 2.0),
+          borderSide: BorderSide(color: Color(0xFFefb744), width: 2.0),
         ),
       ),
     );
