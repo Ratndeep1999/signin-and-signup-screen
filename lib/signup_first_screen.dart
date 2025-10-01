@@ -84,21 +84,7 @@ class SignupFirstScreen extends StatelessWidget {
                                       obscureText: false,
                                       dynamicSuffixIcon: false,
                                       textController: _firstName,
-                                      validation: (String? firstName) {
-                                        if (firstName == null ||
-                                            firstName.isEmpty) {
-                                          return 'Please enter your first name';
-                                        }
-                                        if (firstName.length < 2) {
-                                          return 'Name is too short';
-                                        }
-                                        if (!RegExp(
-                                          r"^[a-zA-Z\s]+$",
-                                        ).hasMatch(firstName)) {
-                                          return 'Please enter letters only';
-                                        }
-                                        return null;
-                                      },
+                                      validation: _firstNameValidation,
                                     ),
                                   ),
 
@@ -112,13 +98,7 @@ class SignupFirstScreen extends StatelessWidget {
                                       obscureText: false,
                                       dynamicSuffixIcon: false,
                                       textController: _lastName,
-                                      validation: (String? lastName) {
-                                        if (lastName == null ||
-                                            lastName.isEmpty) {
-                                          return 'Please enter your last name';
-                                        }
-                                        return null;
-                                      },
+                                      validation: _lastNameValidation,
                                     ),
                                   ),
                                 ],
@@ -206,6 +186,34 @@ class SignupFirstScreen extends StatelessWidget {
     }
     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(emailAddress)) {
       return "Email address must contain '@' and '.com'";
+    }
+    return null;
+  }
+
+  /// First Name Validation
+  String? _firstNameValidation(String? firstName) {
+    if (firstName == null || firstName.isEmpty) {
+      return 'Please enter your first name';
+    }
+    if (firstName.length < 2) {
+      return 'Name is too short';
+    }
+    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(firstName)) {
+      return 'Please enter letters only';
+    }
+    return null;
+  }
+
+  /// Last Name Validation
+  String? _lastNameValidation(String? lastName) {
+    if (lastName == null || lastName.isEmpty) {
+      return 'Please enter your last name';
+    }
+    if (lastName.length < 4) {
+      return 'Name is too short';
+    }
+    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(lastName)) {
+      return 'Please enter letters only';
     }
     return null;
   }
