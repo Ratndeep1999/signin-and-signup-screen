@@ -38,7 +38,7 @@ class _SigninScreenState extends State<SigninScreen> {
       // This stops content from moving
       // resizeToAvoidBottomInset: false,
       /// Appbar
-      appBar: AppBar(backgroundColor: Colors.orange.shade300),
+      appBar: AppBar(backgroundColor: Color(0xFFefb744)),
 
       /// Body
       body: SingleChildScrollView(
