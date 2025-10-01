@@ -240,9 +240,12 @@ class SignupFirstScreen extends StatelessWidget {
         userName == _lastName.text) {
       return "Username need to difference from others";
     }
-    if () {
-      return 'Username is already taken';
+    if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(userName)) {
+      return 'Only letters, numbers, and underscores are allowed';
     }
+    // if (_takenUsernames.contains(userName)) {
+    //   return 'Username is already taken';
+    // }
     return null;
   }
 }
