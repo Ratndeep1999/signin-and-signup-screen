@@ -181,21 +181,6 @@ class SignupFirstScreen extends StatelessWidget {
     );
   }
 
-  /// Email Validation Method
-  String? _emailValidation(String? emailAddress) {
-    emailAddress = emailAddress?.trim();
-    if (emailAddress == null || emailAddress.isEmpty) {
-      return 'Please enter your email';
-    }
-    if (emailAddress.contains(' ')) {
-      return 'Space is not allow';
-    }
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(emailAddress)) {
-      return "Email address must contain '@' and '.com'";
-    }
-    return null;
-  }
-
   /// First Name Validation
   String? _firstNameValidation(String? firstName) {
     firstName = firstName?.trim();
@@ -222,6 +207,21 @@ class SignupFirstScreen extends StatelessWidget {
     }
     if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(lastName)) {
       return 'Please enter letters only';
+    }
+    return null;
+  }
+
+  /// Email Validation Method
+  String? _emailValidation(String? emailAddress) {
+    emailAddress = emailAddress?.trim();
+    if (emailAddress == null || emailAddress.isEmpty) {
+      return 'Please enter your email';
+    }
+    if (emailAddress.contains(' ')) {
+      return 'Space is not allow';
+    }
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(emailAddress)) {
+      return "Email address must contain '@' and '.com'";
     }
     return null;
   }
