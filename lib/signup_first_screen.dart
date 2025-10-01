@@ -20,7 +20,6 @@ class SignupFirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       /// Appbar
       appBar: AppBar(backgroundColor: Color(0xFFefb744)),
 
@@ -34,7 +33,6 @@ class SignupFirstScreen extends StatelessWidget {
           child: SafeArea(
             child: Stack(
               children: [
-
                 /// Background Custom Design
                 const CustomClippingDesign(),
 
@@ -42,7 +40,6 @@ class SignupFirstScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
                     /// Heading Text
                     CustomHeading(
                       bigText: "Join Us\n",
@@ -55,7 +52,6 @@ class SignupFirstScreen extends StatelessWidget {
                       margin: EdgeInsets.symmetric(horizontal: 20.0),
                       elevation: 5.0,
                       child: Padding(
-
                         /// Content Padding
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20.0,
@@ -65,12 +61,11 @@ class SignupFirstScreen extends StatelessWidget {
                           key: _formKey,
                           child: Column(
                             children: [
-
                               /// 2nd Heading
                               CustomSecondHeading(
                                 bigText: "Personal Info\n",
                                 smallText:
-                                "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                                    "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                               ),
                               const SizedBox(height: 35.0),
 
