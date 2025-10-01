@@ -66,7 +66,7 @@ class SignupFirstScreen extends StatelessWidget {
                                 smallText:
                                     "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                               ),
-                              const SizedBox(height: 32.0),
+                              const SizedBox(height: 35.0),
 
                               /// Your Name Label
                               const CustomTextFieldLabel(label: 'Your Name'),
@@ -74,7 +74,7 @@ class SignupFirstScreen extends StatelessWidget {
 
                               /// First and Last Name
                               Row(
-                                //mainAxisSize: MainAxisSize.min,
+                                mainAxisSize: MainAxisSize.max,
                                 children: [
                                   // First Name
                                   Flexible(
@@ -88,6 +88,14 @@ class SignupFirstScreen extends StatelessWidget {
                                         if (firstName == null ||
                                             firstName.isEmpty) {
                                           return 'Please enter your first name';
+                                        }
+                                        if (firstName.length < 2) {
+                                          return 'Name is too short';
+                                        }
+                                        if (!RegExp(
+                                          r"^[a-zA-Z\s]+$",
+                                        ).hasMatch(firstName)) {
+                                          return 'Please enter letters only';
                                         }
                                         return null;
                                       },
@@ -107,7 +115,7 @@ class SignupFirstScreen extends StatelessWidget {
                                       validation: (String? lastName) {
                                         if (lastName == null ||
                                             lastName.isEmpty) {
-                                          return 'Please enter your first name';
+                                          return 'Please enter your last name';
                                         }
                                         return null;
                                       },
@@ -157,14 +165,16 @@ class SignupFirstScreen extends StatelessWidget {
                                 label: 'Save & Continue',
                                 loginClick: () {
                                   /// If Details is valid then Next..
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return SignupSecondScreen();
-                                      },
-                                    ),
-                                  );
+                                  if (_formKey.currentState!.validate()) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return SignupSecondScreen();
+                                        },
+                                      ),
+                                    );
+                                  }
                                 },
                               ),
                               const SizedBox(height: 25.0),
