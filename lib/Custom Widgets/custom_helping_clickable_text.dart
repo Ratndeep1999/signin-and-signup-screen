@@ -32,7 +32,7 @@ class CustomHelpingClickableText extends StatelessWidget {
   Text buildSavePasswordLabel(String label) {
     return Text(
       label,
-      style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+      style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold),
     );
   }
 
@@ -44,7 +44,7 @@ class CustomHelpingClickableText extends StatelessWidget {
       child: Text(
         clickableLabel,
         style: TextStyle(
-          fontSize: 13.5,
+          fontSize: 12.5,
           fontWeight: FontWeight.bold,
           decoration: TextDecoration.underline,
           decorationThickness: 2.0,
