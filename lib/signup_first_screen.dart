@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_text_field.dart';
+import 'package:signin_and_signup_screens/signup_second_screen.dart';
 import 'Custom Widgets/customClippingDesign.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
@@ -19,7 +20,7 @@ class SignupFirstScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       /// Appbar
-      appBar: AppBar(backgroundColor: Colors.orange.shade300),
+      appBar: AppBar(backgroundColor: Color(0xFFefb744)),
 
       /// Body
       body: SingleChildScrollView(
@@ -155,7 +156,15 @@ class SignupFirstScreen extends StatelessWidget {
                               CustomButton(
                                 label: 'Save & Continue',
                                 loginClick: () {
-                                  /// If Details is valid then Login..
+                                  /// If Details is valid then Next..
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return SignupSecondScreen();
+                                      },
+                                    ),
+                                  );
                                 },
                               ),
                               const SizedBox(height: 25.0),
