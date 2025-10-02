@@ -20,7 +20,7 @@ class CustomClippingDesign extends StatelessWidget {
 class BackgroundDesign extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    //
+    // path store
     Path path = Path();
 
     // extract height and width
