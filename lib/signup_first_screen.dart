@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_text_field.dart';
 import 'package:signin_and_signup_screens/signup_second_screen.dart';
-import 'Custom Widgets/customClippingDesign.dart';
+import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
 import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_second_heading.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
 
-class SignupFirstScreen extends StatelessWidget {
+class SignupFirstScreen extends StatefulWidget {
   SignupFirstScreen({super.key});
 
+  @override
+  State<SignupFirstScreen> createState() => _SignupFirstScreenState();
+}
+
+class _SignupFirstScreenState extends State<SignupFirstScreen> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _emailAddress = TextEditingController();
@@ -45,7 +51,7 @@ class SignupFirstScreen extends StatelessWidget {
                       bigText: "Join Us\n",
                       smallText: "Create Free Account",
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 36),
 
                     /// Card
                     Card(
@@ -55,7 +61,7 @@ class SignupFirstScreen extends StatelessWidget {
                         /// Content Padding
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20.0,
-                          vertical: 32.0,
+                          vertical: 30.0,
                         ),
                         child: Form(
                           key: _formKey,
@@ -67,48 +73,60 @@ class SignupFirstScreen extends StatelessWidget {
                                 smallText:
                                     "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                               ),
-                              const SizedBox(height: 35.0),
+                              const SizedBox(height: 26.0),
 
                               /// Your Name Label
-                              const CustomTextFieldLabel(label: 'Your Name'),
+                              const CustomTextFieldLabel(
+                                label: 'Your Name',
+                                labelFontSize: 12.0,
+                              ),
                               const SizedBox(height: 8.0),
 
-                              /// First and Last Name
+                              // First and Last Name
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  // First Name
+                                  /// First Name Field
                                   Flexible(
                                     child: CustomTextField(
                                       hintText: 'First Name',
                                       keyboardType: TextInputType.name,
                                       obscureText: false,
-                                      dynamicSuffixIcon: false,
+                                      isSuffixIcon: false,
                                       textController: _firstName,
                                       validation: _firstNameValidation,
+                                      topPadding: 12.0,
+                                      bottomPadding: 12.0,
+                                      leftPadding: 20.0,
+                                      hintTextFontSize: 13.0,
                                     ),
                                   ),
 
                                   SizedBox(width: 10.0),
 
-                                  // Last Name
+                                  /// Last Name Field
                                   Flexible(
                                     child: CustomTextField(
                                       hintText: 'Last Name',
                                       keyboardType: TextInputType.name,
                                       obscureText: false,
-                                      dynamicSuffixIcon: false,
+                                      isSuffixIcon: false,
                                       textController: _lastName,
                                       validation: _lastNameValidation,
+                                      topPadding: 12.0,
+                                      bottomPadding: 12.0,
+                                      leftPadding: 20.0,
+                                      hintTextFontSize: 13.0,
                                     ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 24.0),
+                              const SizedBox(height: 20.0),
 
                               /// Email Label
                               const CustomTextFieldLabel(
                                 label: 'Email Address',
+                                labelFontSize: 12.0,
                               ),
                               const SizedBox(height: 8.0),
 
@@ -116,29 +134,41 @@ class SignupFirstScreen extends StatelessWidget {
                               CustomTextField(
                                 hintText: "Your Email Address",
                                 keyboardType: TextInputType.emailAddress,
+                                isSuffixIcon: true,
                                 suffixIcon: Icons.email,
                                 obscureText: false,
-                                dynamicSuffixIcon: false,
                                 textController: _emailAddress,
                                 validation: _emailValidation,
+                                topPadding: 12.0,
+                                bottomPadding: 12.0,
+                                leftPadding: 20.0,
+                                hintTextFontSize: 13.0,
                               ),
-                              const SizedBox(height: 24.0),
+                              const SizedBox(height: 20.0),
 
                               /// Username Label
-                              const CustomTextFieldLabel(label: 'Username'),
+                              const CustomTextFieldLabel(
+                                label: 'Username',
+                                labelFontSize: 12.0,
+                              ),
                               const SizedBox(height: 8.0),
 
                               /// Username Field
                               CustomTextField(
                                 hintText: "example1234",
                                 keyboardType: TextInputType.name,
-                                suffixIcon: Icons.email,
+                                isSuffixIcon: true,
+                                suffixIcon: Icons.check_circle,
+                                suffixIconColor: Color(0xFF93c743),
                                 obscureText: false,
-                                dynamicSuffixIcon: false,
                                 textController: _userName,
                                 validation: _userNameValidation,
+                                topPadding: 12.0,
+                                bottomPadding: 12.0,
+                                leftPadding: 20.0,
+                                hintTextFontSize: 14.0,
                               ),
-                              const SizedBox(height: 24.0),
+                              const SizedBox(height: 22.0),
 
                               /// Save & Continue Button
                               CustomButton(
@@ -157,7 +187,7 @@ class SignupFirstScreen extends StatelessWidget {
                                   }
                                 },
                               ),
-                              const SizedBox(height: 25.0),
+                              const SizedBox(height: 20.0),
 
                               /// Create Account text Button
                               const CustomClickableText(label: 'Back to Login'),
