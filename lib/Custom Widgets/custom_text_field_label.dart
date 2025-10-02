@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomTextFieldLabel extends StatelessWidget {
-  const CustomTextFieldLabel({super.key, required this.label});
+  const CustomTextFieldLabel({super.key, required this.label, required this.labelFontSize});
 
   final String label;
+  final double labelFontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class CustomTextFieldLabel extends StatelessWidget {
       child: Text(
         label,
         style: TextStyle(
-          fontSize: 15.0,
+          fontSize: labelFontSize,
           fontWeight: FontWeight.w800,
           color: Colors.black,
         ),
