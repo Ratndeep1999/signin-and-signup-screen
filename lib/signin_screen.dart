@@ -6,7 +6,7 @@ import 'Custom Widgets/custom_clickable_text.dart';
 import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_second_heading.dart';
 import 'Custom Widgets/custom_text_field.dart';
-import 'Custom Widgets/customClippingDesign.dart';
+import 'Custom Widgets/custom_clipping_design.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
@@ -74,7 +74,7 @@ class _SigninScreenState extends State<SigninScreen> {
                         /// Content Padding
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20.0,
-                          vertical: 36.0,
+                          vertical: 32.0,
                         ),
                         child: Form(
                           key: _formKey,
@@ -91,6 +91,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               /// Email Label
                               const CustomTextFieldLabel(
                                 label: 'Email Address',
+                                labelFontSize: 15.0,
                               ),
                               const SizedBox(height: 8.0),
 
@@ -98,27 +99,34 @@ class _SigninScreenState extends State<SigninScreen> {
                               CustomTextField(
                                 hintText: "Your Email Address",
                                 keyboardType: TextInputType.emailAddress,
+                                isSuffixIcon: true,
                                 suffixIcon: Icons.person,
                                 obscureText: false,
-                                dynamicSuffixIcon: false,
                                 textController: _emailAddress,
                                 validation: _emailValidation,
+                                topPadding: 15.0,
+                                bottomPadding: 15.0,
+                                leftPadding: 20.0,
+                                hintTextFontSize: 14,
                               ),
-                              const SizedBox(height: 24.0),
+                              const SizedBox(height: 26.0),
 
                               /// Password Label
-                              const CustomTextFieldLabel(label: 'Password'),
+                              const CustomTextFieldLabel(
+                                label: 'Password',
+                                labelFontSize: 15.0,
+                              ),
                               const SizedBox(height: 8.0),
 
                               /// Password Field
                               CustomTextField(
                                 hintText: "Enter Your Password",
                                 keyboardType: TextInputType.visiblePassword,
+                                isSuffixIcon: true,
                                 suffixIcon: _obscureText
                                     ? Icons.lock
                                     : Icons.lock_open,
                                 obscureText: _obscureText,
-                                dynamicSuffixIcon: true,
                                 suffixTap: () {
                                   setState(() {
                                     suffixTap = !suffixTap;
@@ -127,6 +135,10 @@ class _SigninScreenState extends State<SigninScreen> {
                                 },
                                 textController: _password,
                                 validation: _passwordValidation,
+                                topPadding: 15.0,
+                                bottomPadding: 15.0,
+                                leftPadding: 20.0,
+                                hintTextFontSize: 14,
                               ),
                               const SizedBox(height: 24.0),
 
@@ -219,7 +231,10 @@ class _SigninScreenState extends State<SigninScreen> {
   void _showSnackBar() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: CustomTextFieldLabel(label: 'Login....Please wait'),
+        content: CustomTextFieldLabel(
+          label: 'Login....Please wait',
+          labelFontSize: 15.0,
+        ),
         backgroundColor: Color(0xFFfeb64d),
         padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 28.0),
         shape: RoundedRectangleBorder(
