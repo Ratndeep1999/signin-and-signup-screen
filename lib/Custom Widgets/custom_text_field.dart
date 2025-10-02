@@ -7,10 +7,15 @@ class CustomTextField extends StatelessWidget {
     required this.keyboardType,
     this.suffixIcon,
     required this.obscureText,
-    required this.dynamicSuffixIcon,
+    required this.isSuffixIcon,
     this.suffixTap,
     required this.textController,
     required this.validation,
+    required this.topPadding,
+    required this.bottomPadding,
+    required this.leftPadding,
+    required this.hintTextFontSize,
+    this.suffixIconColor,
   });
 
   // Attributes
@@ -19,8 +24,15 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final IconData? suffixIcon;
   final bool obscureText;
-  final bool dynamicSuffixIcon;
+  final bool isSuffixIcon;
   final VoidCallback? suffixTap;
+  final double topPadding;
+  final double bottomPadding;
+  final double leftPadding;
+  final double hintTextFontSize;
+  final Color? suffixIconColor;
+
+  //final double isSuffixIcon;
 
   // Fun. return type   Function(value of the text field might be null) variable
   final String? Function(String?)? validation; // type definition
@@ -40,7 +52,7 @@ class CustomTextField extends StatelessWidget {
         // hintText
         hintText: hintText,
         hintStyle: TextStyle(
-          fontSize: 12.0,
+          fontSize: hintTextFontSize,
           color: Colors.black45,
           fontWeight: FontWeight.w500,
         ),
@@ -51,17 +63,22 @@ class CustomTextField extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         // padding of hintText
-        contentPadding: EdgeInsets.only(top: 12.0, bottom: 12.0, left: 20.0),
+        contentPadding: EdgeInsets.only(
+          top: topPadding,
+          bottom: bottomPadding,
+          left: leftPadding,
+        ),
         // suffixIcon it can be clickable using dynamicSuffixIcon
-        suffixIcon: dynamicSuffixIcon
+        suffixIcon: isSuffixIcon
             ? IconButton(
                 // suffixIcon it can be null
-                icon: Icon(suffixIcon, size: 20),
+                icon: Icon(suffixIcon, size: 20, color: suffixIconColor),
                 onPressed: suffixTap,
                 splashRadius: 5,
                 highlightColor: Colors.transparent,
               )
-            : Icon(suffixIcon, size: 20),
+            : null,
+        // Icon(suffixIcon, size: 20),
         suffixIconColor: Colors.black54,
         // min right padding of icon
         suffixIconConstraints: BoxConstraints(minWidth: 80.0),
