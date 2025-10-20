@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
+import 'Custom Widgets/custom_button.dart';
+import 'Custom Widgets/custom_clickable_text.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_second_heading.dart';
 
-class SignupSecondScreen extends StatelessWidget {
+class SignupSecondScreen extends StatefulWidget {
   const SignupSecondScreen({super.key});
+
+  @override
+  State<SignupSecondScreen> createState() => _SignupSecondScreenState();
+}
+
+class _SignupSecondScreenState extends State<SignupSecondScreen> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color(0xFFefb744)),
+      appBar: AppBar(
+        backgroundColor: Color(0xFFefb744),
+        automaticallyImplyLeading: false,
+      ),
 
       /// Body
       body: SafeArea(
@@ -27,16 +39,45 @@ class SignupSecondScreen extends StatelessWidget {
                   horizontal: 20.0,
                   vertical: 32.0,
                 ),
-                child: Column(
-                  children: [
-                    /// 2nd Heading
-                    CustomSecondHeading(
-                      bigText: "Secure Account\n",
-                      smallText:
-                          "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
-                    ),
-                    const SizedBox(height: 35.0),
-                  ],
+                child: Form(
+                  child: Column(
+                    children: [
+                      /// 2nd Heading
+                      CustomSecondHeading(
+                        bigText: "Secure Account\n",
+                        smallText:
+                            "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                      ),
+                      const SizedBox(height: 35.0),
+
+                      /// Save & Continue Button
+                      CustomButton(
+                        label: 'Save & Continue',
+                        loginClick: () {
+                          /// If Details is valid then Next..
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return SignupSecondScreen();
+                                },
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 20.0),
+
+                      /// Create Account text Button
+                      CustomClickableText(
+                        label: 'Back to Login',
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
