@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import '../signup_first_screen.dart';
 
 class CustomClickableText extends StatelessWidget {
-  const CustomClickableText({super.key, required this.label});
+  const CustomClickableText({
+    super.key,
+    required this.label,
+    required this.onTap,
+  });
 
   final String label;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        /// Navigate to Signup First Screen
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => SignupFirstScreen()),
-        );
-      },
+      onTap: onTap,
       child: Text(
         label,
         style: TextStyle(
