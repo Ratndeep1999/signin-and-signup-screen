@@ -40,6 +40,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                   vertical: 32.0,
                 ),
                 child: Form(
+                  key: _formKey,
                   child: Column(
                     children: [
                       /// 2nd Heading
