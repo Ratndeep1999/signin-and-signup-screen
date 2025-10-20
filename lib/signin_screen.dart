@@ -48,6 +48,7 @@ class _SigninScreenState extends State<SigninScreen> {
             FocusScope.of(context).unfocus();
           },
           splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           child: SafeArea(
             child: Stack(
               children: [
