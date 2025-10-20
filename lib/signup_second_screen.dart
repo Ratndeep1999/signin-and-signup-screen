@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:signin_and_signup_screens/Custom%20Widgets/customClippingDesign.dart';
-
+import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_second_heading.dart';
 
 class SignupSecondScreen extends StatelessWidget {
