@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
     required this.leftPadding,
     required this.hintTextFontSize,
     this.suffixIconColor,
+    this.onChanged
   });
 
   // Attributes
@@ -32,7 +33,7 @@ class CustomTextField extends StatelessWidget {
   final double hintTextFontSize;
   final Color? suffixIconColor;
 
-  //final double isSuffixIcon;
+  final ValueChanged<String>? onChanged;
 
   // Fun. return type   Function(value of the text field might be null) variable
   final String? Function(String?)? validation; // type definition
@@ -42,12 +43,12 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       controller: textController,
       validator: validation,
+      onChanged: onChanged,
       keyboardType: keyboardType,
       obscureText: obscureText,
       obscuringCharacter: '*',
       // Input Text Style
       style: TextStyle(),
-
       decoration: InputDecoration(
         // hintText
         hintText: hintText,
