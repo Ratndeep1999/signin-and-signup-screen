@@ -16,4 +16,4 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 
-![signin screen](signin-and-signup-screen-main/assets/images/signin_screen.png)
+![signin screen](assets/images/signin_screen.png)
