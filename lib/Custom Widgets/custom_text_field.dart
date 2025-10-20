@@ -68,24 +68,16 @@ class CustomTextField extends StatelessWidget {
           bottom: bottomPadding,
           left: leftPadding,
         ),
-        // suffixIcon it can be clickable using dynamicSuffixIcon
+        // SuffixIcon it can be clickable using dynamicSuffixIcon
         suffixIcon: isSuffixIcon
             ? IconButton(
-<<<<<<< HEAD
-                // SuffixIcon it can be null
-=======
                 // suffixIcon it can be null
->>>>>>> 195ae56da4a3b5a3a3e76b55a4ec6c455b7a73ae
                 icon: Icon(suffixIcon, size: 20, color: suffixIconColor),
                 onPressed: suffixTap,
                 splashRadius: 5,
                 highlightColor: Colors.transparent,
               )
             : null,
-<<<<<<< HEAD
-=======
-        // Icon(suffixIcon, size: 20),
->>>>>>> 195ae56da4a3b5a3a3e76b55a4ec6c455b7a73ae
         suffixIconColor: Colors.black54,
         // min right padding of icon
         suffixIconConstraints: BoxConstraints(minWidth: 80.0),
