@@ -28,7 +28,10 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       /// Appbar
-      appBar: AppBar(backgroundColor: Color(0xFFefb744)),
+      appBar: AppBar(
+        backgroundColor: Color(0xFFefb744),
+        automaticallyImplyLeading: false,
+      ),
 
       /// Body
       body: SingleChildScrollView(
