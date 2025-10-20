@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_helping_clickable_text.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_text_field_label.dart';
+import 'package:signin_and_signup_screens/signup_first_screen.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
 import 'Custom Widgets/custom_heading.dart';
@@ -170,8 +171,16 @@ class _SigninScreenState extends State<SigninScreen> {
                               const SizedBox(height: 25.0),
 
                               /// Create Account text Button
-                              const CustomClickableText(
+                              CustomClickableText(
                                 label: 'Create New Account',
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SignupFirstScreen(),
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),

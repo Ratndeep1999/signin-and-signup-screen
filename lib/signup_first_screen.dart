@@ -196,7 +196,12 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                               const SizedBox(height: 20.0),
 
                               /// Create Account text Button
-                              const CustomClickableText(label: 'Back to Login'),
+                              CustomClickableText(
+                                label: 'Back to Login',
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
                             ],
                           ),
                         ),
