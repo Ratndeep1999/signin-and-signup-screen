@@ -78,7 +78,6 @@ class CustomTextField extends StatelessWidget {
                 highlightColor: Colors.transparent,
               )
             : null,
-
         suffixIconColor: Colors.black54,
         // min right padding of icon
         suffixIconConstraints: BoxConstraints(minWidth: 80.0),
