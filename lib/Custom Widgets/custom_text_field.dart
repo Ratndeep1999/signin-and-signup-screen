@@ -68,7 +68,7 @@ class CustomTextField extends StatelessWidget {
           bottom: bottomPadding,
           left: leftPadding,
         ),
-        // SuffixIcon it can be clickable using dynamicSuffixIcon
+        // SuffixIcon it can be clickable using suffixTap
         suffixIcon: isSuffixIcon
             ? IconButton(
                 // suffixIcon it can be null
