@@ -22,6 +22,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _emailAddress = TextEditingController();
   final TextEditingController _userName = TextEditingController();
+  bool validUsername = false;
 
   @override
   Widget build(BuildContext context) {
@@ -158,8 +159,12 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                                 hintText: "example1234",
                                 keyboardType: TextInputType.name,
                                 isSuffixIcon: true,
-                                suffixIcon: Icons.check_circle,
-                                suffixIconColor: Color(0xFF93c743),
+                                suffixIcon: validUsername
+                                    ? Icons.check_circle
+                                    : Icons.cancel,
+                                suffixIconColor: validUsername
+                                    ? Color(0xFF93c743)
+                                    : Color(0xFFFF4C4C),
                                 obscureText: false,
                                 textController: _userName,
                                 validation: _userNameValidation,
@@ -167,6 +172,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                                 bottomPadding: 12.0,
                                 leftPadding: 20.0,
                                 hintTextFontSize: 14.0,
+                                onChanged: _onChangedUsername,
                               ),
                               const SizedBox(height: 22.0),
 
@@ -257,7 +263,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     if (userName == null || userName.isEmpty) {
       return 'Please enter your username';
     }
-    if (userName.length < 3) {
+    if (userName.length < 4) {
       return 'Username is too short';
     }
     if (userName == _emailAddress.text ||
@@ -271,6 +277,21 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     // if (_takenUsernames.contains(userName)) {
     //   return 'Username is already taken';
     // }
+    return null;
+  }
+
+  /// Username live Validation check
+  bool? _onChangedUsername(String username) {
+    debugPrint('Username : $username');
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        validUsername = true;
+      });
+    } else {
+      setState(() {
+        validUsername = false;
+      });
+    }
     return null;
   }
 }
