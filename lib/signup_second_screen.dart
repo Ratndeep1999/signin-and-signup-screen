@@ -55,8 +55,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                       CustomButton(
                         label: 'Save & Continue',
                         loginClick: () {
-                          /// If Details is valid then Next..
-                          _navigateToSignupSecondScreen();
+                          /// If Details is valid then Save and Signing Screen..
+                          _navigateToSigningScreen();
                         },
                       ),
                       const SizedBox(height: 20.0),
@@ -80,7 +80,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   }
 
   /// Navigate to Signing Screen
-  void _navigateToSignupSecondScreen() {
+  void _navigateToSigningScreen() {
     if (_formKey.currentState!.validate()) {
       Navigator.push(
         context,
