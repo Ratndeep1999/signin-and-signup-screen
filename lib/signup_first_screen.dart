@@ -69,6 +69,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     );
   }
 
+  /// Refactored Card Method
   Card _buildCard(BuildContext context) {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 20.0),
