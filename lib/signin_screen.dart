@@ -17,9 +17,6 @@ class SigninScreen extends StatefulWidget {
 }
 
 class _SigninScreenState extends State<SigninScreen> {
-  // variable for suffix-icon enable-disable
-  bool suffixTap = false;
-
   // show or hide input text
   bool _obscureText = false;
 
@@ -131,8 +128,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                 obscureText: _obscureText,
                                 suffixTap: () {
                                   setState(() {
-                                    suffixTap = !suffixTap;
-                                    _obscureText = suffixTap;
+                                    _obscureText = !_obscureText;
                                   });
                                 },
                                 textController: _password,
