@@ -58,153 +58,152 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                     const SizedBox(height: 36),
 
                     /// Card
-                    Card(
-                      margin: EdgeInsets.symmetric(horizontal: 20.0),
-                      elevation: 5.0,
-                      child: Padding(
-                        /// Content Padding
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 30.0,
-                        ),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              /// 2nd Heading
-                              CustomSecondHeading(
-                                bigText: "Personal Info\n",
-                                smallText:
-                                    "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
-                              ),
-                              const SizedBox(height: 26.0),
-
-                              /// Your Name Label
-                              const CustomTextFieldLabel(
-                                label: 'Your Name',
-                                labelFontSize: 12.0,
-                              ),
-                              const SizedBox(height: 8.0),
-
-                              // First and Last Name
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  /// First Name Field
-                                  Flexible(
-                                    child: CustomTextField(
-                                      hintText: 'First Name',
-                                      keyboardType: TextInputType.name,
-                                      obscureText: false,
-                                      isSuffixIcon: false,
-                                      textController: _firstName,
-                                      validation: _firstNameValidation,
-                                      topPadding: 12.0,
-                                      bottomPadding: 12.0,
-                                      leftPadding: 20.0,
-                                      hintTextFontSize: 13.0,
-                                    ),
-                                  ),
-
-                                  SizedBox(width: 10.0),
-
-                                  /// Last Name Field
-                                  Flexible(
-                                    child: CustomTextField(
-                                      hintText: 'Last Name',
-                                      keyboardType: TextInputType.name,
-                                      obscureText: false,
-                                      isSuffixIcon: false,
-                                      textController: _lastName,
-                                      validation: _lastNameValidation,
-                                      topPadding: 12.0,
-                                      bottomPadding: 12.0,
-                                      leftPadding: 20.0,
-                                      hintTextFontSize: 13.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 20.0),
-
-                              /// Email Label
-                              const CustomTextFieldLabel(
-                                label: 'Email Address',
-                                labelFontSize: 12.0,
-                              ),
-                              const SizedBox(height: 8.0),
-
-                              /// Email Address Field
-                              CustomTextField(
-                                hintText: "Your Email Address",
-                                keyboardType: TextInputType.emailAddress,
-                                isSuffixIcon: true,
-                                suffixIcon: Icons.email,
-                                obscureText: false,
-                                textController: _emailAddress,
-                                validation: _emailValidation,
-                                topPadding: 12.0,
-                                bottomPadding: 12.0,
-                                leftPadding: 20.0,
-                                hintTextFontSize: 13.0,
-                              ),
-                              const SizedBox(height: 20.0),
-
-                              /// Username Label
-                              const CustomTextFieldLabel(
-                                label: 'Username',
-                                labelFontSize: 12.0,
-                              ),
-                              const SizedBox(height: 8.0),
-
-                              /// Username Field
-                              CustomTextField(
-                                hintText: "example1234",
-                                keyboardType: TextInputType.name,
-                                isSuffixIcon: true,
-                                suffixIcon: validUsername
-                                    ? Icons.check_circle
-                                    : Icons.cancel,
-                                suffixIconColor: validUsername
-                                    ? Color(0xFF93c743)
-                                    : Color(0xFFFF4C4C),
-                                obscureText: false,
-                                textController: _userName,
-                                validation: _userNameValidation,
-                                topPadding: 12.0,
-                                bottomPadding: 12.0,
-                                leftPadding: 20.0,
-                                hintTextFontSize: 14.0,
-                                onChanged: _onChangedUsername,
-                              ),
-                              const SizedBox(height: 22.0),
-
-                              /// Save & Continue Button
-                              CustomButton(
-                                label: 'Save & Continue',
-                                loginClick: () {
-                                  /// If Details is valid then Next..
-                                  _navigateToSignupSecondScreen();
-                                },
-                              ),
-                              const SizedBox(height: 20.0),
-
-                              /// Create Account text Button
-                              CustomClickableText(
-                                label: 'Back to Login',
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    _buildCard(context),
                   ],
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Card _buildCard(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: 20.0),
+      elevation: 5.0,
+      child: Padding(
+        /// Content Padding
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              /// 2nd Heading
+              CustomSecondHeading(
+                bigText: "Personal Info\n",
+                smallText:
+                    "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+              ),
+              const SizedBox(height: 26.0),
+
+              /// Your Name Label
+              const CustomTextFieldLabel(
+                label: 'Your Name',
+                labelFontSize: 12.0,
+              ),
+              const SizedBox(height: 8.0),
+
+              /// First and Last Name
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  /// First Name Field
+                  Flexible(
+                    child: CustomTextField(
+                      hintText: 'First Name',
+                      keyboardType: TextInputType.name,
+                      obscureText: false,
+                      isSuffixIcon: false,
+                      textController: _firstName,
+                      validation: _firstNameValidation,
+                      topPadding: 12.0,
+                      bottomPadding: 12.0,
+                      leftPadding: 20.0,
+                      hintTextFontSize: 13.0,
+                    ),
+                  ),
+
+                  SizedBox(width: 10.0),
+
+                  /// Last Name Field
+                  Flexible(
+                    child: CustomTextField(
+                      hintText: 'Last Name',
+                      keyboardType: TextInputType.name,
+                      obscureText: false,
+                      isSuffixIcon: false,
+                      textController: _lastName,
+                      validation: _lastNameValidation,
+                      topPadding: 12.0,
+                      bottomPadding: 12.0,
+                      leftPadding: 20.0,
+                      hintTextFontSize: 13.0,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20.0),
+
+              /// Email Label
+              const CustomTextFieldLabel(
+                label: 'Email Address',
+                labelFontSize: 12.0,
+              ),
+              const SizedBox(height: 8.0),
+
+              /// Email Address Field
+              CustomTextField(
+                hintText: "Your Email Address",
+                keyboardType: TextInputType.emailAddress,
+                isSuffixIcon: true,
+                suffixIcon: Icons.email,
+                obscureText: false,
+                textController: _emailAddress,
+                validation: _emailValidation,
+                topPadding: 12.0,
+                bottomPadding: 12.0,
+                leftPadding: 20.0,
+                hintTextFontSize: 13.0,
+              ),
+              const SizedBox(height: 20.0),
+
+              /// Username Label
+              const CustomTextFieldLabel(
+                label: 'Username',
+                labelFontSize: 12.0,
+              ),
+              const SizedBox(height: 8.0),
+
+              /// Username Field
+              CustomTextField(
+                hintText: "example1234",
+                keyboardType: TextInputType.name,
+                isSuffixIcon: true,
+                suffixIcon: validUsername ? Icons.check_circle : Icons.cancel,
+                suffixIconColor: validUsername
+                    ? Color(0xFF93c743)
+                    : Color(0xFFFF4C4C),
+                obscureText: false,
+                textController: _userName,
+                validation: _userNameValidation,
+                topPadding: 12.0,
+                bottomPadding: 12.0,
+                leftPadding: 20.0,
+                hintTextFontSize: 14.0,
+                onChanged: _onChangedUsername,
+              ),
+              const SizedBox(height: 22.0),
+
+              /// Save & Continue Button
+              CustomButton(
+                label: 'Save & Continue',
+                loginClick: () {
+                  /// If Details is valid then Next..
+                  _navigateToSignupSecondScreen();
+                },
+              ),
+              const SizedBox(height: 20.0),
+
+              /// Create Account text Button
+              CustomClickableText(
+                label: 'Back to Login',
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
           ),
         ),
       ),

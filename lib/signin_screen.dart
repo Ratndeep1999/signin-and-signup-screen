@@ -66,7 +66,7 @@ class _SigninScreenState extends State<SigninScreen> {
                     const SizedBox(height: 40),
 
                     /// Main Card Section
-                    _buildCard(),
+                    _buildCard(context),
                   ],
                 ),
               ],
@@ -78,7 +78,7 @@ class _SigninScreenState extends State<SigninScreen> {
   }
 
   /// Refactored Card Method
-  Card _buildCard() {
+  Card _buildCard(BuildContext context) {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 20.0),
       elevation: 5.0,
