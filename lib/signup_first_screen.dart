@@ -282,7 +282,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     if (userName == _emailAddress.text ||
         userName == _firstName.text ||
         userName == _lastName.text) {
-      return "Username need to difference from others";
+      return "Username need to be different from others";
     }
     if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(userName)) {
       return 'Only letters, numbers, and underscores are allowed';
