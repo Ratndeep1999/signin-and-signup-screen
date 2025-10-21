@@ -228,16 +228,13 @@ class _SigninScreenState extends State<SigninScreen> {
   }
 
   /// SnackBar Method
-  void _showSnackBar() {
+  void _showSnackBar({required String label}) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: CustomTextFieldLabel(
-          label: 'Login....Please wait',
-          labelFontSize: 15.0,
-        ),
-        backgroundColor: Color(0xFFfeb64d),
-        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 28.0),
-        shape: RoundedRectangleBorder(
+      SnackBar(
+        content: CustomTextFieldLabel(label: label, labelFontSize: 15.0),
+        backgroundColor: const Color(0xFFfeb64d),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 28.0),
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(12.0),
             topRight: Radius.circular(12.0),
@@ -258,7 +255,7 @@ class _SigninScreenState extends State<SigninScreen> {
   /// Login Logic
   void _loginLogic() {
     if (_formKey.currentState!.validate()) {
-      _showSnackBar();
+      _showSnackBar(label: 'Login....Please wait');
       Future.delayed(Duration(seconds: 3), () {
         /// TODO: Logic of Login
       });
