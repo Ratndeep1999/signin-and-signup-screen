@@ -160,12 +160,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                 label: 'Login Account',
                                 loginClick: () {
                                   /// If Details is valid then Login..
-                                  if (_formKey.currentState!.validate()) {
-                                    _showSnackBar();
-                                    Future.delayed(Duration(seconds: 3), () {
-                                      /// TODO: Logic of Login
-                                    });
-                                  } else {}
+                                  _loginLogic();
                                 },
                               ),
                               const SizedBox(height: 25.0),
@@ -174,12 +169,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               CustomClickableText(
                                 label: 'Create New Account',
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SignupFirstScreen(),
-                                    ),
-                                  );
+                                  _navigateToSignupFirstScreen();
                                 },
                               ),
                             ],
@@ -255,5 +245,23 @@ class _SigninScreenState extends State<SigninScreen> {
         ),
       ),
     );
+  }
+
+  /// Navigate to signup first screen
+  void _navigateToSignupFirstScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignupFirstScreen()),
+    );
+  }
+
+  /// Login Logic
+  void _loginLogic() {
+    if (_formKey.currentState!.validate()) {
+      _showSnackBar();
+      Future.delayed(Duration(seconds: 3), () {
+        /// TODO: Logic of Login
+      });
+    } else {}
   }
 }
