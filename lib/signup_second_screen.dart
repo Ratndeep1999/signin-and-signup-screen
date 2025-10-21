@@ -56,16 +56,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                         label: 'Save & Continue',
                         loginClick: () {
                           /// If Details is valid then Next..
-                          if (_formKey.currentState!.validate()) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return SignupSecondScreen();
-                                },
-                              ),
-                            );
-                          }
+                          _navigateToSignupSecondScreen();
                         },
                       ),
                       const SizedBox(height: 20.0),
@@ -86,5 +77,19 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
         ),
       ),
     );
+  }
+
+  /// Navigate to Signing Screen
+  void _navigateToSignupSecondScreen() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return SignupSecondScreen();
+          },
+        ),
+      );
+    }
   }
 }
