@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_helping_clickable_text.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_text_field_label.dart';
+import 'package:signin_and_signup_screens/home_screen.dart';
 import 'package:signin_and_signup_screens/signup_first_screen.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
@@ -252,9 +253,21 @@ class _SigninScreenState extends State<SigninScreen> {
   void _loginLogic() {
     if (_formKey.currentState!.validate()) {
       _showSnackBar(label: 'Login....Please wait');
-      Future.delayed(Duration(seconds: 3), () {
-        /// TODO: Logic of Login
+      Future.delayed(Duration(seconds: 2), () {
+        _navigateToHomeScreen();
       });
     } else {}
+  }
+
+  /// Navigation to Home Screen
+  void _navigateToHomeScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return HomeScreen();
+        },
+      ),
+    );
   }
 }
