@@ -29,123 +29,126 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
       ),
 
       /// Body
-      body: SafeArea(
-        child: Stack(
-          children: [
-            /// Background Custom Design
-            const CustomClippingDesign(),
+      body: SingleChildScrollView(
+        child: InkWell(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: SafeArea(
+            child: Stack(
+              children: [
+                /// Background Custom Design
+                const CustomClippingDesign(),
 
-            /// Card
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 20.0),
-              elevation: 5.0,
-              child: Padding(
-                /// Content Padding
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 32.0,
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      /// 2nd Heading
-                      CustomSecondHeading(
-                        bigText: "Secure Account\n",
-                        smallText:
-                            "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                /// Card
+                Card(
+                  margin: EdgeInsets.symmetric(horizontal: 20.0),
+                  elevation: 5.0,
+                  child: Padding(
+                    /// Content Padding
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 32.0,
+                    ),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          /// 2nd Heading
+                          CustomSecondHeading(
+                            bigText: "Secure Account\n",
+                            smallText:
+                                "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                          ),
+                          const SizedBox(height: 35.0),
+
+                          /// Birthday Label
+                          const CustomTextFieldLabel(
+                            label: 'Birthday',
+                            labelFontSize: 12.0,
+                          ),
+                          const SizedBox(height: 8.0),
+
+                          /// Birthday Field
+
+                          /// Password Label
+                          const CustomTextFieldLabel(
+                            label: 'Password',
+                            labelFontSize: 12.0,
+                          ),
+                          const SizedBox(height: 8.0),
+
+                          /// Password Field
+                          CustomTextField(
+                            hintText: "Enter Your Password",
+                            keyboardType: TextInputType.visiblePassword,
+                            isSuffixIcon: true,
+                            suffixIcon: _obscureText
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            obscureText: _obscureText,
+                            suffixTap: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                            textController: _password,
+                            validation: _passwordValidation,
+                            topPadding: 12.0,
+                            bottomPadding: 12.0,
+                            leftPadding: 20.0,
+                            hintTextFontSize: 13.0,
+                            // onSaved: (String? email) {
+                            //   emailAddress = email!;
+                            // },
+                          ),
+                          const SizedBox(height: 20.0),
+
+                          /// Phone Number Label
+                          const CustomTextFieldLabel(
+                            label: 'Phone Number',
+                            labelFontSize: 12.0,
+                          ),
+                          const SizedBox(height: 8.0),
+
+                          /// Phone Number Field
+
+                          /// Security Question Label
+                          const CustomTextFieldLabel(
+                            label: 'Security Question',
+                            labelFontSize: 12.0,
+                          ),
+                          const SizedBox(height: 8.0),
+
+                          /// Security Question Field
+
+                          /// Security Answer Field
+
+                          /// Save & Continue Button
+                          CustomButton(
+                            label: 'Save & Continue',
+                            loginClick: () {
+                              /// If Details is valid then Save and Signing Screen..
+                              _checkValidation();
+                            },
+                          ),
+                          const SizedBox(height: 20.0),
+
+                          /// Create Account text Button
+                          CustomClickableText(
+                            label: 'Back to Login',
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 35.0),
-
-
-                      /// Birthday Label
-                      const CustomTextFieldLabel(
-                        label: 'Birthday',
-                        labelFontSize: 12.0,
-                      ),
-                      const SizedBox(height: 8.0),
-
-                      /// Birthday Field
-
-
-                      /// Password Label
-                      const CustomTextFieldLabel(
-                        label: 'Password',
-                        labelFontSize: 12.0,
-                      ),
-                      const SizedBox(height: 8.0),
-
-                      /// Password Field
-                      CustomTextField(
-                        hintText: "Enter Your Password",
-                        keyboardType: TextInputType.visiblePassword,
-                        isSuffixIcon: true,
-                        suffixIcon: _obscureText
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                        obscureText: _obscureText,
-                        suffixTap: () {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        },
-                        textController: _password,
-                        validation: _passwordValidation,
-                        topPadding: 12.0,
-                        bottomPadding: 12.0,
-                        leftPadding: 20.0,
-                        hintTextFontSize: 13.0,
-                        // onSaved: (String? email) {
-                        //   emailAddress = email!;
-                        // },
-                      ),
-                      const SizedBox(height: 20.0),
-
-                      /// Phone Number Label
-                      const CustomTextFieldLabel(
-                        label: 'Phone Number',
-                        labelFontSize: 12.0,
-                      ),
-                      const SizedBox(height: 8.0),
-
-                      /// Phone Number Field
-
-
-                      /// Security Question Label
-                      const CustomTextFieldLabel(
-                        label: 'Security Question',
-                        labelFontSize: 12.0,
-                      ),
-                      const SizedBox(height: 8.0),
-
-                      /// Security Question Field
-
-                      /// Security Answer Field
-
-
-                      /// Save & Continue Button
-                      CustomButton(
-                        label: 'Save & Continue',
-                        loginClick: () {
-                          /// If Details is valid then Save and Signing Screen..
-                          _checkValidation();
-                        },
-                      ),
-                      const SizedBox(height: 20.0),
-
-                      /// Create Account text Button
-                      CustomClickableText(
-                        label: 'Back to Login',
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
