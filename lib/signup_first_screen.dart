@@ -229,7 +229,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   String? _firstNameValidation(String? firstName) {
     firstName = firstName?.trim();
     if (firstName == null || firstName.isEmpty) {
-      return 'Please enter your first name';
+      return 'Enter your first name';
     }
     if (firstName.length < 2) {
       return 'Name is too short';
@@ -244,7 +244,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   String? _lastNameValidation(String? lastName) {
     lastName = lastName?.trim();
     if (lastName == null || lastName.isEmpty) {
-      return 'Please enter your last name';
+      return 'Enter your last name';
     }
     if (lastName.length < 4) {
       return 'Name is too short';
