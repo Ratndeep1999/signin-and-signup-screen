@@ -17,8 +17,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixTap,
     this.suffixIconColor,
     this.onChanged,
-    this.onSaved,
-    required this.isPrefixIcon,
+    this.onSaved
   });
 
   // Attributes
@@ -34,8 +33,8 @@ class CustomTextField extends StatelessWidget {
   final double leftPadding;
   final double hintTextFontSize;
   final Color? suffixIconColor;
-  final bool isPrefixIcon;
   final FormFieldSetter<String>? onSaved;
+
   final ValueChanged<String>? onChanged;
 
   // Fun. return type   Function(value of the text field might be null) variable
@@ -76,17 +75,16 @@ class CustomTextField extends StatelessWidget {
         // SuffixIcon it can be clickable using suffixTap
         suffixIcon: isSuffixIcon
             ? IconButton(
-          // suffixIcon it can be null
-          icon: Icon(suffixIcon, size: 20, color: suffixIconColor),
-          onPressed: suffixTap,
-          splashRadius: 5,
-          highlightColor: Colors.transparent,
-        )
+                // suffixIcon it can be null
+                icon: Icon(suffixIcon, size: 20, color: suffixIconColor),
+                onPressed: suffixTap,
+                splashRadius: 5,
+                highlightColor: Colors.transparent,
+              )
             : null,
         suffixIconColor: Colors.black54,
         // min right padding of icon
         suffixIconConstraints: BoxConstraints(minWidth: 80.0),
-        prefixIcon: isPrefixIcon ? Icon(Icons.one_k) : null,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50.0),
