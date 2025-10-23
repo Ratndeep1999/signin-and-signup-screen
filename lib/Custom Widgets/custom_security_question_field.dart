@@ -24,7 +24,11 @@ class CustomSecurityQuestionField extends StatelessWidget {
       ),
       icon: const SizedBox.shrink(),
       decoration: InputDecoration(
-        suffixIcon: Icon(Icons.keyboard_arrow_down_rounded, size: 26),
+        suffixIcon: Icon(
+          Icons.keyboard_arrow_down_rounded,
+          size: 26,
+          color: Colors.black45,
+        ),
         suffixIconConstraints: BoxConstraints(minWidth: 68.0),
         // border-radius
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0)),
