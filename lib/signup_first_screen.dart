@@ -22,7 +22,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _emailAddress = TextEditingController();
   final TextEditingController _userName = TextEditingController();
-  bool validUsername = false;
+  bool _validUsername = false;
 
   // Parameters
   String? firstName;
@@ -187,8 +187,8 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                 hintText: "example1234",
                 keyboardType: TextInputType.name,
                 isSuffixIcon: true,
-                suffixIcon: validUsername ? Icons.check_circle : Icons.cancel,
-                suffixIconColor: validUsername
+                suffixIcon: _validUsername ? Icons.check_circle : Icons.cancel,
+                suffixIconColor: _validUsername
                     ? Color(0xFF93c743)
                     : Color(0xFFFF4C4C),
                 obscureText: false,
@@ -302,11 +302,11 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     debugPrint('Username : $username');
     if (_formKey.currentState!.validate()) {
       setState(() {
-        validUsername = true;
+        _validUsername = true;
       });
     } else {
       setState(() {
-        validUsername = false;
+        _validUsername = false;
       });
     }
     return null;
