@@ -56,7 +56,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                         label: 'Save & Continue',
                         loginClick: () {
                           /// If Details is valid then Save and Signing Screen..
-                          _navigateToSigningScreen();
+                          _checkValidation();
                         },
                       ),
                       const SizedBox(height: 20.0),
@@ -81,9 +81,16 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Navigate to Signing Screen
   void _navigateToSigningScreen() {
+    // Direct navigate to First Page of Stack and Remove all Pages
+    Navigator.popUntil(context, (route) => route.isFirst);
+  }
+
+  /// It Validate all Fields
+  void _checkValidation() {
     if (_formKey.currentState!.validate()) {
-      // Direct navigate to First Page of Stack and Remove all Pages
-      Navigator.popUntil(context, (route) => route.isFirst);
+      // This triggers all onSaved methods
+      _formKey.currentState!.save();
+      _navigateToSigningScreen();
     }
   }
 }
