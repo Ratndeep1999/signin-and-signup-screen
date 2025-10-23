@@ -33,6 +33,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   // show or hide input text
   bool _obscureText = false;
+
   // check number is valid or not
   bool _isPhoneNumberValid = false;
 
@@ -128,25 +129,96 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           const SizedBox(height: 8.0),
 
                           /// Phone Number Field
-                          CustomTextField(
-                            hintText: "1234 5678 9101",
+                          IntlPhoneField(
+                            controller: _phoneNumberController,
                             keyboardType: TextInputType.phone,
-                            isSuffixIcon: true,
-                            suffixIcon: _isPhoneNumberValid
-                                ? Icons.check_circle
-                                : Icons.cancel,
-                            suffixIconColor: _isPhoneNumberValid
-                                ? Color(0xFF93c743)
-                                : Color(0xFFFF4C4C),
-                            textController: _phoneNumberController,
-                            validation: _phoneNumberValidation,
-                            topPadding: 10,
-                            bottomPadding: 10,
-                            leftPadding: 20,
-                            hintTextFontSize: 13.0,
-                            obscureText: false,
-                            onChanged: _onChangedPhoneNumber,
+                            //onSaved: ,
+                            //validator: _phoneNumberValidation,
+                            // dropdown
+                            dropdownIconPosition: IconPosition.trailing,
+                            dropdownIcon: Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              size: 13,
+                              color: Colors.black54,
+                            ),
+                            dropdownTextStyle: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            disableLengthCheck: true,
+                            // input phone number style
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            decoration: InputDecoration(
+                              // hint text
+                              hint: Text(
+                                "1234 5678 9101",
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.black54,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              errorStyle: TextStyle(
+                                color: Color(0xFFefb744),
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              // padding of hintText
+                              contentPadding: EdgeInsets.only(
+                                top: 12.0,
+                                bottom: 12.0,
+                                left: 20.0,
+                              ),
+                              suffixIcon: Icon(
+                                _isPhoneNumberValid
+                                    ? Icons.check_circle
+                                    : Icons.cancel,
+                                size: 18,
+                              ),
+                              // borders
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black12,
+                                  width: 1.0,
+                                ), // default border color
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black12,
+                                  width: 2.0,
+                                ), // active border color
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFefb744),
+                                  width: 2.0,
+                                ), // error state
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFefb744),
+                                  width: 2.0,
+                                ),
+                              ),
+                            ),
+                            initialCountryCode: 'IN',
+                            onChanged: (phone) {
+                              print(phone.completeNumber);
+                            },
                           ),
+                          const SizedBox(height: 20.0),
 
                           /// Security Question Label
                           const CustomTextFieldLabel(
@@ -196,21 +268,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                               Navigator.pop(context);
                             },
                           ),
-                          const SizedBox(height: 20.0),
-
-                          IntlPhoneField(
-                            decoration: InputDecoration(
-                              labelText: 'Phone Number',
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(),
-                              ),
-                            ),
-                            initialCountryCode: 'IN',
-                            onChanged: (phone) {
-                              print(phone.completeNumber);
-                            },
-                          )
-
                         ],
                       ),
                     ),
