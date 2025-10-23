@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
 
@@ -57,10 +59,13 @@ class HomeScreen extends StatelessWidget {
 
   /// Navigate to Signing Screen
   void _logout(context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => SigningScreen()),
-    );
+    // Delay 3 seconds
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => SigningScreen()),
+      );
+    });
   }
 
   /// SnackBar Method
@@ -80,5 +85,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
 }
