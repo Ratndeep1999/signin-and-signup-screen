@@ -10,14 +10,14 @@ import 'Custom Widgets/custom_second_heading.dart';
 import 'Custom Widgets/custom_text_field.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
 
-class SigninScreen extends StatefulWidget {
-  const SigninScreen({super.key});
+class SigningScreen extends StatefulWidget {
+  const SigningScreen({super.key});
 
   @override
-  State<SigninScreen> createState() => _SigninScreenState();
+  State<SigningScreen> createState() => _SigningScreenState();
 }
 
-class _SigninScreenState extends State<SigninScreen> {
+class _SigningScreenState extends State<SigningScreen> {
   // show or hide input text
   bool _obscureText = false;
 
@@ -165,6 +165,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 label: 'Login Account',
                 loginClick: () {
                   /// If Details is valid then Login..
+                  FocusScope.of(context).unfocus();
                   _loginLogic();
                 },
               ),
