@@ -16,7 +16,8 @@ class CustomTextField extends StatelessWidget {
     required this.leftPadding,
     required this.hintTextFontSize,
     this.suffixIconColor,
-    this.onChanged
+    this.onChanged,
+    this.onSaved
   });
 
   // Attributes
@@ -32,6 +33,7 @@ class CustomTextField extends StatelessWidget {
   final double leftPadding;
   final double hintTextFontSize;
   final Color? suffixIconColor;
+  final FormFieldSetter<String>? onSaved;
 
   final ValueChanged<String>? onChanged;
 
@@ -43,6 +45,7 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       controller: textController,
       validator: validation,
+      onSaved: onSaved,
       onChanged: onChanged,
       keyboardType: keyboardType,
       obscureText: obscureText,
