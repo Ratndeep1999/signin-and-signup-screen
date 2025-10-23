@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_heading.dart';
 
@@ -35,9 +36,19 @@ class HomeScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+
+            /// Logout Button
+            CustomButton(
+              label: 'Logout',
+              loginClick: () {
+                _logout();
+              },
+            ),
           ],
         ),
       ),
     );
   }
+
+  void _logout() {}
 }
