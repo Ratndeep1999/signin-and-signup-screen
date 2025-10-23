@@ -22,11 +22,10 @@ class CustomSecurityQuestionField extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-      icon: RotatedBox(
-        quarterTurns: 1,
-        child: Icon(Icons.arrow_forward_ios_rounded, size: 18),
-      ),
+      icon: const SizedBox.shrink(),
       decoration: InputDecoration(
+        suffixIcon: Icon(Icons.keyboard_arrow_down_rounded, size: 26),
+        suffixIconConstraints: BoxConstraints(minWidth: 68.0),
         // border-radius
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0)),
         errorStyle: TextStyle(
