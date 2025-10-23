@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Custom Widgets/custom_clipping_design.dart';
+import 'Custom Widgets/custom_heading.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,6 +15,15 @@ class HomeScreen extends StatelessWidget {
           children: [
             /// Background Custom Design
             const CustomClippingDesign(),
+
+            /// Heading Text
+            Align(
+              alignment: Alignment(0,-0.8),
+              child: CustomHeading(
+                bigText: "Home Screen\n",
+                smallText: "Welcome To Dashboard",
+              ),
+            ),
 
             /// Dashboard Icon
             Align(
