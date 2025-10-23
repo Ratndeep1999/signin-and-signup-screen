@@ -33,7 +33,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   // show or hide input text
   bool _obscureText = false;
 
-  //
+  // check number valid or not
   bool _isPhoneNumberValid = false;
 
   @override
