@@ -4,6 +4,7 @@ import 'package:signin_and_signup_screens/signin_screen.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_heading.dart';
+import 'Custom Widgets/custom_text_field_label.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -41,6 +42,7 @@ class HomeScreen extends StatelessWidget {
                   CustomButton(
                     label: 'Logout',
                     loginClick: () {
+                      _showSnackBar(label: 'Logout', context: context);
                       _logout(context);
                     },
                   ),
@@ -57,7 +59,26 @@ class HomeScreen extends StatelessWidget {
   void _logout(context) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => SigninScreen()),
+      MaterialPageRoute(builder: (context) => SigningScreen()),
     );
   }
+
+  /// SnackBar Method
+  void _showSnackBar({required String label, context}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: CustomTextFieldLabel(label: label, labelFontSize: 15.0),
+        duration: Duration(seconds: 2),
+        backgroundColor: const Color(0xFFfeb64d),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 28.0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12.0),
+            topRight: Radius.circular(12.0),
+          ),
+        ),
+      ),
+    );
+  }
+
 }
