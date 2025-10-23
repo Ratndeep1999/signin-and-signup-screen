@@ -82,14 +82,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   /// Navigate to Signing Screen
   void _navigateToSigningScreen() {
     if (_formKey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return SignupSecondScreen();
-          },
-        ),
-      );
+      // Direct navigate to First Page of Stack and Remove all Pages
+      Navigator.popUntil(context, (route) => route.isFirst);
     }
   }
 }
