@@ -121,7 +121,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                       hintTextFontSize: 13.0,
                       onSaved: (String? firstname) {
                         firstName = firstname!;
-                      }, isPrefixIcon: false,
+                      },
                     ),
                   ),
 
@@ -142,7 +142,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                       hintTextFontSize: 13.0,
                       onSaved: (String? lastname) {
                         lastName = lastname!;
-                      }, isPrefixIcon: false,
+                      },
                     ),
                   ),
                 ],
@@ -171,7 +171,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                 hintTextFontSize: 13.0,
                 onSaved: (String? email) {
                   emailAddress = email!;
-                }, isPrefixIcon: false,
+                },
               ),
               const SizedBox(height: 20.0),
 
@@ -201,7 +201,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                 onChanged: _onChangedUsername,
                 onSaved: (String? username) {
                   userName = username!;
-                }, isPrefixIcon: false,
+                },
               ),
               const SizedBox(height: 22.0),
 
@@ -299,6 +299,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
 
   /// Username live Validation check
   bool? _onChangedUsername(String username) {
+    debugPrint('Username : $username');
     if (_formKey.currentState!.validate()) {
       setState(() {
         _validUsername = true;

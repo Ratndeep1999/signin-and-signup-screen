@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_security_question_field.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
@@ -32,8 +33,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   // show or hide input text
   bool _obscureText = false;
-
-  // check number valid or not
+  // check number is valid or not
   bool _isPhoneNumberValid = false;
 
   @override
@@ -114,7 +114,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             bottomPadding: 12.0,
                             leftPadding: 20.0,
                             hintTextFontSize: 13.0,
-                            isPrefixIcon: false,
                             // onSaved: (String? email) {
                             //   emailAddress = email!;
                             // },
@@ -147,7 +146,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             hintTextFontSize: 13.0,
                             obscureText: false,
                             onChanged: _onChangedPhoneNumber,
-                            isPrefixIcon: true,
                           ),
 
                           /// Security Question Label
@@ -178,7 +176,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             leftPadding: 20.0,
                             hintTextFontSize: 13.0,
                             obscureText: false,
-                            isPrefixIcon: false,
                           ),
                           const SizedBox(height: 22.0),
 
@@ -199,6 +196,21 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                               Navigator.pop(context);
                             },
                           ),
+                          const SizedBox(height: 20.0),
+
+                          IntlPhoneField(
+                            decoration: InputDecoration(
+                              labelText: 'Phone Number',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(),
+                              ),
+                            ),
+                            initialCountryCode: 'IN',
+                            onChanged: (phone) {
+                              print(phone.completeNumber);
+                            },
+                          )
+
                         ],
                       ),
                     ),
