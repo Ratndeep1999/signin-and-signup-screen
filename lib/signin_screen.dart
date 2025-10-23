@@ -230,6 +230,7 @@ class _SigningScreenState extends State<SigningScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: CustomTextFieldLabel(label: label, labelFontSize: 15.0),
+        duration: Duration(seconds: 2),
         backgroundColor: const Color(0xFFfeb64d),
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 28.0),
         shape: const RoundedRectangleBorder(
@@ -254,7 +255,7 @@ class _SigningScreenState extends State<SigningScreen> {
   void _loginLogic() {
     if (_formKey.currentState!.validate()) {
       _showSnackBar(label: 'Login....Please wait');
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(Duration(seconds: 3), () {
         _navigateToHomeScreen();
       });
     } else {}
