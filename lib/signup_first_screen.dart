@@ -9,7 +9,7 @@ import 'Custom Widgets/custom_second_heading.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
 
 class SignupFirstScreen extends StatefulWidget {
-  SignupFirstScreen({super.key});
+  const SignupFirstScreen({super.key});
 
   @override
   State<SignupFirstScreen> createState() => _SignupFirstScreenState();
