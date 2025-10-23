@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
+import 'package:signin_and_signup_screens/Custom%20Widgets/custom_phone_number_field.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_security_question_field.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
@@ -19,7 +20,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _securityAnswer = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   // Security Questions
   final List<String> questions = [
@@ -29,7 +30,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     'What is your favorite color?',
     'What city were you born in?',
   ];
-  late final String? _selectedSecurityQuestion;
+  String? _selectedSecurityQuestion;
 
   // show or hide input text
   bool _obscureText = false;
@@ -109,7 +110,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                                 _obscureText = !_obscureText;
                               });
                             },
-                            textController: _password,
+                            controller: _password,
                             validation: _passwordValidation,
                             topPadding: 12.0,
                             bottomPadding: 12.0,
@@ -129,94 +130,22 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           const SizedBox(height: 8.0),
 
                           /// Phone Number Field
-                          IntlPhoneField(
-                            controller: _phoneNumberController,
-                            keyboardType: TextInputType.phone,
-                            //onSaved: ,
-                            //validator: _phoneNumberValidation,
-                            // dropdown
-                            dropdownIconPosition: IconPosition.trailing,
-                            dropdownIcon: Icon(
-                              Icons.arrow_forward_ios_outlined,
-                              size: 13,
-                              color: Colors.black54,
-                            ),
-                            dropdownTextStyle: TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            disableLengthCheck: true,
-                            // input phone number style
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            decoration: InputDecoration(
-                              // hint text
-                              hint: Text(
-                                "1234 5678 9101",
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              errorStyle: TextStyle(
-                                color: Color(0xFFefb744),
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              // padding of hintText
-                              contentPadding: EdgeInsets.only(
-                                top: 12.0,
-                                bottom: 12.0,
-                                left: 20.0,
-                              ),
-                              suffixIcon: Icon(
-                                _isPhoneNumberValid
-                                    ? Icons.check_circle
-                                    : Icons.cancel,
-                                size: 18,
-                              ),
-                              // borders
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                                borderSide: BorderSide(
-                                  color: Colors.black12,
-                                  width: 1.0,
-                                ), // default border color
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                                borderSide: BorderSide(
-                                  color: Colors.black12,
-                                  width: 2.0,
-                                ), // active border color
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                                borderSide: BorderSide(
-                                  color: Color(0xFFefb744),
-                                  width: 2.0,
-                                ), // error state
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                                borderSide: BorderSide(
-                                  color: Color(0xFFefb744),
-                                  width: 2.0,
-                                ),
-                              ),
-                            ),
-                            initialCountryCode: 'IN',
-                            onChanged: (phone) {
-                              print(phone.completeNumber);
+                          CustomPhoneNumberField(
+                            suffixIcon: _isPhoneNumberValid
+                                ? Icons.check_circle
+                                : Icons.cancel,
+                            suffixIconColor: _isPhoneNumberValid
+                                ? Color(0xFF93c743)
+                                : Color(0xFFFF4C4C),
+                            onChanged: (PhoneNumber number) {
+                              print("Hello " + number.completeNumber);
+                              _onChangedPhoneNumber(number.number);
                             },
+                            validation: (PhoneNumber? number) {
+                              debugPrint("abc " + number.toString());
+                              _phoneNumberValidation(number);
+                            },
+                            controller: phoneController,
                           ),
                           const SizedBox(height: 20.0),
 
@@ -241,7 +170,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             hintText: "Your Answer...",
                             keyboardType: TextInputType.text,
                             isSuffixIcon: false,
-                            textController: _securityAnswer,
+                            controller: _securityAnswer,
                             validation: _securityAnswerValidation,
                             topPadding: 12.0,
                             bottomPadding: 12.0,
@@ -322,22 +251,22 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   }
 
   /// Phone Number Validation
-  String? _phoneNumberValidation(String? number) {
-    number = number?.trim();
-    if (number == null || number.isEmpty) {
+  String? _phoneNumberValidation(PhoneNumber? number) {
+    final phone = number?.number.trim();
+    if (phone == null || phone.isEmpty) {
       return "Please enter your phone number";
     }
-    if (number.length != 10) {
+    if (phone.length != 10) {
       return "Mobile number must be 10 digits";
     }
-    if (!RegExp(r'^[0-9]+$').hasMatch(number)) {
+    if (!RegExp(r'^[0-9]+$').hasMatch(phone)) {
       return "Only numbers are allowed";
     }
-    return null;
+    return null; // valid
   }
 
   /// Phone Number live Validation Check
-  bool? _onChangedPhoneNumber(String phoneNumber) {
+  void _onChangedPhoneNumber(String phoneNumber) {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isPhoneNumberValid = true;
@@ -347,7 +276,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
         _isPhoneNumberValid = false;
       });
     }
-    return null;
   }
 
   /// It Validate all Fields

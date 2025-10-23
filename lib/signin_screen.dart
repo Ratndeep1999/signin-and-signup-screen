@@ -112,7 +112,7 @@ class _SigningScreenState extends State<SigningScreen> {
                 isSuffixIcon: true,
                 suffixIcon: Icons.person,
                 obscureText: false,
-                textController: _emailAddress,
+                controller: _emailAddress,
                 validation: _emailValidation,
                 topPadding: 15.0,
                 bottomPadding: 15.0,
@@ -140,7 +140,7 @@ class _SigningScreenState extends State<SigningScreen> {
                     _obscureText = !_obscureText;
                   });
                 },
-                textController: _password,
+                controller: _password,
                 validation: _passwordValidation,
                 topPadding: 15.0,
                 bottomPadding: 15.0,
