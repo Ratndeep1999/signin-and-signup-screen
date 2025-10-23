@@ -16,6 +16,7 @@ class SignupSecondScreen extends StatefulWidget {
 class _SignupSecondScreenState extends State<SignupSecondScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _password = TextEditingController();
+  final TextEditingController _securityAnswer = TextEditingController();
 
   // show or hide input text
   bool _obscureText = false;
@@ -123,6 +124,19 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           /// Security Question Field
 
                           /// Security Answer Field
+                          CustomTextField(
+                            hintText: "Your Answer...",
+                            keyboardType: TextInputType.text,
+                            isSuffixIcon: false,
+                            textController: _securityAnswer,
+                            validation: _securityAnswerValidation,
+                            topPadding: 12.0,
+                            bottomPadding: 12.0,
+                            leftPadding: 20.0,
+                            hintTextFontSize: 13.0,
+                            obscureText: false,
+                          ),
+                          const SizedBox(height: 22.0),
 
                           /// Save & Continue Button
                           CustomButton(
@@ -194,5 +208,18 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   void _navigateToSigningScreen() {
     // Direct navigate to First Page of Stack and Remove all Pages
     Navigator.popUntil(context, (route) => route.isFirst);
+  }
+
+  String? _securityAnswerValidation(String? answer) {
+    if (answer == null || answer.isEmpty) {
+      return "Please enter the answer";
+    }
+    if (answer.length < 3) {
+      return "Answer must be at least 3 characters long";
+    }
+    if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(answer)) {
+      return "Only letters and numbers are allowed";
+    }
+    return null;
   }
 }
