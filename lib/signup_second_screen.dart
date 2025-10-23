@@ -18,6 +18,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _securityAnswer = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
 
   // Security Questions
   final List<String> questions = [
@@ -31,6 +32,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   // show or hide input text
   bool _obscureText = false;
+
+  //
+  bool _isPhoneNumberValid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +128,25 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           const SizedBox(height: 8.0),
 
                           /// Phone Number Field
+                          CustomTextField(
+                            hintText: "1234 5678 9101",
+                            keyboardType: TextInputType.phone,
+                            isSuffixIcon: true,
+                            suffixIcon: _isPhoneNumberValid
+                                ? Icons.check_circle
+                                : Icons.cancel,
+                            suffixIconColor: _isPhoneNumberValid
+                                ? Color(0xFF93c743)
+                                : Color(0xFFFF4C4C),
+                            textController: _phoneNumberController,
+                            validation: _phoneNumberValidation,
+                            topPadding: 10,
+                            bottomPadding: 10,
+                            leftPadding: 20,
+                            hintTextFontSize: 13.0,
+                            obscureText: false,
+                            onChanged: _onChangedPhoneNumber,
+                          ),
 
                           /// Security Question Label
                           const CustomTextFieldLabel(
@@ -222,6 +245,35 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     }
     if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(answer)) {
       return "Only letters and numbers are allowed";
+    }
+    return null;
+  }
+
+  /// Phone Number Validation
+  String? _phoneNumberValidation(String? number) {
+    number = number?.trim();
+    if (number == null || number.isEmpty) {
+      return "Please enter your phone number";
+    }
+    if (number.length != 10) {
+      return "Mobile number must be 10 digits";
+    }
+    if (!RegExp(r'^[0-9]+$').hasMatch(number)) {
+      return "Only numbers are allowed";
+    }
+    return null;
+  }
+
+  /// Phone Number live Validation Check
+  bool? _onChangedPhoneNumber(String phoneNumber) {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isPhoneNumberValid = true;
+      });
+    } else {
+      setState(() {
+        _isPhoneNumberValid = false;
+      });
     }
     return null;
   }
