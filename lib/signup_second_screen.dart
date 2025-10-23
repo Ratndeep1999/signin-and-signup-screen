@@ -116,9 +116,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             bottomPadding: 12.0,
                             leftPadding: 20.0,
                             hintTextFontSize: 13.0,
-                            // onSaved: (String? email) {
-                            //   emailAddress = email!;
-                            // },
                           ),
                           const SizedBox(height: 20.0),
 
@@ -143,7 +140,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             },
                             validation: (PhoneNumber? number) {
                               debugPrint("abc " + number.toString());
-                              _phoneNumberValidation(number);
+                              return _phoneNumberValidation(number);
                             },
                             controller: phoneController,
                           ),
@@ -161,6 +158,14 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             securityQuestions: questions,
                             onSaved: (String? securityQuestion) {
                               _selectedSecurityQuestion = securityQuestion;
+                            },
+                            validation: (String? question) {
+                              return _securityQuestionValidation(question);
+                            },
+                            onChanged: (String? selectedQuestion) {
+                              debugPrint(
+                                'Selected question: $selectedQuestion',
+                              );
                             },
                           ),
                           const SizedBox(height: 8.0),
@@ -244,7 +249,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     if (answer.length < 3) {
       return "Answer must be at least 3 characters long";
     }
-    if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(answer)) {
+    if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer)) {
       return "Only letters and numbers are allowed";
     }
     return null;
@@ -292,5 +297,13 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   void _navigateToSigningScreen() {
     // Direct navigate to First Page of Stack and Remove all Pages
     Navigator.popUntil(context, (route) => route.isFirst);
+  }
+
+  /// Security Questin Validation
+  String? _securityQuestionValidation(question) {
+    if (question == null || question.isEmpty) {
+      return "Please select the question";
+    }
+    return null;
   }
 }
