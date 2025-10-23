@@ -118,6 +118,7 @@ class _SigningScreenState extends State<SigningScreen> {
                 bottomPadding: 15.0,
                 leftPadding: 20.0,
                 hintTextFontSize: 14,
+                isPrefixIcon: false,
               ),
               const SizedBox(height: 26.0),
 
@@ -146,6 +147,7 @@ class _SigningScreenState extends State<SigningScreen> {
                 bottomPadding: 15.0,
                 leftPadding: 20.0,
                 hintTextFontSize: 14,
+                isPrefixIcon: false,
               ),
               const SizedBox(height: 24.0),
 

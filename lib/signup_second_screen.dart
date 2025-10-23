@@ -114,6 +114,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             bottomPadding: 12.0,
                             leftPadding: 20.0,
                             hintTextFontSize: 13.0,
+                            isPrefixIcon: false,
                             // onSaved: (String? email) {
                             //   emailAddress = email!;
                             // },
@@ -146,6 +147,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             hintTextFontSize: 13.0,
                             obscureText: false,
                             onChanged: _onChangedPhoneNumber,
+                            isPrefixIcon: true,
                           ),
 
                           /// Security Question Label
@@ -176,6 +178,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             leftPadding: 20.0,
                             hintTextFontSize: 13.0,
                             obscureText: false,
+                            isPrefixIcon: false,
                           ),
                           const SizedBox(height: 22.0),
 
