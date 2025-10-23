@@ -254,6 +254,7 @@ class _SigningScreenState extends State<SigningScreen> {
   /// Login Logic
   void _loginLogic() {
     if (_formKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
       _showSnackBar(label: 'Login....Please wait');
       Future.delayed(Duration(seconds: 3), () {
         _navigateToHomeScreen();
