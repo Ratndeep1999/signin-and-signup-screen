@@ -24,6 +24,12 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   final TextEditingController _userName = TextEditingController();
   bool validUsername = false;
 
+  // Parameters
+  late final String firstName;
+  late final String lastName;
+  late final String emailAddress;
+  late final String userName;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,6 +119,9 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                       bottomPadding: 12.0,
                       leftPadding: 20.0,
                       hintTextFontSize: 13.0,
+                      onSaved: (String? firstname) {
+                        firstName = firstname!;
+                      },
                     ),
                   ),
 
@@ -131,6 +140,9 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                       bottomPadding: 12.0,
                       leftPadding: 20.0,
                       hintTextFontSize: 13.0,
+                      onSaved: (String? lastname) {
+                        lastName = lastname!;
+                      },
                     ),
                   ),
                 ],
@@ -157,6 +169,9 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                 bottomPadding: 12.0,
                 leftPadding: 20.0,
                 hintTextFontSize: 13.0,
+                onSaved: (String? email) {
+                  emailAddress = email!;
+                },
               ),
               const SizedBox(height: 20.0),
 
@@ -184,6 +199,9 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                 leftPadding: 20.0,
                 hintTextFontSize: 14.0,
                 onChanged: _onChangedUsername,
+                onSaved: (String? username) {
+                  userName = username!;
+                },
               ),
               const SizedBox(height: 22.0),
 
@@ -192,7 +210,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                 label: 'Save & Continue',
                 loginClick: () {
                   /// If Details is valid then Next..
-                  _navigateToSignupSecondScreen();
+                  _checkValidation();
                 },
               ),
               const SizedBox(height: 20.0),
@@ -209,20 +227,6 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
         ),
       ),
     );
-  }
-
-  /// Navigate to signup second screen
-  void _navigateToSignupSecondScreen() {
-    if (_formKey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return SignupSecondScreen();
-          },
-        ),
-      );
-    }
   }
 
   /// First Name Validation
@@ -306,5 +310,27 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
       });
     }
     return null;
+  }
+
+  /// It Validate all Fields
+  void _checkValidation() {
+    if (_formKey.currentState!.validate()) {
+      // This triggers all onSaved methods
+      _formKey.currentState!.save();
+      // Navigate to Next Screen
+      _navigateToSignupSecondScreen();
+    }
+  }
+
+  /// Navigate to signup second screen
+  void _navigateToSignupSecondScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return SignupSecondScreen();
+        },
+      ),
+    );
   }
 }
