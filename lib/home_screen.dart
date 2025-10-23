@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:signin_and_signup_screens/signin_screen.dart';
 
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
@@ -40,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                   CustomButton(
                     label: 'Logout',
                     loginClick: () {
-                      _logout();
+                      _logout(context);
                     },
                   ),
                 ],
@@ -52,5 +53,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void _logout() {}
+  /// Navigate to Signing Screen
+  void _logout(context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => SigninScreen()),
+    );
+  }
 }
