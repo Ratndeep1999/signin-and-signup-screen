@@ -25,10 +25,10 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   bool validUsername = false;
 
   // Parameters
-  late final String firstName;
-  late final String lastName;
-  late final String emailAddress;
-  late final String userName;
+  String? firstName;
+  String? lastName;
+  String? emailAddress;
+  String? userName;
 
   @override
   Widget build(BuildContext context) {
@@ -315,8 +315,10 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   /// It Validate all Fields
   void _checkValidation() {
     if (_formKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
       // This triggers all onSaved methods
       _formKey.currentState!.save();
+      _savedData();
       // Navigate to Next Screen
       _navigateToSignupSecondScreen();
     }
@@ -332,5 +334,13 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
         },
       ),
     );
+  }
+
+  /// Check Saved Data
+  _savedData() {
+    debugPrint('First Name: $firstName');
+    debugPrint('Last Name: $lastName');
+    debugPrint('Email Address: $emailAddress');
+    debugPrint('UserName: $userName');
   }
 }
