@@ -17,32 +17,34 @@ class HomeScreen extends StatelessWidget {
             /// Background Custom Design
             const CustomClippingDesign(),
 
-            /// Heading Text
-            Align(
-              alignment: Alignment(0,-0.8),
-              child: CustomHeading(
-                bigText: "Home Screen\n",
-                smallText: "Welcome To Dashboard",
-              ),
-            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  /// Heading Text
+                  CustomHeading(
+                    bigText: "Home Screen\n",
+                    smallText: "Welcome To Dashboard",
+                  ),
 
-            /// Dashboard Icon
-            Align(
-              alignment: Alignment.center,
-              child: Image.asset(
-                "assets/icons/home.png",
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
-            ),
+                  /// Dashboard Icon
+                  Image.asset(
+                    "assets/icons/home.png",
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
 
-            /// Logout Button
-            CustomButton(
-              label: 'Logout',
-              loginClick: () {
-                _logout();
-              },
+                  /// Logout Button
+                  CustomButton(
+                    label: 'Logout',
+                    loginClick: () {
+                      _logout();
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),
