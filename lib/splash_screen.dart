@@ -14,9 +14,12 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+
+  /// Init Method
   void initState() {
     super.initState();
-    Timer(Duration(milliseconds: 2000), () {
+    Timer(Duration(milliseconds: 3000), () {
+      // TODO WHERE TO GO LOGIC
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => SigningScreen()),
@@ -34,11 +37,14 @@ class _SplashScreenState extends State<SplashScreen> {
             const CustomClippingDesign(),
 
             /// Splash Icon
-            Image.asset(
-              "assets/icons/splash.png",
-              width: 200,
-              height: 200,
-              fit: BoxFit.cover,
+            Align(
+              alignment: Alignment.center,
+              child: Image.asset(
+                "assets/icons/splash.png",
+                width: 200,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
             ),
 
           ],
