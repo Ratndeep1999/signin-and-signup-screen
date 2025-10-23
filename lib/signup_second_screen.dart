@@ -18,6 +18,16 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _securityAnswer = TextEditingController();
 
+  // Security Questions
+  final List<String> questions = [
+    'What is your pet’s name?',
+    'What is your mother’s maiden name?',
+    'What was your first school?',
+    'What is your favorite color?',
+    'What city were you born in?',
+  ];
+  String? _selectedSecurityQuestion;
+
   // show or hide input text
   bool _obscureText = false;
 
@@ -122,6 +132,88 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           const SizedBox(height: 8.0),
 
                           /// Security Question Field
+                          DropdownButtonFormField<String>(
+                            // hint text
+                            hint: Text(
+                              "example1234",
+                              style: TextStyle(
+                                fontSize: 13.0,
+                                color: Colors.black45,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            icon: RotatedBox(
+                              quarterTurns: 1,
+                              child: Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                size: 18,
+                              ),
+                            ),
+                            decoration: InputDecoration(
+                              // border-radius
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              errorStyle: TextStyle(
+                                color: Color(0xFFefb744),
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              // padding of hintText
+                              contentPadding: EdgeInsets.only(
+                                top: 12.0,
+                                bottom: 12.0,
+                                left: 20.0,
+                              ),
+                              // borders
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black12,
+                                  width: 1.0,
+                                ), // default border color
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black12,
+                                  width: 2.0,
+                                ), // active border color
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFefb744),
+                                  width: 2.0,
+                                ), // error state
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFefb744),
+                                  width: 2.0,
+                                ),
+                              ),
+                            ),
+                            items: questions.map((question) {
+                              return DropdownMenuItem(
+                                value: question,
+                                child: Text(
+                                  question,
+                                  style: TextStyle(
+                                    fontSize: 13.0,
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? securityQuestion) {
+                              _selectedSecurityQuestion = securityQuestion;
+                            },
+                            validator: _securityQuestionValidation,
+                          ),
+                          const SizedBox(height: 8.0),
 
                           /// Security Answer Field
                           CustomTextField(
@@ -194,20 +286,12 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     return null;
   }
 
-  /// It Validate all Fields
-  void _checkValidation() {
-    if (_formKey.currentState!.validate()) {
-      FocusScope.of(context).unfocus();
-      // This triggers all onSaved methods
-      _formKey.currentState!.save();
-      _navigateToSigningScreen();
+  /// Security Questin Validation
+  String? _securityQuestionValidation(question) {
+    if (question == null || question.isEmpty) {
+      return "Please select the question";
     }
-  }
-
-  /// Navigate to Signing Screen
-  void _navigateToSigningScreen() {
-    // Direct navigate to First Page of Stack and Remove all Pages
-    Navigator.popUntil(context, (route) => route.isFirst);
+    return null;
   }
 
   /// Security Answer Validation
@@ -222,5 +306,21 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
       return "Only letters and numbers are allowed";
     }
     return null;
+  }
+
+  /// It Validate all Fields
+  void _checkValidation() {
+    if (_formKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
+      // This triggers all onSaved methods
+      _formKey.currentState!.save();
+      _navigateToSigningScreen();
+    }
+  }
+
+  /// Navigate to Signing Screen
+  void _navigateToSigningScreen() {
+    // Direct navigate to First Page of Stack and Remove all Pages
+    Navigator.popUntil(context, (route) => route.isFirst);
   }
 }
