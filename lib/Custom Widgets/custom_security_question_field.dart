@@ -5,10 +5,14 @@ class CustomSecurityQuestionField extends StatelessWidget {
     super.key,
     required this.securityQuestions,
     required this.onSaved,
+    required this.onChanged,
+    required this.validation,
   });
 
   final List<String> securityQuestions;
   final FormFieldSetter<String>? onSaved;
+  final ValueChanged<String?>? onChanged;
+  final FormFieldValidator<String>? validation;
 
   @override
   Widget build(BuildContext context) {
@@ -79,19 +83,12 @@ class CustomSecurityQuestionField extends StatelessWidget {
           ),
         );
       }).toList(),
-      onChanged: (String? securityQuestion) {
-        //_selectedSecurityQuestion = securityQuestion;
-      },
+      onChanged: onChanged,
       onSaved: onSaved,
-      validator: _securityQuestionValidation,
+      validator: validation,
+      //_securityQuestionValidation,
     );
   }
 
-  /// Security Questin Validation
-  String? _securityQuestionValidation(question) {
-    if (question == null || question.isEmpty) {
-      return "Please select the question";
-    }
-    return null;
-  }
+
 }
