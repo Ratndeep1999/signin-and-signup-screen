@@ -177,12 +177,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     return null;
   }
 
-  /// Navigate to Signing Screen
-  void _navigateToSigningScreen() {
-    // Direct navigate to First Page of Stack and Remove all Pages
-    Navigator.popUntil(context, (route) => route.isFirst);
-  }
-
   /// It Validate all Fields
   void _checkValidation() {
     if (_formKey.currentState!.validate()) {
@@ -191,5 +185,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
       _formKey.currentState!.save();
       _navigateToSigningScreen();
     }
+  }
+
+  /// Navigate to Signing Screen
+  void _navigateToSigningScreen() {
+    // Direct navigate to First Page of Stack and Remove all Pages
+    Navigator.popUntil(context, (route) => route.isFirst);
   }
 }
