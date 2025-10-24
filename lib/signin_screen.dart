@@ -28,8 +28,13 @@ class _SigningScreenState extends State<SigningScreen> {
   void dispose(){
     _emailAddress.clear();
     _password.clear();
+    _passwordFocus.dispose;
     super.dispose();
   }
+
+  // Focus nodes for keyboard navigation
+  final FocusNode _passwordFocus = FocusNode();
+  final FocusNode _emailFocus = FocusNode();
 
   // show or hide input text
   bool _obscureText = true;
@@ -133,7 +138,8 @@ class _SigningScreenState extends State<SigningScreen> {
                   leftPadding: 20.0,
                   hintTextFontSize: 14,
                   textInputAction: TextInputAction.next,
-                  onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+                  focusNode: _emailFocus,
+                  nextFocusNode: _passwordFocus,
                   autofillHints: [AutofillHints.email],
                 ),
                 const SizedBox(height: 26.0),
@@ -164,7 +170,8 @@ class _SigningScreenState extends State<SigningScreen> {
                   leftPadding: 20.0,
                   hintTextFontSize: 14,
                   textInputAction: TextInputAction.done,
-                  onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
+                  focusNode: _passwordFocus,
+                  nextFocusNode: null,
                   autofillHints: [AutofillHints.password],
                 ),
                 const SizedBox(height: 24.0),
