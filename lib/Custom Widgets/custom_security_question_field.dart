@@ -10,11 +10,11 @@ class CustomDropdownButton extends StatelessWidget {
     required this.hintLabel,
   });
 
+  final String hintLabel;
   final List<String> dropdownMenuItems;
   final FormFieldSetter<String>? onSaved;
   final ValueChanged<String?>? onChanged;
   final FormFieldValidator<String>? validation;
-  final String hintLabel;
 
   @override
   Widget build(BuildContext context) {
