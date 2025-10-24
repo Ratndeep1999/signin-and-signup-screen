@@ -18,16 +18,15 @@ class SignupSecondScreen extends StatefulWidget {
 }
 
 class _SignupSecondScreenState extends State<SignupSecondScreen> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
 
   @override
   void dispose() {
-    _passwordFocus.dispose;
-    _securityAnswerFocus.dispose;
+    _passwordFocus.dispose();
+    _securityAnswerFocus.dispose();
     _password.clear();
     _securityAnswer.clear();
     phoneNumber.clear();
@@ -283,8 +282,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             label: 'Save & Continue',
                             loginClick: () {
                               /// If Details is valid then Save and Signing Screen..
-                              _checkValidation();
-                              _birthdayValidation();
+                              if (_formKey.currentState!.validate()) {
+                                _birthdayValidation();
+                              } else {
+                                _checkValidation();
+                              }
                             },
                           ),
                           const SizedBox(height: 20.0),
