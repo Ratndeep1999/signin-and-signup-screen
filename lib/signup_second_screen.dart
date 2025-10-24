@@ -39,6 +39,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   // check number is valid or not
   bool _isPhoneNumberValid = false;
 
+  // For Birthday
+  String? _selectedDay;
+  String? _selectedMonth;
+  String? _selectedYear;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,7 +116,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                                       dropdownMenuItems: _generateDays(),
                                       onChanged: (String? day) {
                                         debugPrint("Selected day: $day");
+                                        _selectedDay = day;
                                       },
+                                      //onSaved: (){},
                                     ),
                                   ),
 
@@ -121,9 +128,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                                     child: CustomBirthdayDropdownButton(
                                       hintLabel: "Month",
                                       dropdownMenuItems: _generateMonths(),
-                                      onChanged: (String? value) {
-                                        debugPrint("Selected day: $value");
+                                      onChanged: (String? month) {
+                                        debugPrint("Selected day: $month");
+                                        _selectedMonth = month;
                                       },
+                                      //onSaved: ,
                                     ),
                                   ),
 
@@ -133,9 +142,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                                     child: CustomBirthdayDropdownButton(
                                       hintLabel: "Year",
                                       dropdownMenuItems: _generateYears(),
-                                      onChanged: (String? value) {
-                                        debugPrint("Selected day: $value");
+                                      onChanged: (String? year) {
+                                        debugPrint("Selected day: $year");
+                                        _selectedYear = year;
                                       },
+                                      //onSaved: ,
                                     ),
                                   ),
                                 ],
@@ -247,6 +258,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             loginClick: () {
                               /// If Details is valid then Save and Signing Screen..
                               _checkValidation();
+                              _birthdayValidation();
                             },
                           ),
                           const SizedBox(height: 20.0),
@@ -268,6 +280,77 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  /// It Validate all Fields
+  void _checkValidation() {
+    if (_formKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
+      // This triggers all onSaved methods
+      _formKey.currentState!.save();
+      _navigateToSigningScreen();
+    }
+  }
+
+  /// Navigate to Signing Screen
+  void _navigateToSigningScreen() {
+    // Direct navigate to First Page of Stack and Remove all Pages
+    Navigator.popUntil(context, (route) => route.isFirst);
+  }
+
+  /// Birthday Validation
+  Function? _birthdayValidation() {
+    if (_selectedDay == null ||
+        _selectedMonth == null ||
+        _selectedYear == null) {
+      _showBirthdateDialog();
+    }
+    return null;
+  }
+
+  /// Alert Dialog for Birthday Validation
+  void _showBirthdateDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 5.0,
+          title: Text(
+            "Missing Information",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.black,
+            ),
+          ),
+          actionsPadding: EdgeInsets.only(bottom: 8.0, right: 16.0),
+          content: Text(
+            "Please select your birth date before proceeding.",
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black54,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(), // close dialog
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFefb744),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -293,20 +376,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     }
     if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) {
       return "Password must contain at least one special character (!@#\$&*~_)";
-    }
-    return null;
-  }
-
-  /// Security Answer Validation
-  String? _securityAnswerValidation(String? answer) {
-    if (answer == null || answer.isEmpty) {
-      return "Please enter the answer";
-    }
-    if (answer.length < 3) {
-      return "Answer must be at least 3 characters long";
-    }
-    if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer)) {
-      return "Only letters and numbers are allowed";
     }
     return null;
   }
@@ -339,22 +408,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     }
   }
 
-  /// It Validate all Fields
-  void _checkValidation() {
-    if (_formKey.currentState!.validate()) {
-      FocusScope.of(context).unfocus();
-      // This triggers all onSaved methods
-      _formKey.currentState!.save();
-      _navigateToSigningScreen();
-    }
-  }
-
-  /// Navigate to Signing Screen
-  void _navigateToSigningScreen() {
-    // Direct navigate to First Page of Stack and Remove all Pages
-    Navigator.popUntil(context, (route) => route.isFirst);
-  }
-
   /// Security Questin Validation
   String? _securityQuestionValidation(question) {
     if (question == null || question.isEmpty) {
@@ -363,7 +416,21 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     return null;
   }
 
-  /// Generates Days of Months
+  /// Security Answer Validation
+  String? _securityAnswerValidation(String? answer) {
+    if (answer == null || answer.isEmpty) {
+      return "Please enter the answer";
+    }
+    if (answer.length < 3) {
+      return "Answer must be at least 3 characters long";
+    }
+    if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer)) {
+      return "Only letters and numbers are allowed";
+    }
+    return null;
+  }
+
+  /// Generates Days
   List<DropdownMenuItem<String>> _generateDays() {
     return List.generate(
       31,
@@ -371,7 +438,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     ).map((day) => _dropdownMenuItem(day)).toList();
   }
 
-  /// Generates Months of Year
+  /// Generates Months
   List<DropdownMenuItem<String>> _generateMonths() {
     List<String> months = [
       'Jan',
