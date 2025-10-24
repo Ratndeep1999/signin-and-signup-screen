@@ -99,103 +99,107 @@ class _SigningScreenState extends State<SigningScreen> {
       child: Padding(
         /// Content Padding
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 32.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              /// 2nd Heading
-              CustomSecondHeading(
-                bigText: "Login Account\n",
-                smallText:
-                    "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
-              ),
-              const SizedBox(height: 32.0),
+        child: AutofillGroup(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                /// 2nd Heading
+                CustomSecondHeading(
+                  bigText: "Login Account\n",
+                  smallText:
+                      "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                ),
+                const SizedBox(height: 32.0),
 
-              /// Email Label
-              const CustomTextFieldLabel(
-                label: 'Email Address',
-                labelFontSize: 15.0,
-              ),
-              const SizedBox(height: 8.0),
+                /// Email Label
+                const CustomTextFieldLabel(
+                  label: 'Email Address',
+                  labelFontSize: 15.0,
+                ),
+                const SizedBox(height: 8.0),
 
-              /// Email Address Field
-              CustomTextField(
-                hintText: "Your Email Address",
-                keyboardType: TextInputType.emailAddress,
-                isSuffixIcon: true,
-                suffixIcon: Icons.person,
-                obscureText: false,
-                controller: _emailAddress,
-                validation: _emailValidation,
-                topPadding: 15.0,
-                bottomPadding: 15.0,
-                leftPadding: 20.0,
-                hintTextFontSize: 14,
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
-              ),
-              const SizedBox(height: 26.0),
+                /// Email Address Field
+                CustomTextField(
+                  hintText: "Your Email Address",
+                  keyboardType: TextInputType.emailAddress,
+                  isSuffixIcon: true,
+                  suffixIcon: Icons.person,
+                  obscureText: false,
+                  controller: _emailAddress,
+                  validation: _emailValidation,
+                  topPadding: 15.0,
+                  bottomPadding: 15.0,
+                  leftPadding: 20.0,
+                  hintTextFontSize: 14,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+                  autofillHints: [AutofillHints.email],
+                ),
+                const SizedBox(height: 26.0),
 
-              /// Password Label
-              const CustomTextFieldLabel(
-                label: 'Password',
-                labelFontSize: 15.0,
-              ),
-              const SizedBox(height: 8.0),
+                /// Password Label
+                const CustomTextFieldLabel(
+                  label: 'Password',
+                  labelFontSize: 15.0,
+                ),
+                const SizedBox(height: 8.0),
 
-              /// Password Field
-              CustomTextField(
-                hintText: "Enter Your Password",
-                keyboardType: TextInputType.visiblePassword,
-                isSuffixIcon: true,
-                suffixIcon: _obscureText ? Icons.lock : Icons.lock_open,
-                obscureText: _obscureText,
-                suffixTap: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-                controller: _password,
-                validation: _passwordValidation,
-                topPadding: 15.0,
-                bottomPadding: 15.0,
-                leftPadding: 20.0,
-                hintTextFontSize: 14,
-                textInputAction: TextInputAction.done,
-                onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
-              ),
-              const SizedBox(height: 24.0),
+                /// Password Field
+                CustomTextField(
+                  hintText: "Enter Your Password",
+                  keyboardType: TextInputType.visiblePassword,
+                  isSuffixIcon: true,
+                  suffixIcon: _obscureText ? Icons.lock : Icons.lock_open,
+                  obscureText: _obscureText,
+                  suffixTap: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                  controller: _password,
+                  validation: _passwordValidation,
+                  topPadding: 15.0,
+                  bottomPadding: 15.0,
+                  leftPadding: 20.0,
+                  hintTextFontSize: 14,
+                  textInputAction: TextInputAction.done,
+                  onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
+                  autofillHints: [AutofillHints.password],
+                ),
+                const SizedBox(height: 24.0),
 
-              /// Save Password and Forgot Password Section
-              CustomHelpingClickableText(
-                onTap: () {
-                  setState(() {
-                    _savePassword = !_savePassword;
-                  });
-                },
-                savePassword: _savePassword,
-              ),
-              const SizedBox(height: 24.0),
+                /// Save Password and Forgot Password Section
+                CustomHelpingClickableText(
+                  onTap: () {
+                    setState(() {
+                      _savePassword = !_savePassword;
+                    });
+                  },
+                  savePassword: _savePassword,
+                ),
+                const SizedBox(height: 24.0),
 
-              /// Login Button
-              CustomButton(
-                label: 'Login Account',
-                loginClick: () {
-                  /// If Details is valid then Login..
-                  FocusScope.of(context).unfocus();
-                  _loginLogic();
-                },
-              ),
-              const SizedBox(height: 25.0),
+                /// Login Button
+                CustomButton(
+                  label: 'Login Account',
+                  loginClick: () {
+                    /// If Details is valid then Login..
+                    FocusScope.of(context).unfocus();
+                    _loginLogic();
+                  },
+                ),
+                const SizedBox(height: 25.0),
 
-              /// Create Account text Button
-              CustomClickableText(
-                label: 'Create New Account',
-                onTap: () {
-                  _navigateToSignupFirstScreen();
-                },
-              ),
-            ],
+                /// Create Account text Button
+                CustomClickableText(
+                  label: 'Create New Account',
+                  onTap: () {
+                    _navigateToSignupFirstScreen();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
