@@ -19,7 +19,7 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.onSaved,
     this.textInputAction,
-    this.onFieldSubmitted,
+    this.nextFocusNode,
     this.focusNode,
     this.autofillHints,
   });
@@ -47,7 +47,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validation; // type definition
   // For focus node
   final TextInputAction? textInputAction;
-  final void Function(String)? onFieldSubmitted;
+  final FocusNode? nextFocusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,13 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType,
       focusNode: focusNode,
       textInputAction: textInputAction,
-      onFieldSubmitted: onFieldSubmitted,
+      onFieldSubmitted: (_) {
+        if (nextFocusNode != null) {
+          FocusScope.of(context).requestFocus(nextFocusNode);
+        } else {
+          FocusScope.of(context).unfocus();
+        }
+      },
       autofillHints: autofillHints,
       obscureText: obscureText,
       obscuringCharacter: '*',
