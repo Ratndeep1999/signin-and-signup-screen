@@ -28,7 +28,6 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
 
   final TextInputType keyboardType;
-  final FocusNode? focusNode;
   final List<String>? autofillHints;
   final String hintText;
   final IconData? suffixIcon;
@@ -48,6 +47,7 @@ class CustomTextField extends StatelessWidget {
   // For focus node
   final TextInputAction? textInputAction;
   final FocusNode? nextFocusNode;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
