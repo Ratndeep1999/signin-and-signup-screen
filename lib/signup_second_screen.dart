@@ -94,211 +94,215 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                       horizontal: 20.0,
                       vertical: 32.0,
                     ),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          /// 2nd Heading
-                          CustomSecondHeading(
-                            bigText: "Secure Account\n",
-                            smallText:
-                                "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
-                          ),
-                          const SizedBox(height: 35.0),
+                    child: AutofillGroup(
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            /// 2nd Heading
+                            CustomSecondHeading(
+                              bigText: "Secure Account\n",
+                              smallText:
+                                  "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                            ),
+                            const SizedBox(height: 35.0),
 
-                          /// Birthday Label
-                          const CustomTextFieldLabel(
-                            label: 'Birthday',
-                            labelFontSize: 12.0,
-                          ),
-                          const SizedBox(height: 8.0),
+                            /// Birthday Label
+                            const CustomTextFieldLabel(
+                              label: 'Birthday',
+                              labelFontSize: 12.0,
+                            ),
+                            const SizedBox(height: 8.0),
 
-                          /// Birthday Field
-                          SizedBox(
-                            width: double.infinity,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                  color: Colors.black12,
-                                  width: 1.0,
+                            /// Birthday Field
+                            SizedBox(
+                              width: double.infinity,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  border: Border.all(
+                                    color: Colors.black12,
+                                    width: 1.0,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    /// Days
+                                    SizedBox(
+                                      width: 50,
+                                      child: CustomBirthdayDropdownButton(
+                                        hintLabel: "Day",
+                                        dropdownMenuItems: _generateDays(),
+                                        onChanged: (String? day) {
+                                          debugPrint("Selected day: $day");
+                                          _selectedDay = day;
+                                        },
+                                        //onSaved: (){},
+                                      ),
+                                    ),
+
+                                    /// Months
+                                    SizedBox(
+                                      width: 65,
+                                      child: CustomBirthdayDropdownButton(
+                                        hintLabel: "Month",
+                                        dropdownMenuItems: _generateMonths(),
+                                        onChanged: (String? month) {
+                                          debugPrint("Selected day: $month");
+                                          _selectedMonth = month;
+                                        },
+                                        //onSaved: ,
+                                      ),
+                                    ),
+
+                                    /// Years
+                                    SizedBox(
+                                      width: 63,
+                                      child: CustomBirthdayDropdownButton(
+                                        hintLabel: "Year",
+                                        dropdownMenuItems: _generateYears(),
+                                        onChanged: (String? year) {
+                                          debugPrint("Selected day: $year");
+                                          _selectedYear = year;
+                                        },
+                                        //onSaved: ,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  /// Days
-                                  SizedBox(
-                                    width: 50,
-                                    child: CustomBirthdayDropdownButton(
-                                      hintLabel: "Day",
-                                      dropdownMenuItems: _generateDays(),
-                                      onChanged: (String? day) {
-                                        debugPrint("Selected day: $day");
-                                        _selectedDay = day;
-                                      },
-                                      //onSaved: (){},
-                                    ),
-                                  ),
-
-                                  /// Months
-                                  SizedBox(
-                                    width: 65,
-                                    child: CustomBirthdayDropdownButton(
-                                      hintLabel: "Month",
-                                      dropdownMenuItems: _generateMonths(),
-                                      onChanged: (String? month) {
-                                        debugPrint("Selected day: $month");
-                                        _selectedMonth = month;
-                                      },
-                                      //onSaved: ,
-                                    ),
-                                  ),
-
-                                  /// Years
-                                  SizedBox(
-                                    width: 63,
-                                    child: CustomBirthdayDropdownButton(
-                                      hintLabel: "Year",
-                                      dropdownMenuItems: _generateYears(),
-                                      onChanged: (String? year) {
-                                        debugPrint("Selected day: $year");
-                                        _selectedYear = year;
-                                      },
-                                      //onSaved: ,
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ),
-                          ),
-                          const SizedBox(height: 20.0),
+                            const SizedBox(height: 20.0),
 
-                          /// Password Label
-                          const CustomTextFieldLabel(
-                            label: 'Password',
-                            labelFontSize: 12.0,
-                          ),
-                          const SizedBox(height: 8.0),
+                            /// Password Label
+                            const CustomTextFieldLabel(
+                              label: 'Password',
+                              labelFontSize: 12.0,
+                            ),
+                            const SizedBox(height: 8.0),
 
-                          /// Password Field
-                          CustomTextField(
-                            hintText: "Enter Your Password",
-                            keyboardType: TextInputType.visiblePassword,
-                            focusNode: _passwordFocus,
-                            textInputAction: TextInputAction.next,
-                            nextFocusNode: _securityAnswerFocus,
-                            isSuffixIcon: true,
-                            suffixIcon: _obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            obscureText: _obscureText,
-                            suffixTap: () {
-                              setState(() {
-                                _obscureText = !_obscureText;
-                              });
-                            },
-                            controller: _password,
-                            validation: _passwordValidation,
-                            topPadding: 12.0,
-                            bottomPadding: 12.0,
-                            leftPadding: 20.0,
-                            hintTextFontSize: 13.0,
-                          ),
-                          const SizedBox(height: 20.0),
+                            /// Password Field
+                            CustomTextField(
+                              hintText: "Enter Your Password",
+                              keyboardType: TextInputType.visiblePassword,
+                              focusNode: _passwordFocus,
+                              textInputAction: TextInputAction.next,
+                              nextFocusNode: _securityAnswerFocus,
+                              isSuffixIcon: true,
+                              suffixIcon: _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              obscureText: _obscureText,
+                              suffixTap: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
+                              controller: _password,
+                              validation: _passwordValidation,
+                              topPadding: 12.0,
+                              bottomPadding: 12.0,
+                              leftPadding: 20.0,
+                              hintTextFontSize: 13.0,
+                            ),
+                            const SizedBox(height: 20.0),
 
-                          /// Phone Number Label
-                          const CustomTextFieldLabel(
-                            label: 'Phone Number',
-                            labelFontSize: 12.0,
-                          ),
-                          const SizedBox(height: 8.0),
+                            /// Phone Number Label
+                            const CustomTextFieldLabel(
+                              label: 'Phone Number',
+                              labelFontSize: 12.0,
+                            ),
+                            const SizedBox(height: 8.0),
 
-                          /// Phone Number Field
-                          CustomPhoneNumberField(
-                            suffixIcon: _isPhoneNumberValid
-                                ? Icons.check_circle
-                                : Icons.cancel,
-                            suffixIconColor: _isPhoneNumberValid
-                                ? Color(0xFF93c743)
-                                : Color(0xFFFF4C4C),
-                            onChanged: (PhoneNumber number) {
-                              debugPrint("Hello: ${number.completeNumber}");
-                              _onChangedPhoneNumber(number.number);
-                            },
-                            validation: (PhoneNumber? number) {
-                              debugPrint("abc: $number");
-                              return _phoneNumberValidation(number);
-                            },
-                            controller: phoneNumber,
-                          ),
-                          const SizedBox(height: 20.0),
+                            /// Phone Number Field
+                            CustomPhoneNumberField(
+                              suffixIcon: _isPhoneNumberValid
+                                  ? Icons.check_circle
+                                  : Icons.cancel,
+                              suffixIconColor: _isPhoneNumberValid
+                                  ? Color(0xFF93c743)
+                                  : Color(0xFFFF4C4C),
+                              onChanged: (PhoneNumber number) {
+                                debugPrint("Hello: ${number.completeNumber}");
+                                _onChangedPhoneNumber(number.number);
+                              },
+                              validation: (PhoneNumber? number) {
+                                debugPrint("abc: $number");
+                                return _phoneNumberValidation(number);
+                              },
+                              controller: phoneNumber,
+                            ),
+                            const SizedBox(height: 20.0),
 
-                          /// Security Question Label
-                          const CustomTextFieldLabel(
-                            label: 'Security Question',
-                            labelFontSize: 12.0,
-                          ),
-                          const SizedBox(height: 8.0),
+                            /// Security Question Label
+                            const CustomTextFieldLabel(
+                              label: 'Security Question',
+                              labelFontSize: 12.0,
+                            ),
+                            const SizedBox(height: 8.0),
 
-                          /// Security Question Field
-                          CustomDropdownButton(
-                            hintLabel: "example1234",
-                            dropdownMenuItems: questions,
-                            onSaved: (String? securityQuestion) {
-                              _selectedSecurityQuestion = securityQuestion;
-                            },
-                            validation: (String? question) {
-                              return _securityQuestionValidation(question);
-                            },
-                            onChanged: (String? selectedQuestion) {
-                              debugPrint(
-                                'Selected question: $selectedQuestion',
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 8.0),
+                            /// Security Question Field
+                            CustomDropdownButton(
+                              hintLabel: "example1234",
+                              dropdownMenuItems: questions,
+                              onSaved: (String? securityQuestion) {
+                                _selectedSecurityQuestion = securityQuestion;
+                              },
+                              validation: (String? question) {
+                                return _securityQuestionValidation(question);
+                              },
+                              onChanged: (String? selectedQuestion) {
+                                debugPrint(
+                                  'Selected question: $selectedQuestion',
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 8.0),
 
-                          /// Security Answer Field
-                          CustomTextField(
-                            hintText: "Your Answer...",
-                            controller: _securityAnswer,
-                            keyboardType: TextInputType.text,
-                            focusNode: _securityAnswerFocus,
-                            textInputAction: TextInputAction.done,
-                            isSuffixIcon: false,
-                            validation: _securityAnswerValidation,
-                            topPadding: 12.0,
-                            bottomPadding: 12.0,
-                            leftPadding: 20.0,
-                            hintTextFontSize: 13.0,
-                            obscureText: false,
-                          ),
-                          const SizedBox(height: 22.0),
+                            /// Security Answer Field
+                            CustomTextField(
+                              hintText: "Your Answer...",
+                              controller: _securityAnswer,
+                              keyboardType: TextInputType.text,
+                              focusNode: _securityAnswerFocus,
+                              textInputAction: TextInputAction.done,
+                              isSuffixIcon: false,
+                              validation: _securityAnswerValidation,
+                              topPadding: 12.0,
+                              bottomPadding: 12.0,
+                              leftPadding: 20.0,
+                              hintTextFontSize: 13.0,
+                              obscureText: false,
+                            ),
+                            const SizedBox(height: 22.0),
 
-                          /// Save & Continue Button
-                          CustomButton(
-                            label: 'Save & Continue',
-                            loginClick: () {
-                              /// If Details is valid then Save and Signing Screen..
-                              if (_formKey.currentState!.validate()) {
-                                _birthdayValidation();
-                              } else {
-                                _checkValidation();
-                              }
-                            },
-                          ),
-                          const SizedBox(height: 20.0),
+                            /// Save & Continue Button
+                            CustomButton(
+                              label: 'Save & Continue',
+                              loginClick: () {
+                                if (_formKey.currentState!.validate()) {
+                                  if (_selectedDay == null || _selectedMonth == null || _selectedYear == null) {
+                                    _showBirthdateDialog();
+                                  } else {
+                                    _checkValidation();
+                                  }
+                                }
+                              },
+                            ),
 
-                          /// Create Account text Button
-                          CustomClickableText(
-                            label: 'Back to Login',
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
+                            const SizedBox(height: 20.0),
+
+                            /// Create Account text Button
+                            CustomClickableText(
+                              label: 'Back to Login',
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -425,16 +429,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Phone Number live Validation Check
   void _onChangedPhoneNumber(String phoneNumber) {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isPhoneNumberValid = true;
-      });
-    } else {
-      setState(() {
-        _isPhoneNumberValid = false;
-      });
-    }
-  }
+    final bool isValid = phoneNumber.length == 10 && RegExp(r'^[0-9]+$').hasMatch(phoneNumber);
+    setState(() {
+      _isPhoneNumberValid = isValid;
+    });
+   }
 
   /// Security Questin Validation
   String? _securityQuestionValidation(question) {
