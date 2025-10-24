@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
-
 import 'Custom Widgets/custom_clipping_design.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -40,6 +38,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /// Appbar
+      appBar: AppBar(backgroundColor: Color(0xFFefb744)),
       body: SafeArea(
         child: Stack(
           children: [
