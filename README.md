@@ -16,7 +16,11 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 
+![splash screen](assets/images/splash_screen.png)
 ![signin screen](assets/images/signin_screen.png)
 ![signin screen with validation](assets/images/signin_screen_with_validation.png)
 ![signup first screen](assets/images/signup_first_screen.png)
 ![signup first screen with validation](assets/images/signup_first_screen_with_validation.png)
+![signup second screen](assets/images/signup_second_screen.png)
+![signup second screen with validation](assets/images/signup_second_screen_with_validation.ong)
+![home screen](assets/images/home_screen.png)
