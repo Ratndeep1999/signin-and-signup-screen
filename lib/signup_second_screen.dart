@@ -29,13 +29,15 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     _securityAnswerFocus.dispose();
     _password.clear();
     _securityAnswer.clear();
-    phoneNumber.clear();
+    phoneNumber.dispose();
+    _phoneNumberFocus.dispose();
     super.dispose();
   }
 
   // Focus Nodes
   final FocusNode _passwordFocus = FocusNode();
   final FocusNode _securityAnswerFocus = FocusNode();
+  final FocusNode _phoneNumberFocus = FocusNode();
 
   // Form key and Controllers
   final _formKey = GlobalKey<FormState>();
@@ -187,9 +189,10 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             CustomTextField(
                               hintText: "Enter Your Password",
                               keyboardType: TextInputType.visiblePassword,
+                              autofillHints: [AutofillHints.newPassword],
                               focusNode: _passwordFocus,
                               textInputAction: TextInputAction.next,
-                              nextFocusNode: _securityAnswerFocus,
+                              nextFocusNode: _phoneNumberFocus,
                               isSuffixIcon: true,
                               suffixIcon: _obscureText
                                   ? Icons.visibility_off
@@ -218,6 +221,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
                             /// Phone Number Field
                             CustomPhoneNumberField(
+                              textInputAction: TextInputAction.next,
+                              focusNode: _phoneNumberFocus,
+                              nextFocusNode: _securityAnswerFocus,
                               suffixIcon: _isPhoneNumberValid
                                   ? Icons.check_circle
                                   : Icons.cancel,
@@ -266,6 +272,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                               hintText: "Your Answer...",
                               controller: _securityAnswer,
                               keyboardType: TextInputType.text,
+                              autofillHints: const [AutofillHints.name],
                               focusNode: _securityAnswerFocus,
                               textInputAction: TextInputAction.done,
                               isSuffixIcon: false,
@@ -283,7 +290,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                               label: 'Save & Continue',
                               loginClick: () {
                                 if (_formKey.currentState!.validate()) {
-                                  if (_selectedDay == null || _selectedMonth == null || _selectedYear == null) {
+                                  if (_selectedDay == null ||
+                                      _selectedMonth == null ||
+                                      _selectedYear == null) {
                                     _showBirthdateDialog();
                                   } else {
                                     _checkValidation();
@@ -429,11 +438,12 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Phone Number live Validation Check
   void _onChangedPhoneNumber(String phoneNumber) {
-    final bool isValid = phoneNumber.length == 10 && RegExp(r'^[0-9]+$').hasMatch(phoneNumber);
+    final bool isValid =
+        phoneNumber.length == 10 && RegExp(r'^[0-9]+$').hasMatch(phoneNumber);
     setState(() {
       _isPhoneNumberValid = isValid;
     });
-   }
+  }
 
   /// Security Questin Validation
   String? _securityQuestionValidation(question) {
