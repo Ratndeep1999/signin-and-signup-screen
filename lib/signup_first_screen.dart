@@ -18,11 +18,35 @@ class SignupFirstScreen extends StatefulWidget {
 class _SignupFirstScreenState extends State<SignupFirstScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  @override
+  void initState(){
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _firstNameFocus.dispose();
+    _lastNameFocus.dispose();
+    _emailFocus.dispose();
+    _userNameFocus.dispose();
+    _firstName.clear();
+    _lastName.clear();
+    _emailAddress.clear();
+    _userName.clear();
+    super.dispose();
+  }
+
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _emailAddress = TextEditingController();
   final TextEditingController _userName = TextEditingController();
   bool _validUsername = false;
+
+  // Focus nodes for keyboard navigation
+  final FocusNode _firstNameFocus = FocusNode();
+  final FocusNode _lastNameFocus = FocusNode();
+  final FocusNode _emailFocus = FocusNode();
+  final FocusNode _userNameFocus = FocusNode();
 
   // Parameters
   String? firstName;
@@ -111,6 +135,9 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                     child: CustomTextField(
                       hintText: 'First Name',
                       keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      focusNode: _firstNameFocus,
+                      onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_lastNameFocus),
                       obscureText: false,
                       isSuffixIcon: false,
                       controller: _firstName,
@@ -132,6 +159,9 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                     child: CustomTextField(
                       hintText: 'Last Name',
                       keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      focusNode: _lastNameFocus,
+                      onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_emailFocus),
                       obscureText: false,
                       isSuffixIcon: false,
                       controller: _lastName,
@@ -160,6 +190,9 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
               CustomTextField(
                 hintText: "Your Email Address",
                 keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                focusNode: _emailFocus,
+                onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_userNameFocus),
                 isSuffixIcon: true,
                 suffixIcon: Icons.email,
                 obscureText: false,
@@ -186,6 +219,9 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
               CustomTextField(
                 hintText: "example1234",
                 keyboardType: TextInputType.name,
+                textInputAction: TextInputAction.done,
+                focusNode: _userNameFocus,
+                onFieldSubmitted: (_) => FocusScope.of(context).unfocus(), // close keyboard
                 isSuffixIcon: true,
                 suffixIcon: _validUsername ? Icons.check_circle : Icons.cancel,
                 suffixIconColor: _validUsername
@@ -225,6 +261,38 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  /// It Validate all Fields
+  void _checkValidation() {
+    if (_formKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
+      // This triggers all onSaved methods
+      _formKey.currentState!.save();
+      _savedData();
+      // Navigate to Next Screen
+      _navigateToSignupSecondScreen();
+    }
+  }
+
+  /// Check Saved Data
+  _savedData() {
+    debugPrint('First Name: $firstName');
+    debugPrint('Last Name: $lastName');
+    debugPrint('Email Address: $emailAddress');
+    debugPrint('UserName: $userName');
+  }
+
+  /// Navigate to signup second screen
+  void _navigateToSignupSecondScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return SignupSecondScreen();
+        },
       ),
     );
   }
@@ -312,35 +380,4 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     return null;
   }
 
-  /// It Validate all Fields
-  void _checkValidation() {
-    if (_formKey.currentState!.validate()) {
-      FocusScope.of(context).unfocus();
-      // This triggers all onSaved methods
-      _formKey.currentState!.save();
-      _savedData();
-      // Navigate to Next Screen
-      _navigateToSignupSecondScreen();
-    }
-  }
-
-  /// Navigate to signup second screen
-  void _navigateToSignupSecondScreen() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return SignupSecondScreen();
-        },
-      ),
-    );
-  }
-
-  /// Check Saved Data
-  _savedData() {
-    debugPrint('First Name: $firstName');
-    debugPrint('Last Name: $lastName');
-    debugPrint('Email Address: $emailAddress');
-    debugPrint('UserName: $userName');
-  }
 }
