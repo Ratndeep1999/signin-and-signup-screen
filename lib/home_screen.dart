@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
-
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_heading.dart';
