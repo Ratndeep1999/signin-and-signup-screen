@@ -88,6 +88,38 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           const SizedBox(height: 8.0),
 
                           /// Birthday Field
+                          SizedBox(
+                            //height: 50,
+                            width: double.infinity,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(
+                                  color: Colors.black12,
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 12.0,
+                                  bottom: 12.0,
+                                  left: 20.0,
+                                ),
+                                child: Row(
+                                  children: [
+                                    /// Day
+                                    CustomDropdownButton(
+                                      listItems: listItems,
+                                      onSaved: () {},
+                                      onChanged: onChanged,
+                                      validation: validation,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20.0),
 
                           /// Password Label
                           const CustomTextFieldLabel(
@@ -154,8 +186,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           const SizedBox(height: 8.0),
 
                           /// Security Question Field
-                          CustomSecurityQuestionField(
-                            securityQuestions: questions,
+                          CustomDropdownButton(
+                            hintLabel: "example1234",
+                            listItems: questions,
                             onSaved: (String? securityQuestion) {
                               _selectedSecurityQuestion = securityQuestion;
                             },
