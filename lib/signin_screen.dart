@@ -28,7 +28,8 @@ class _SigningScreenState extends State<SigningScreen> {
   void dispose(){
     _emailAddress.clear();
     _password.clear();
-    _passwordFocus.dispose;
+    _passwordFocus.dispose();
+    _emailFocus.dispose();
     super.dispose();
   }
 
