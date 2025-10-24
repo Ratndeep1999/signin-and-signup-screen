@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_phone_number_field.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_security_question_field.dart';
+import 'Custom Widgets/custom_birthday_dropdown_button.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
@@ -89,7 +90,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
                           /// Birthday Field
                           SizedBox(
-                            //height: 50,
                             width: double.infinity,
                             child: DecoratedBox(
                               decoration: BoxDecoration(
@@ -100,19 +100,13 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                                 ),
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 12.0,
-                                  bottom: 12.0,
-                                  left: 20.0,
-                                ),
+                                padding: const EdgeInsets.only(left: 20.0),
                                 child: Row(
                                   children: [
                                     /// Day
-                                    CustomDropdownButton(
-                                      listItems: listItems,
-                                      onSaved: () {},
-                                      onChanged: onChanged,
-                                      validation: validation,
+                                    SizedBox(
+                                      width: 50,
+                                      child: CustomBirthdayDropdownButton(),
                                     ),
                                   ],
                                 ),
@@ -188,7 +182,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           /// Security Question Field
                           CustomDropdownButton(
                             hintLabel: "example1234",
-                            listItems: questions,
+                            dropdownMenuItems: questions,
                             onSaved: (String? securityQuestion) {
                               _selectedSecurityQuestion = securityQuestion;
                             },
@@ -340,3 +334,5 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     return null;
   }
 }
+
+
