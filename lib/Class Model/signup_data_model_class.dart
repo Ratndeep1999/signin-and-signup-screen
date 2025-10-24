@@ -1,10 +1,8 @@
-class SignUpDataModel{
-
+class SignUpDataModel {
   // Signup first screen
   String fullName;
   String emailAddress;
   String username;
-
 
   // Signup second screen
   String birthday;
@@ -23,7 +21,5 @@ class SignUpDataModel{
     required this.phoneNumber,
     required this.securityQuestion,
     required this.securityAnswer,
-
   });
-
 }
