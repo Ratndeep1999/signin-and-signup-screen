@@ -7,14 +7,12 @@ class CustomBirthdayDropdownButton extends StatelessWidget {
     required this.dropdownMenuItems,
     required this.onChanged,
     this.onSaved,
-    this.validation,
   });
 
   final String hintLabel;
   final List<DropdownMenuItem<String>> dropdownMenuItems;
   final ValueChanged<String?> onChanged;
   final FormFieldSetter<String>? onSaved;
-  final FormFieldValidator<String>? validation;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +65,6 @@ class CustomBirthdayDropdownButton extends StatelessWidget {
       items: dropdownMenuItems,
       onChanged: onChanged,
       onSaved: onSaved,
-      validator: validation,
     );
   }
 }
