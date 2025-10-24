@@ -11,6 +11,9 @@ class CustomPhoneNumberField extends StatelessWidget {
     required this.suffixIconColor,
     required this.validation,
     required this.controller,
+    this.focusNode,
+    this.textInputAction,
+    this.nextFocusNode,
   });
 
   final TextEditingController controller;
@@ -19,11 +22,25 @@ class CustomPhoneNumberField extends StatelessWidget {
   final IconData suffixIcon;
   final Color suffixIconColor;
 
+  // For focus node
+  final TextInputAction? textInputAction;
+  final FocusNode? nextFocusNode;
+  final FocusNode? focusNode;
+
   @override
   Widget build(BuildContext context) {
     return IntlPhoneField(
       controller: controller,
       keyboardType: TextInputType.phone,
+      focusNode: focusNode,
+      textInputAction: textInputAction,
+      onSubmitted: (_) {
+        if (nextFocusNode != null) {
+          FocusScope.of(context).requestFocus(nextFocusNode);
+        } else {
+          FocusScope.of(context).unfocus();
+        }
+      },
       initialCountryCode: 'IN',
       onChanged: onChanged,
       //onSaved: ,
