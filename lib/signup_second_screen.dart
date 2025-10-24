@@ -18,6 +18,13 @@ class SignupSecondScreen extends StatefulWidget {
 }
 
 class _SignupSecondScreenState extends State<SignupSecondScreen> {
+
+  // Focus Nodes
+  final FocusNode _passwordFocus = FocusNode();
+  final FocusNode _phoneFocus = FocusNode();
+  final FocusNode _securityAnswerFocus = FocusNode();
+
+  // Form key and Controllers
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _securityAnswer = TextEditingController();
