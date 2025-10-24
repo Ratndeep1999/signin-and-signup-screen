@@ -17,11 +17,14 @@ class CustomTextField extends StatelessWidget {
     this.suffixTap,
     this.suffixIconColor,
     this.onChanged,
-    this.onSaved
+    this.onSaved,
+    this.textInputAction,
+    this.onFieldSubmitted,
   });
 
   // Attributes
-  final TextEditingController controller ;
+  final TextEditingController controller;
+
   final TextInputType keyboardType;
   final String hintText;
   final IconData? suffixIcon;
@@ -34,11 +37,13 @@ class CustomTextField extends StatelessWidget {
   final double hintTextFontSize;
   final Color? suffixIconColor;
   final FormFieldSetter<String>? onSaved;
-
   final ValueChanged<String>? onChanged;
 
   // Fun. return type   Function(value of the text field might be null) variable
   final String? Function(String?)? validation; // type definition
+  // For focus node
+  final TextInputAction? textInputAction;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +53,8 @@ class CustomTextField extends StatelessWidget {
       onSaved: onSaved,
       onChanged: onChanged,
       keyboardType: keyboardType,
-      textInputAction: TextInputAction.next,
-      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      textInputAction: textInputAction,
+      onFieldSubmitted: onFieldSubmitted,
       obscureText: obscureText,
       obscuringCharacter: '*',
       // Input Text Style
