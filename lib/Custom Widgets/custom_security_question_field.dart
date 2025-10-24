@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class CustomDropdownButton extends StatelessWidget {
   const CustomDropdownButton({
     super.key,
-    required this.listItems,
+    required this.dropdownMenuItems,
     required this.onSaved,
     required this.onChanged,
     required this.validation,
     required this.hintLabel,
   });
 
-  final List<String> listItems;
+  final List<String> dropdownMenuItems;
   final FormFieldSetter<String>? onSaved;
   final ValueChanged<String?>? onChanged;
   final FormFieldValidator<String>? validation;
@@ -72,7 +72,7 @@ class CustomDropdownButton extends StatelessWidget {
           borderSide: BorderSide(color: Color(0xFFefb744), width: 2.0),
         ),
       ),
-      items: listItems.map((question) {
+      items: dropdownMenuItems.map((question) {
         return DropdownMenuItem(
           value: question,
           child: Text(
