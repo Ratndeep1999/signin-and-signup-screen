@@ -3,14 +3,21 @@ import 'package:flutter/material.dart';
 class CustomBirthdayDropdownButton extends StatelessWidget {
   const CustomBirthdayDropdownButton({
     super.key,
+    required this.hintLabel,
+    required this.dropdownMenuItems,
+    required this.onChanged,
   });
+
+  final String hintLabel;
+  final List<DropdownMenuItem<String>> dropdownMenuItems;
+  final ValueChanged<String?> onChanged;
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       // Hint label
       hint: Text(
-        "Day",
+        hintLabel,
         style: TextStyle(
           fontSize: 13.0,
           color: Colors.black45,
@@ -25,24 +32,15 @@ class CustomBirthdayDropdownButton extends StatelessWidget {
           color: Colors.black45,
         ),
         // Text and icon width
-        suffixIconConstraints: BoxConstraints(
-          minWidth: 22.0,
-        ),
+        suffixIconConstraints: BoxConstraints(minWidth: 22.0),
         errorStyle: TextStyle(
           color: Color(0xFFefb744),
           fontSize: 10.0,
           fontWeight: FontWeight.bold,
         ),
-        contentPadding: EdgeInsets.only(
-          top: 12.0,
-          bottom: 12.0,
-        ),
+        contentPadding: EdgeInsets.only(top: 12.0, bottom: 12.0),
         // Borders
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            50.0,
-          ),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0)),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.transparent,
@@ -54,40 +52,14 @@ class CustomBirthdayDropdownButton extends StatelessWidget {
           ), // active border color
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.transparent,
-          ), // error state
+          borderSide: BorderSide(color: Colors.transparent), // error state
         ),
-        focusedErrorBorder:
-        OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.transparent,
-          ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.transparent),
         ),
       ),
-      items:
-      List.generate(
-        31,
-            (index) => "${index + 1}",
-      )
-          .map(
-            (day) => DropdownMenuItem(
-          value: day,
-          child: Text(
-            day,
-            style: TextStyle(
-              fontSize: 16.0,
-              color: Colors.black45,
-              fontWeight:
-              FontWeight.w500,
-            ),
-          ),
-        ),
-      )
-          .toList(),
-      onChanged: (String? selectedDay) {
-        print("Selected day: $selectedDay");
-      },
+      items: dropdownMenuItems,
+      onChanged: onChanged,
     );
   }
 }
