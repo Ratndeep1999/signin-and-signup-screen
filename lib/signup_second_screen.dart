@@ -19,16 +19,30 @@ class SignupSecondScreen extends StatefulWidget {
 
 class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
+  @override
+  void initState(){
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _passwordFocus.dispose;
+    _securityAnswerFocus.dispose;
+    _password.clear();
+    _securityAnswer.clear();
+    phoneNumber.clear();
+    super.dispose();
+  }
+
   // Focus Nodes
   final FocusNode _passwordFocus = FocusNode();
-  final FocusNode _phoneFocus = FocusNode();
   final FocusNode _securityAnswerFocus = FocusNode();
 
   // Form key and Controllers
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _securityAnswer = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController phoneNumber = TextEditingController();
 
   // Security Questions
   final List<String> questions = [
@@ -173,6 +187,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           CustomTextField(
                             hintText: "Enter Your Password",
                             keyboardType: TextInputType.visiblePassword,
+                            focusNode: _passwordFocus,
+                            textInputAction: TextInputAction.next,
+                            nextFocusNode: _securityAnswerFocus,
                             isSuffixIcon: true,
                             suffixIcon: _obscureText
                                 ? Icons.visibility_off
@@ -215,7 +232,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                               debugPrint("abc: $number");
                               return _phoneNumberValidation(number);
                             },
-                            controller: phoneController,
+                            controller: phoneNumber,
                           ),
                           const SizedBox(height: 20.0),
 
@@ -247,9 +264,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           /// Security Answer Field
                           CustomTextField(
                             hintText: "Your Answer...",
-                            keyboardType: TextInputType.text,
-                            isSuffixIcon: false,
                             controller: _securityAnswer,
+                            keyboardType: TextInputType.text,
+                            focusNode: _securityAnswerFocus,
+                            textInputAction: TextInputAction.done,
+                            isSuffixIcon: false,
                             validation: _securityAnswerValidation,
                             topPadding: 12.0,
                             bottomPadding: 12.0,
