@@ -288,17 +288,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             /// Save & Continue Button
                             CustomButton(
                               label: 'Save & Continue',
-                              loginClick: () {
-                                if (_formKey.currentState!.validate()) {
-                                  if (_selectedDay == null ||
-                                      _selectedMonth == null ||
-                                      _selectedYear == null) {
-                                    _showBirthdateDialog();
-                                  } else {
-                                    _checkValidation();
-                                  }
-                                }
-                              },
+                              loginClick: _checkValidation,
                             ),
 
                             const SizedBox(height: 20.0),
@@ -324,12 +314,26 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     );
   }
 
-  /// It Validate all Fields
+  /// Check all validations
   void _checkValidation() {
-    if (_formKey.currentState!.validate()) {
-      FocusScope.of(context).unfocus();
-      // This triggers all onSaved methods
+    // Validate the form fields
+    if (_formKey.currentState!.validate() && _isPhoneNumberValid) {
+      // Trigger all onSaved methods
       _formKey.currentState!.save();
+
+      // Check birthday and navigate if valid
+      _birthdayValidation();
+    } else {}
+  }
+
+  /// Birthday Validation
+  void _birthdayValidation() {
+    if (_selectedDay == null ||
+        _selectedMonth == null ||
+        _selectedYear == null) {
+      _showBirthdateDialog();
+    } else {
+      // Birthday is valid, proceed
       _navigateToSigningScreen();
     }
   }
@@ -338,16 +342,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   void _navigateToSigningScreen() {
     // Direct navigate to First Page of Stack and Remove all Pages
     Navigator.popUntil(context, (route) => route.isFirst);
-  }
-
-  /// Birthday Validation
-  Function? _birthdayValidation() {
-    if (_selectedDay == null ||
-        _selectedMonth == null ||
-        _selectedYear == null) {
-      _showBirthdateDialog();
-    }
-    return null;
   }
 
   /// Alert Dialog for Birthday Validation
@@ -397,43 +391,27 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Password Validation Method
   String? _passwordValidation(String? password) {
-    if (password == null || password.isEmpty) {
+    if (password == null || password.isEmpty)
       return "Please enter your password";
-    }
-    if (password.length < 8) {
-      return "Password must be at least 8 characters";
-    }
-    if (password.contains(' ')) {
-      return "Space is not allowed";
-    }
-    if (!RegExp(r'[A-Z]').hasMatch(password)) {
-      return "Password must contain at least one uppercase letter";
-    }
-    if (!RegExp(r'[a-z]').hasMatch(password)) {
-      return "Password must contain at least one lowercase letter";
-    }
-    if (!RegExp(r'[0-9]').hasMatch(password)) {
-      return "Password must contain at least one number";
-    }
-    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) {
-      return "Password must contain at least one special character (!@#\$&*~_)";
-    }
+    if (password.length < 8) return "Password must be at least 8 characters";
+    if (password.contains(' ')) return "Space is not allowed";
+    if (!RegExp(r'[A-Z]').hasMatch(password))
+      return "Must contain uppercase letter";
+    if (!RegExp(r'[a-z]').hasMatch(password))
+      return "Must contain lowercase letter";
+    if (!RegExp(r'[0-9]').hasMatch(password)) return "Must contain a number";
+    if (!RegExp(r'[!@\$&*~_]').hasMatch(password))
+      return "Must contain special character (!@#\$&*~_)";
     return null;
   }
 
   /// Phone Number Validation
   String? _phoneNumberValidation(PhoneNumber? number) {
     final phone = number?.number.trim();
-    if (phone == null || phone.isEmpty) {
-      return "Please enter your phone number";
-    }
-    if (phone.length != 10) {
-      return "Mobile number must be 10 digits";
-    }
-    if (!RegExp(r'^[0-9]+$').hasMatch(phone)) {
-      return "Only numbers are allowed";
-    }
-    return null; // valid
+    if (phone == null || phone.isEmpty) return "Please enter your phone number";
+    if (phone.length != 10) return "Mobile number must be 10 digits";
+    if (!RegExp(r'^[0-9]+$').hasMatch(phone)) return "Only numbers are allowed";
+    return null;
   }
 
   /// Phone Number live Validation Check
