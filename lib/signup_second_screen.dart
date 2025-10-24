@@ -31,7 +31,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     'What is your favorite color?',
     'What city were you born in?',
   ];
-  String? _selectedSecurityQuestion;
+  String? _selectedSecurityQuestion = "";
 
   // show or hide input text
   bool _obscureText = false;
@@ -99,17 +99,46 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                                   width: 1.0,
                                 ),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
-                                child: Row(
-                                  children: [
-                                    /// Day
-                                    SizedBox(
-                                      width: 50,
-                                      child: CustomBirthdayDropdownButton(),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  /// Days
+                                  SizedBox(
+                                    width: 50,
+                                    child: CustomBirthdayDropdownButton(
+                                      hintLabel: "Day",
+                                      dropdownMenuItems: _generateDays(),
+                                      onChanged: (String? day) {
+                                        debugPrint("Selected day: $day");
+                                      },
                                     ),
-                                  ],
-                                ),
+                                  ),
+
+                                  /// Months
+                                  SizedBox(
+                                    width: 65,
+                                    child: CustomBirthdayDropdownButton(
+                                      hintLabel: "Month",
+                                      dropdownMenuItems: _generateMonths(),
+                                      onChanged: (String? value) {
+                                        debugPrint("Selected day: $value");
+                                      },
+                                    ),
+                                  ),
+
+                                  /// Years
+                                  SizedBox(
+                                    width: 63,
+                                    child: CustomBirthdayDropdownButton(
+                                      hintLabel: "Year",
+                                      dropdownMenuItems: _generateYears(),
+                                      onChanged: (String? value) {
+                                        debugPrint("Selected day: $value");
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -161,11 +190,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                                 ? Color(0xFF93c743)
                                 : Color(0xFFFF4C4C),
                             onChanged: (PhoneNumber number) {
-                              print("Hello " + number.completeNumber);
+                              debugPrint("Hello: ${number.completeNumber}");
                               _onChangedPhoneNumber(number.number);
                             },
                             validation: (PhoneNumber? number) {
-                              debugPrint("abc " + number.toString());
+                              debugPrint("abc: $number");
                               return _phoneNumberValidation(number);
                             },
                             controller: phoneController,
@@ -333,6 +362,54 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     }
     return null;
   }
+
+  /// Generates Days of Months
+  List<DropdownMenuItem<String>> _generateDays() {
+    return List.generate(
+      31,
+      (index) => "${index + 1}",
+    ).map((day) => _dropdownMenuItem(day)).toList();
+  }
+
+  /// Generates Months of Year
+  List<DropdownMenuItem<String>> _generateMonths() {
+    List<String> months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    return months.map((month) => _dropdownMenuItem(month)).toList();
+  }
+
+  /// Generate Years
+  List<DropdownMenuItem<String>> _generateYears() {
+    return List.generate(
+      100,
+      (index) => '${2025 - index}',
+    ).map((year) => _dropdownMenuItem(year)).toList();
+  }
+
+  /// Generate DropdownMenuItems
+  DropdownMenuItem<String> _dropdownMenuItem(String value) {
+    return DropdownMenuItem(
+      value: value,
+      child: Text(
+        value,
+        style: TextStyle(
+          fontSize: 16.0,
+          color: Colors.black45,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
 }
-
-
