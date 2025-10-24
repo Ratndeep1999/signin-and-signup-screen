@@ -18,8 +18,21 @@ class SigningScreen extends StatefulWidget {
 }
 
 class _SigningScreenState extends State<SigningScreen> {
+
+  @override
+  void initState(){
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    _emailAddress.clear();
+    _password.clear();
+    super.dispose();
+  }
+
   // show or hide input text
-  bool _obscureText = false;
+  bool _obscureText = true;
 
   // save password
   bool _savePassword = false;
@@ -118,6 +131,8 @@ class _SigningScreenState extends State<SigningScreen> {
                 bottomPadding: 15.0,
                 leftPadding: 20.0,
                 hintTextFontSize: 14,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
               ),
               const SizedBox(height: 26.0),
 
@@ -146,6 +161,8 @@ class _SigningScreenState extends State<SigningScreen> {
                 bottomPadding: 15.0,
                 leftPadding: 20.0,
                 hintTextFontSize: 14,
+                textInputAction: TextInputAction.done,
+                onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
               ),
               const SizedBox(height: 24.0),
 
