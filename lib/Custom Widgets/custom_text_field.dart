@@ -21,6 +21,7 @@ class CustomTextField extends StatelessWidget {
     this.textInputAction,
     this.onFieldSubmitted,
     this.focusNode,
+    this.autofillHints,
   });
 
   // Attributes
@@ -28,6 +29,7 @@ class CustomTextField extends StatelessWidget {
 
   final TextInputType keyboardType;
   final FocusNode? focusNode;
+  final List<String>? autofillHints;
   final String hintText;
   final IconData? suffixIcon;
   final bool obscureText;
@@ -58,6 +60,7 @@ class CustomTextField extends StatelessWidget {
       focusNode: focusNode,
       textInputAction: textInputAction,
       onFieldSubmitted: onFieldSubmitted,
+      autofillHints: autofillHints,
       obscureText: obscureText,
       obscuringCharacter: '*',
       // Input Text Style

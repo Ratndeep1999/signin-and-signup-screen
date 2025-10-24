@@ -36,17 +36,18 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     super.dispose();
   }
 
-  final TextEditingController _firstName = TextEditingController();
-  final TextEditingController _lastName = TextEditingController();
-  final TextEditingController _emailAddress = TextEditingController();
-  final TextEditingController _userName = TextEditingController();
-  bool _validUsername = false;
-
   // Focus nodes for keyboard navigation
   final FocusNode _firstNameFocus = FocusNode();
   final FocusNode _lastNameFocus = FocusNode();
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _userNameFocus = FocusNode();
+
+  // Controllers
+  final TextEditingController _firstName = TextEditingController();
+  final TextEditingController _lastName = TextEditingController();
+  final TextEditingController _emailAddress = TextEditingController();
+  final TextEditingController _userName = TextEditingController();
+  bool _validUsername = false;
 
   // Parameters
   String? firstName;
@@ -107,158 +108,164 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
       child: Padding(
         /// Content Padding
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              /// 2nd Heading
-              CustomSecondHeading(
-                bigText: "Personal Info\n",
-                smallText:
-                    "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
-              ),
-              const SizedBox(height: 26.0),
-
-              /// Your Name Label
-              const CustomTextFieldLabel(
-                label: 'Your Name',
-                labelFontSize: 12.0,
-              ),
-              const SizedBox(height: 8.0),
-
-              /// First and Last Name
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  /// First Name Field
-                  Flexible(
-                    child: CustomTextField(
-                      hintText: 'First Name',
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      focusNode: _firstNameFocus,
-                      onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_lastNameFocus),
-                      obscureText: false,
-                      isSuffixIcon: false,
-                      controller: _firstName,
-                      validation: _firstNameValidation,
-                      topPadding: 12.0,
-                      bottomPadding: 12.0,
-                      leftPadding: 20.0,
-                      hintTextFontSize: 13.0,
-                      onSaved: (String? firstname) {
-                        firstName = firstname!;
-                      },
+        child: AutofillGroup(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                /// 2nd Heading
+                CustomSecondHeading(
+                  bigText: "Personal Info\n",
+                  smallText:
+                      "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                ),
+                const SizedBox(height: 26.0),
+          
+                /// Your Name Label
+                const CustomTextFieldLabel(
+                  label: 'Your Name',
+                  labelFontSize: 12.0,
+                ),
+                const SizedBox(height: 8.0),
+          
+                /// First and Last Name
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    /// First Name Field
+                    Flexible(
+                      child: CustomTextField(
+                        hintText: 'First Name',
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                        focusNode: _firstNameFocus,
+                        onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_lastNameFocus),
+                        autofillHints: [AutofillHints.givenName],
+                        obscureText: false,
+                        isSuffixIcon: false,
+                        controller: _firstName,
+                        validation: _firstNameValidation,
+                        topPadding: 12.0,
+                        bottomPadding: 12.0,
+                        leftPadding: 20.0,
+                        hintTextFontSize: 13.0,
+                        onSaved: (String? firstname) {
+                          firstName = firstname!;
+                        },
+                      ),
                     ),
-                  ),
-
-                  SizedBox(width: 10.0),
-
-                  /// Last Name Field
-                  Flexible(
-                    child: CustomTextField(
-                      hintText: 'Last Name',
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      focusNode: _lastNameFocus,
-                      onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_emailFocus),
-                      obscureText: false,
-                      isSuffixIcon: false,
-                      controller: _lastName,
-                      validation: _lastNameValidation,
-                      topPadding: 12.0,
-                      bottomPadding: 12.0,
-                      leftPadding: 20.0,
-                      hintTextFontSize: 13.0,
-                      onSaved: (String? lastname) {
-                        lastName = lastname!;
-                      },
+          
+                    SizedBox(width: 10.0),
+          
+                    /// Last Name Field
+                    Flexible(
+                      child: CustomTextField(
+                        hintText: 'Last Name',
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                        focusNode: _lastNameFocus,
+                        onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_emailFocus),
+                        autofillHints: [AutofillHints.familyName],
+                        obscureText: false,
+                        isSuffixIcon: false,
+                        controller: _lastName,
+                        validation: _lastNameValidation,
+                        topPadding: 12.0,
+                        bottomPadding: 12.0,
+                        leftPadding: 20.0,
+                        hintTextFontSize: 13.0,
+                        onSaved: (String? lastname) {
+                          lastName = lastname!;
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20.0),
-
-              /// Email Label
-              const CustomTextFieldLabel(
-                label: 'Email Address',
-                labelFontSize: 12.0,
-              ),
-              const SizedBox(height: 8.0),
-
-              /// Email Address Field
-              CustomTextField(
-                hintText: "Your Email Address",
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-                focusNode: _emailFocus,
-                onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_userNameFocus),
-                isSuffixIcon: true,
-                suffixIcon: Icons.email,
-                obscureText: false,
-                controller: _emailAddress,
-                validation: _emailValidation,
-                topPadding: 12.0,
-                bottomPadding: 12.0,
-                leftPadding: 20.0,
-                hintTextFontSize: 13.0,
-                onSaved: (String? email) {
-                  emailAddress = email!;
-                },
-              ),
-              const SizedBox(height: 20.0),
-
-              /// Username Label
-              const CustomTextFieldLabel(
-                label: 'Username',
-                labelFontSize: 12.0,
-              ),
-              const SizedBox(height: 8.0),
-
-              /// Username Field
-              CustomTextField(
-                hintText: "example1234",
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.done,
-                focusNode: _userNameFocus,
-                onFieldSubmitted: (_) => FocusScope.of(context).unfocus(), // close keyboard
-                isSuffixIcon: true,
-                suffixIcon: _validUsername ? Icons.check_circle : Icons.cancel,
-                suffixIconColor: _validUsername
-                    ? Color(0xFF93c743)
-                    : Color(0xFFFF4C4C),
-                obscureText: false,
-                controller: _userName,
-                validation: _userNameValidation,
-                topPadding: 12.0,
-                bottomPadding: 12.0,
-                leftPadding: 20.0,
-                hintTextFontSize: 14.0,
-                onChanged: _onChangedUsername,
-                onSaved: (String? username) {
-                  userName = username!;
-                },
-              ),
-              const SizedBox(height: 22.0),
-
-              /// Save & Continue Button
-              CustomButton(
-                label: 'Save & Continue',
-                loginClick: () {
-                  /// If Details is valid then Next..
-                  _checkValidation();
-                },
-              ),
-              const SizedBox(height: 20.0),
-
-              /// Create Account text Button
-              CustomClickableText(
-                label: 'Back to Login',
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 20.0),
+          
+                /// Email Label
+                const CustomTextFieldLabel(
+                  label: 'Email Address',
+                  labelFontSize: 12.0,
+                ),
+                const SizedBox(height: 8.0),
+          
+                /// Email Address Field
+                CustomTextField(
+                  hintText: "Your Email Address",
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  focusNode: _emailFocus,
+                  onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(_userNameFocus),
+                  autofillHints: [AutofillHints.email],
+                  isSuffixIcon: true,
+                  suffixIcon: Icons.email,
+                  obscureText: false,
+                  controller: _emailAddress,
+                  validation: _emailValidation,
+                  topPadding: 12.0,
+                  bottomPadding: 12.0,
+                  leftPadding: 20.0,
+                  hintTextFontSize: 13.0,
+                  onSaved: (String? email) {
+                    emailAddress = email!;
+                  },
+                ),
+                const SizedBox(height: 20.0),
+          
+                /// Username Label
+                const CustomTextFieldLabel(
+                  label: 'Username',
+                  labelFontSize: 12.0,
+                ),
+                const SizedBox(height: 8.0),
+          
+                /// Username Field
+                CustomTextField(
+                  hintText: "example1234",
+                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.done,
+                  focusNode: _userNameFocus,
+                  onFieldSubmitted: (_) => FocusScope.of(context).unfocus(), // close keyboard
+                  autofillHints: [AutofillHints.username],
+                  isSuffixIcon: true,
+                  suffixIcon: _validUsername ? Icons.check_circle : Icons.cancel,
+                  suffixIconColor: _validUsername
+                      ? Color(0xFF93c743)
+                      : Color(0xFFFF4C4C),
+                  obscureText: false,
+                  controller: _userName,
+                  validation: _userNameValidation,
+                  topPadding: 12.0,
+                  bottomPadding: 12.0,
+                  leftPadding: 20.0,
+                  hintTextFontSize: 14.0,
+                  onChanged: _onChangedUsername,
+                  onSaved: (String? username) {
+                    userName = username!;
+                  },
+                ),
+                const SizedBox(height: 22.0),
+          
+                /// Save & Continue Button
+                CustomButton(
+                  label: 'Save & Continue',
+                  loginClick: () {
+                    /// If Details is valid then Next..
+                    _checkValidation();
+                  },
+                ),
+                const SizedBox(height: 20.0),
+          
+                /// Create Account text Button
+                CustomClickableText(
+                  label: 'Back to Login',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -366,18 +373,12 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   }
 
   /// Username live Validation check
-  bool? _onChangedUsername(String username) {
-    debugPrint('Username : $username');
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        _validUsername = true;
-      });
-    } else {
-      setState(() {
-        _validUsername = false;
-      });
-    }
-    return null;
+  void _onChangedUsername(String username) {
+    final bool isValid = RegExp(r'^[a-zA-Z0-9_]{4,}$').hasMatch(username);
+    setState(() {
+      _validUsername = isValid;
+    });
   }
+
 
 }
