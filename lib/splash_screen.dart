@@ -18,13 +18,23 @@ class _SplashScreenState extends State<SplashScreen> {
   /// Init Method
   void initState() {
     super.initState();
+    /// After 3 Sec Navigate to Next Page
+    _navigateToNextScreen();
+  }
+
+  /// Navigate After 3 Sec
+  void _navigateToNextScreen(){
     Timer(Duration(milliseconds: 3000), () {
-      // TODO WHERE TO GO LOGIC
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => SigningScreen()),
-      );
+      _whereToNavigate();
     });
+  }
+
+  /// Were To Navigate
+  void _whereToNavigate(){
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => SigningScreen()),
+    );
   }
 
   @override
