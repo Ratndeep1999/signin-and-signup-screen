@@ -374,11 +374,24 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
 
   /// Username live Validation check
   void _onChangedUsername(String username) {
-    final bool isValid = RegExp(r'^[a-zA-Z0-9_]{4,}$').hasMatch(username);
+    // remove any spaces
+    username = username.trim();
+
+    // allows letters, numbers, underscores and at least 4 chars
+    final bool isValidPattern = RegExp(r'^[a-zA-Z0-9_]{4,}$').hasMatch(username);
+
+    // Check if username equals other fields
+    final bool isDifferentFromOthers =
+        username != _firstName.text.trim() &&
+            username != _lastName.text.trim() &&
+            username != _emailAddress.text.trim();
+
+    // Final condition: valid pattern AND not same as other fields
+    final bool isValid = isValidPattern && isDifferentFromOthers;
+
     setState(() {
       _validUsername = isValid;
     });
   }
-
 
 }
