@@ -393,8 +393,8 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
       return 'Username is too short';
     }
     if (userName == _emailAddressController.text ||
-        userName == _firstNameController ||
-        userName == _lastNameController) {
+        userName == _firstNameController.text ||
+        userName == _lastNameController.text) {
       return "Username need to be different from others";
     }
     if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(userName)) {
