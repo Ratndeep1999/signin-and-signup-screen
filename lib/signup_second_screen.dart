@@ -100,7 +100,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 0.0,
+        toolbarHeight: 20.0,
         backgroundColor: Color(0xFFefb744),
         automaticallyImplyLeading: false,
       ),
