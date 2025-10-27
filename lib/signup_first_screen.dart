@@ -21,6 +21,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   @override
   void initState(){
     super.initState();
+    _initializeControllers();
   }
 
   @override
@@ -29,31 +30,44 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     _lastNameFocus.dispose();
     _emailFocus.dispose();
     _userNameFocus.dispose();
-    _firstName.clear();
-    _lastName.clear();
-    _emailAddress.clear();
-    _userName.clear();
+    _disposeControllers()
     super.dispose();
   }
 
   // Focus nodes for keyboard navigation
-  final FocusNode _firstNameFocus = FocusNode();
-  final FocusNode _lastNameFocus = FocusNode();
-  final FocusNode _emailFocus = FocusNode();
-  final FocusNode _userNameFocus = FocusNode();
+  late final FocusNode _firstNameFocus;
+  late final FocusNode _lastNameFocus;
+  late final FocusNode _emailFocus;
+  late final FocusNode _userNameFocus;
 
   // Controllers
-  final TextEditingController _firstName = TextEditingController();
-  final TextEditingController _lastName = TextEditingController();
-  final TextEditingController _emailAddress = TextEditingController();
-  final TextEditingController _userName = TextEditingController();
-  bool _validUsername = false;
+  late final TextEditingController _firstNameController;
+  late final TextEditingController _lastNameController;
+  late final TextEditingController _emailAddressController;
+  late final TextEditingController _userNameController;
+
+  // Initialize Controllers when the Page Loads
+  void _initializeControllers(){
+    _firstNameController = TextEditingController();
+    _lastNameController = TextEditingController();
+    _emailAddressController = TextEditingController();
+    _userNameController = TextEditingController();
+  }
+
+  // Dispose Controllers when the Page Dispose
+  void _disposeControllers(){
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailAddressController.dispose();
+    _userNameController.dispose();
+  }
 
   // Parameters
-  String? firstName;
-  String? lastName;
-  String? emailAddress;
-  String? userName;
+  bool _validUsername = false;
+  late String firstName;
+  late String lastName;
+  late String emailAddress;
+  late String userName;
 
   @override
   Widget build(BuildContext context) {
