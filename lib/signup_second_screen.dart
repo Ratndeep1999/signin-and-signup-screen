@@ -80,15 +80,16 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     'What city were you born in?',
   ];
 
-  //String? _selectedSecurityQuestion ;
-
   // show or hide input text
-  bool _obscureText = false;
-
-  // check number is valid or not
+  bool _obscureText = true;
   bool _isPhoneNumberValid = false;
 
   // Parameters
+  late String _password;
+  late String _phoneNumber;
+  late String _securityQuestion;
+  late String _securityAnswer;
+
   // For Birthday
   String? _selectedDay;
   String? _selectedMonth;
@@ -236,6 +237,10 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                   bottomPadding: 12.0,
                   leftPadding: 20.0,
                   hintTextFontSize: 13.0,
+                  onSaved: (String? password) {
+                    _password = password ?? '';
+                    debugPrint("Password: $_password");
+                  },
                 ),
                 const SizedBox(height: 20.0),
 
@@ -257,15 +262,18 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                   suffixIconColor: _isPhoneNumberValid
                       ? Color(0xFF93c743)
                       : Color(0xFFFF4C4C),
+                  controller: _phoneNumberController,
                   onChanged: (PhoneNumber number) {
-                    debugPrint("Hello: ${number.completeNumber}");
+                    // debugPrint("Phone Number: ${number.completeNumber}");
+                    // Phone Number: +918551830830
                     _onChangedPhoneNumber(number.number);
                   },
-                  validation: (PhoneNumber? number) {
-                    debugPrint("abc: $number");
-                    return _phoneNumberValidation(number);
+                  validation: _phoneNumberValidation,
+                  onSaved: (PhoneNumber? phoneNumber) {
+                    // Phone no: PhoneNumber(countryISOCode: IN, countryCode: +91, number: 8551830830)
+                    _phoneNumber =
+                        ("${phoneNumber!.countryISOCode}  ${phoneNumber.countryCode} ${phoneNumber.number}");
                   },
-                  controller: _phoneNumberController,
                 ),
                 const SizedBox(height: 20.0),
 
@@ -280,14 +288,15 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                 CustomDropdownButton(
                   hintLabel: "example1234",
                   dropdownMenuItems: questions,
-                  onSaved: (String? securityQuestion) {
-                    //_selectedSecurityQuestion = securityQuestion;
-                  },
                   validation: (String? question) {
+                    // other way to write validation function
                     return _securityQuestionValidation(question);
                   },
                   onChanged: (String? selectedQuestion) {
-                    debugPrint('Selected question: $selectedQuestion');
+                    _securityQuestion = selectedQuestion!;
+                  },
+                  onSaved: (String? securityQuestion) {
+                    _securityQuestion = securityQuestion!;
                   },
                 ),
                 const SizedBox(height: 8.0),
@@ -336,7 +345,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   /// Check all validations
   void _checkValidation() {
     // Validate the form fields
-    if (_formKey.currentState!.validate() && _isPhoneNumberValid && _birthdayValidation()) {
+    if (_formKey.currentState!.validate() &&
+        _isPhoneNumberValid &&
+        _birthdayValidation()) {
       _formKey.currentState!.save();
       _navigateToSigningScreen();
     } else {}
@@ -408,13 +419,17 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Password Validation Method
   String? _passwordValidation(String? password) {
-    if (password == null || password.isEmpty) return "Please enter your password";
+    if (password == null || password.isEmpty)
+      return "Please enter your password";
     if (password.length < 8) return "Password must be at least 8 characters";
     if (password.contains(' ')) return "Space is not allowed";
-    if (!RegExp(r'[A-Z]').hasMatch(password)) return "Must contain uppercase letter";
-    if (!RegExp(r'[a-z]').hasMatch(password)) return "Must contain lowercase letter";
+    if (!RegExp(r'[A-Z]').hasMatch(password))
+      return "Must contain uppercase letter";
+    if (!RegExp(r'[a-z]').hasMatch(password))
+      return "Must contain lowercase letter";
     if (!RegExp(r'[0-9]').hasMatch(password)) return "Must contain a number";
-    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) return "Must contain special character (!@#\$&*~_)";
+    if (!RegExp(r'[!@\$&*~_]').hasMatch(password))
+      return "Must contain special character (!@#\$&*~_)";
     return null;
   }
 
@@ -438,8 +453,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Security Questin Validation
   String? _securityQuestionValidation(question) {
-    if (question == null || question.isEmpty)
-      return "Please select the question";
+    if (question == null || question.isEmpty) return "Please select the question";
     return null;
   }
 
