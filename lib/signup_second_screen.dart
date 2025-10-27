@@ -141,7 +141,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
             child: Column(
               children: [
                 /// 2nd Heading
-                CustomSecondHeading(
+                const CustomSecondHeading(
                   bigText: "Secure Account\n",
                   smallText:
                       "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
@@ -327,7 +327,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                   label: 'Save & Continue',
                   loginClick: _checkValidation,
                 ),
-
                 const SizedBox(height: 20.0),
 
                 /// Create Account text Button
