@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_phone_number_field.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_security_question_field.dart';
 import 'Custom Widgets/custom_birthday_dropdown_button.dart';
@@ -33,6 +34,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     super.initState();
     _initializeControllers();
     _initializeFocusNodes();
+    _initializedSharedPref();
     // It initialize data from previous screen
     _fullName = widget.fullName;
     _emailAddress = widget.emailAddress;
@@ -56,6 +58,14 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   late final TextEditingController _passwordController;
   late final TextEditingController _securityAnswerController;
   late final TextEditingController _phoneNumberController;
+
+  // Shared Preferences object
+  late final SharedPreferences prefs;
+
+  // Shared Preferences initialize method
+  void _initializedSharedPref() async {
+    prefs = await SharedPreferences.getInstance();
+  }
 
   // Initialize Controllers when the Page Loads
   void _initializeControllers() {
