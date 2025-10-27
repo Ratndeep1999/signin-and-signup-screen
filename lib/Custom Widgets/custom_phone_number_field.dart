@@ -14,11 +14,13 @@ class CustomPhoneNumberField extends StatelessWidget {
     this.focusNode,
     this.textInputAction,
     this.nextFocusNode,
+    this.onSaved,
   });
 
   final TextEditingController controller;
   final ValueChanged<PhoneNumber>? onChanged;
   final FutureOr<String?> Function(PhoneNumber?)? validation;
+  final FormFieldSetter<PhoneNumber>? onSaved;
   final IconData suffixIcon;
   final Color suffixIconColor;
 
@@ -43,7 +45,7 @@ class CustomPhoneNumberField extends StatelessWidget {
       },
       initialCountryCode: 'IN',
       onChanged: onChanged,
-      //onSaved: ,
+      onSaved: onSave,
       validator: validation,
       // dropdown
       dropdownIconPosition: IconPosition.trailing,
