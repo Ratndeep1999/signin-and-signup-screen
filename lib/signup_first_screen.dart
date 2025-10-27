@@ -16,10 +16,11 @@ class SignupFirstScreen extends StatefulWidget {
 }
 
 class _SignupFirstScreenState extends State<SignupFirstScreen> {
+  // Form key
   final _formKey = GlobalKey<FormState>();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _initializeControllers();
     _initializeFocusNodes();
@@ -45,7 +46,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   late final TextEditingController _userNameController;
 
   // Initialize Controllers when the Page Loads
-  void _initializeControllers(){
+  void _initializeControllers() {
     _firstNameController = TextEditingController();
     _lastNameController = TextEditingController();
     _emailAddressController = TextEditingController();
@@ -53,7 +54,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   }
 
   // Dispose Controllers when the Page Removed from Stack (Dispose)
-  void _disposeControllers(){
+  void _disposeControllers() {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _emailAddressController.dispose();
@@ -61,7 +62,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   }
 
   // Initialize FocusNodes when the Page Loads
-  void _initializeFocusNodes(){
+  void _initializeFocusNodes() {
     _firstNameFocus = FocusNode();
     _lastNameFocus = FocusNode();
     _emailFocus = FocusNode();
@@ -78,10 +79,12 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
 
   // Parameters
   bool _validUsername = false;
-  late String firstName;
-  late String lastName;
-  late String emailAddress;
-  late String userName;
+
+  // late means it not null or empty (check validation) before save
+  late String _firstName;
+  late String _lastName;
+  late String _emailAddress;
+  late String _userName;
 
   @override
   Widget build(BuildContext context) {
@@ -148,14 +151,14 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                       "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                 ),
                 const SizedBox(height: 26.0),
-          
+
                 /// Your Name Label
                 const CustomTextFieldLabel(
                   label: 'Your Name',
                   labelFontSize: 12.0,
                 ),
                 const SizedBox(height: 8.0),
-          
+
                 /// First and Last Name
                 Row(
                   mainAxisSize: MainAxisSize.max,
@@ -171,20 +174,20 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                         autofillHints: [AutofillHints.givenName],
                         obscureText: false,
                         isSuffixIcon: false,
-                        controller: _firstName,
+                        controller: _firstNameController,
                         validation: _firstNameValidation,
                         topPadding: 12.0,
                         bottomPadding: 12.0,
                         leftPadding: 20.0,
                         hintTextFontSize: 13.0,
                         onSaved: (String? firstname) {
-                          firstName = firstname!;
+                          _firstName = firstname!;
                         },
                       ),
                     ),
-          
+
                     SizedBox(width: 10.0),
-          
+
                     /// Last Name Field
                     Flexible(
                       child: CustomTextField(
@@ -196,28 +199,28 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                         autofillHints: [AutofillHints.familyName],
                         obscureText: false,
                         isSuffixIcon: false,
-                        controller: _lastName,
+                        controller: _lastNameController,
                         validation: _lastNameValidation,
                         topPadding: 12.0,
                         bottomPadding: 12.0,
                         leftPadding: 20.0,
                         hintTextFontSize: 13.0,
                         onSaved: (String? lastname) {
-                          lastName = lastname!;
+                          _lastName = lastname!;
                         },
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 20.0),
-          
+
                 /// Email Label
                 const CustomTextFieldLabel(
                   label: 'Email Address',
                   labelFontSize: 12.0,
                 ),
                 const SizedBox(height: 8.0),
-          
+
                 /// Email Address Field
                 CustomTextField(
                   hintText: "Your Email Address",
@@ -229,40 +232,43 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                   isSuffixIcon: true,
                   suffixIcon: Icons.email,
                   obscureText: false,
-                  controller: _emailAddress,
+                  controller: _emailAddressController,
                   validation: _emailValidation,
                   topPadding: 12.0,
                   bottomPadding: 12.0,
                   leftPadding: 20.0,
                   hintTextFontSize: 13.0,
                   onSaved: (String? email) {
-                    emailAddress = email!;
+                    _emailAddress = email!;
                   },
                 ),
                 const SizedBox(height: 20.0),
-          
+
                 /// Username Label
                 const CustomTextFieldLabel(
                   label: 'Username',
                   labelFontSize: 12.0,
                 ),
                 const SizedBox(height: 8.0),
-          
+
                 /// Username Field
                 CustomTextField(
                   hintText: "example1234",
                   keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.done,
                   focusNode: _userNameFocus,
-                  nextFocusNode: null, // close keyboard
+                  nextFocusNode: null,
+                  // close keyboard
                   autofillHints: [AutofillHints.username],
                   isSuffixIcon: true,
-                  suffixIcon: _validUsername ? Icons.check_circle : Icons.cancel,
+                  suffixIcon: _validUsername
+                      ? Icons.check_circle
+                      : Icons.cancel,
                   suffixIconColor: _validUsername
                       ? Color(0xFF93c743)
                       : Color(0xFFFF4C4C),
                   obscureText: false,
-                  controller: _userName,
+                  controller: _userNameController,
                   validation: _userNameValidation,
                   topPadding: 12.0,
                   bottomPadding: 12.0,
@@ -270,11 +276,11 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                   hintTextFontSize: 14.0,
                   onChanged: _onChangedUsername,
                   onSaved: (String? username) {
-                    userName = username!;
+                    _userName = username!;
                   },
                 ),
                 const SizedBox(height: 22.0),
-          
+
                 /// Save & Continue Button
                 CustomButton(
                   label: 'Save & Continue',
@@ -284,7 +290,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                   },
                 ),
                 const SizedBox(height: 20.0),
-          
+
                 /// Create Account text Button
                 CustomClickableText(
                   label: 'Back to Login',
@@ -306,18 +312,18 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
       FocusScope.of(context).unfocus();
       // This triggers all onSaved methods
       _formKey.currentState!.save();
-      _savedData();
+      _printSavedData();
       // Navigate to Next Screen
       _navigateToSignupSecondScreen();
     }
   }
 
   /// Check Saved Data
-  _savedData() {
-    debugPrint('First Name: $firstName');
-    debugPrint('Last Name: $lastName');
-    debugPrint('Email Address: $emailAddress');
-    debugPrint('UserName: $userName');
+  void _printSavedData() {
+    debugPrint('First Name: $_firstName');
+    debugPrint('Last Name: $_lastName');
+    debugPrint('Email Address: $_emailAddress');
+    debugPrint('UserName: $_userName');
   }
 
   /// Navigate to signup second screen
@@ -386,9 +392,9 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     if (userName.length < 4) {
       return 'Username is too short';
     }
-    if (userName == _emailAddress.text ||
-        userName == _firstName.text ||
-        userName == _lastName.text) {
+    if (userName == _emailAddressController.text ||
+        userName == _firstNameController ||
+        userName == _lastNameController) {
       return "Username need to be different from others";
     }
     if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(userName)) {
@@ -406,13 +412,15 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     username = username.trim();
 
     // allows letters, numbers, underscores and at least 4 chars
-    final bool isValidPattern = RegExp(r'^[a-zA-Z0-9_]{4,}$').hasMatch(username);
+    final bool isValidPattern = RegExp(
+      r'^[a-zA-Z0-9_]{4,}$',
+    ).hasMatch(username);
 
-    // Check if username equals other fields
+    // Check if username equals other fields or not
     final bool isDifferentFromOthers =
-        username != _firstName.text.trim() &&
-            username != _lastName.text.trim() &&
-            username != _emailAddress.text.trim();
+        username != _emailAddressController.text.trim() &&
+        username != _firstNameController.text.trim() &&
+        username != _lastNameController.text.trim();
 
     // Final condition: valid pattern AND not same as other fields
     final bool isValid = isValidPattern && isDifferentFromOthers;
@@ -421,5 +429,4 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
       _validUsername = isValid;
     });
   }
-
 }
