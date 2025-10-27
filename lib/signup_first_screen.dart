@@ -22,15 +22,13 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   void initState(){
     super.initState();
     _initializeControllers();
+    _initializeFocusNodes();
   }
 
   @override
   void dispose() {
-    _firstNameFocus.dispose();
-    _lastNameFocus.dispose();
-    _emailFocus.dispose();
-    _userNameFocus.dispose();
-    _disposeControllers()
+    _disposeControllers();
+    _disposeFocusNodes();
     super.dispose();
   }
 
@@ -54,12 +52,28 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     _userNameController = TextEditingController();
   }
 
-  // Dispose Controllers when the Page Dispose
+  // Dispose Controllers when the Page Removed from Stack (Dispose)
   void _disposeControllers(){
     _firstNameController.dispose();
     _lastNameController.dispose();
     _emailAddressController.dispose();
     _userNameController.dispose();
+  }
+
+  // Initialize FocusNodes when the Page Loads
+  void _initializeFocusNodes(){
+    _firstNameFocus = FocusNode();
+    _lastNameFocus = FocusNode();
+    _emailFocus = FocusNode();
+    _userNameFocus = FocusNode();
+  }
+
+  // Dispose FocusNodes When the Page Removed from Stack (Dispose
+  void _disposeFocusNodes() {
+    _firstNameFocus.dispose();
+    _lastNameFocus.dispose();
+    _emailFocus.dispose();
+    _userNameFocus.dispose();
   }
 
   // Parameters
