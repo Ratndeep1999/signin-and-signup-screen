@@ -11,7 +11,16 @@ import 'Custom Widgets/custom_text_field.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
 
 class SignupSecondScreen extends StatefulWidget {
-  const SignupSecondScreen({super.key});
+  final String fullName;
+  final String emailAddress;
+  final String userName;
+
+  const SignupSecondScreen({
+    super.key,
+    required this.fullName,
+    required this.emailAddress,
+    required this.userName,
+  });
 
   @override
   State<SignupSecondScreen> createState() => _SignupSecondScreenState();
@@ -23,6 +32,10 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     super.initState();
     _initializeControllers();
     _initializeFocusNodes();
+    // It initialize data from previous screen
+    _fullName = widget.fullName;
+    _emailAddress = widget.emailAddress;
+    _userName = widget.userName;
   }
 
   @override
@@ -85,6 +98,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   bool _isPhoneNumberValid = false;
 
   // Parameters
+  late String _fullName;
+  late String _emailAddress;
+  late String _userName;
   late String _birthDate;
   late String _password;
   late String _phoneNumber;
@@ -316,7 +332,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                   leftPadding: 20.0,
                   hintTextFontSize: 13.0,
                   obscureText: false,
-                  onSaved: (String? securityAnswer){
+                  onSaved: (String? securityAnswer) {
                     _securityAnswer = securityAnswer!;
                   },
                 ),
@@ -466,7 +482,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Security Questin Validation
   String? _securityQuestionValidation(question) {
-    if (question == null || question.isEmpty) return "Please select the question";
+    if (question == null || question.isEmpty)
+      return "Please select the question";
     return null;
   }
 
