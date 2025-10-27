@@ -316,6 +316,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                   leftPadding: 20.0,
                   hintTextFontSize: 13.0,
                   obscureText: false,
+                  onSaved: (String? securityAnswer){
+                    _securityAnswer = securityAnswer!;
+                  },
                 ),
                 const SizedBox(height: 22.0),
 
@@ -459,6 +462,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Security Answer Validation
   String? _securityAnswerValidation(String? answer) {
+    answer = answer?.trim();
     if (answer == null || answer.isEmpty) return "Please enter the answer";
     if (answer.length < 3) return "Answer must be at least 3 characters long";
     if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer))
