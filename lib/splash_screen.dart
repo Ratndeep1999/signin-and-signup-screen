@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:signin_and_signup_screens/home_screen.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
 
@@ -27,21 +28,38 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   /// Navigate After 3 Sec
-  void _navigateToNextScreen(){
+  void _navigateToNextScreen() {
     Timer(Duration(milliseconds: 3000), () {
       _whereToNavigate();
     });
   }
 
   /// Were To Navigate
-  void _whereToNavigate(){
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => SigningScreen()),
-    );
+  void _whereToNavigate() {
+    bool? isUserLoggedIn = prefs.getBool("isLoggedIn");
+
+    // If null then Navigate to SigningScreen
+    if (isUserLoggedIn != null) {
+      // If not null then check this condition
+      if (isUserLoggedIn) {
+        // If true then Home screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => SigningScreen()),
+        );
+      }
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => SigningScreen()),
+      );
+    }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +82,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 fit: BoxFit.cover,
               ),
             ),
-
           ],
         ),
       ),
