@@ -332,7 +332,11 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return SignupSecondScreen();
+          return SignupSecondScreen(
+            fullName: ("$_firstName $_lastName"),
+            emailAddress: _emailAddress,
+            userName: _userName,
+          );
         },
       ),
     );
