@@ -85,6 +85,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   bool _isPhoneNumberValid = false;
 
   // Parameters
+  late String _birthDate;
   late String _password;
   late String _phoneNumber;
   late String _securityQuestion;
@@ -239,7 +240,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                   hintTextFontSize: 13.0,
                   onSaved: (String? password) {
                     _password = password ?? '';
-                    debugPrint("Password: $_password");
                   },
                 ),
                 const SizedBox(height: 20.0),
@@ -345,6 +345,15 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     );
   }
 
+  /// Check Saved Data
+  void _printSavedData() {
+    debugPrint('Birthday: $_birthDate');
+    debugPrint('Password: $_password');
+    debugPrint('Phone Number: $_phoneNumber');
+    debugPrint('Security Question: $_securityQuestion');
+    debugPrint('Security Answer: $_securityAnswer');
+  }
+
   /// Check all validations
   void _checkValidation() {
     // Validate the form fields
@@ -352,6 +361,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
         _isPhoneNumberValid &&
         _birthdayValidation()) {
       _formKey.currentState!.save();
+      _printSavedData();
       _navigateToSigningScreen();
     } else {}
   }
@@ -364,6 +374,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
       _showBirthdateDialog();
       return false;
     } else {
+      _birthDate = ("$_selectedDay $_selectedMonth $_selectedYear");
       // If Birthday is valid, then proceed
       return true;
     }
