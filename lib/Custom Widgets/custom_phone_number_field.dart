@@ -9,12 +9,12 @@ class CustomPhoneNumberField extends StatelessWidget {
     required this.onChanged,
     required this.suffixIcon,
     required this.suffixIconColor,
-    required this.validation,
     required this.controller,
     this.focusNode,
     this.textInputAction,
     this.nextFocusNode,
     this.onSaved,
+    this.validation,
   });
 
   final TextEditingController controller;
