@@ -11,6 +11,7 @@ import 'Custom Widgets/custom_text_field.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
 
 class SignupSecondScreen extends StatefulWidget {
+  // To get data from previous page
   final String fullName;
   final String emailAddress;
   final String userName;
