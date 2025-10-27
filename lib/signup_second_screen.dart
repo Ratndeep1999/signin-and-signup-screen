@@ -18,32 +18,59 @@ class SignupSecondScreen extends StatefulWidget {
 }
 
 class _SignupSecondScreenState extends State<SignupSecondScreen> {
+
   @override
   void initState() {
     super.initState();
+    _initializeControllers();
+    _initializeFocusNodes();
   }
 
   @override
   void dispose() {
-    _passwordFocus.dispose();
-    _securityAnswerFocus.dispose();
-    _password.clear();
-    _securityAnswer.clear();
-    phoneNumber.dispose();
-    _phoneNumberFocus.dispose();
+    _disposeControllers();
+    _disposeFocusNodes();
     super.dispose();
   }
 
   // Focus Nodes
-  final FocusNode _passwordFocus = FocusNode();
-  final FocusNode _securityAnswerFocus = FocusNode();
-  final FocusNode _phoneNumberFocus = FocusNode();
+  late final FocusNode _passwordFocus;
+  late final FocusNode _securityAnswerFocus;
+  late final FocusNode _phoneNumberFocus;
 
   // Form key and Controllers
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _securityAnswer = TextEditingController();
-  final TextEditingController phoneNumber = TextEditingController();
+  late final TextEditingController _passwordController;
+  late final TextEditingController _securityAnswerController;
+  late final TextEditingController _phoneNumberController;
+
+  // Initialize Controllers when the Page Loads
+  void _initializeControllers() {
+    _passwordController = TextEditingController();
+    _securityAnswerController = TextEditingController();
+    _phoneNumberController = TextEditingController();
+  }
+
+  // Dispose Controllers when the Page Removed from Stack (Dispose)
+  void _disposeControllers() {
+    _passwordController.dispose();
+    _securityAnswerController.dispose();
+    _phoneNumberController.dispose();
+  }
+
+  // Initialize FocusNodes when the Page Loads
+  void _initializeFocusNodes() {
+    _passwordFocus = FocusNode();
+    _securityAnswerFocus = FocusNode();
+    _phoneNumberFocus = FocusNode();
+  }
+
+  // Dispose FocusNodes when the Page Removed from Stack (Dispose)
+  void _disposeFocusNodes() {
+    _passwordFocus.dispose();
+    _securityAnswerFocus.dispose();
+    _phoneNumberFocus.dispose();
+  }
 
   // Security Questions
   final List<String> questions = [
@@ -53,7 +80,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     'What is your favorite color?',
     'What city were you born in?',
   ];
-  String? _selectedSecurityQuestion = "";
+  //String? _selectedSecurityQuestion ;
 
   // show or hide input text
   bool _obscureText = false;
@@ -203,7 +230,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                                   _obscureText = !_obscureText;
                                 });
                               },
-                              controller: _password,
+                              controller: _passwordController,
                               validation: _passwordValidation,
                               topPadding: 12.0,
                               bottomPadding: 12.0,
@@ -238,7 +265,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                                 debugPrint("abc: $number");
                                 return _phoneNumberValidation(number);
                               },
-                              controller: phoneNumber,
+                              controller: _phoneNumberController,
                             ),
                             const SizedBox(height: 20.0),
 
@@ -254,7 +281,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                               hintLabel: "example1234",
                               dropdownMenuItems: questions,
                               onSaved: (String? securityQuestion) {
-                                _selectedSecurityQuestion = securityQuestion;
+                                //_selectedSecurityQuestion = securityQuestion;
                               },
                               validation: (String? question) {
                                 return _securityQuestionValidation(question);
@@ -270,7 +297,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             /// Security Answer Field
                             CustomTextField(
                               hintText: "Your Answer...",
-                              controller: _securityAnswer,
+                              controller: _securityAnswerController,
                               keyboardType: TextInputType.text,
                               autofillHints: const [AutofillHints.name],
                               focusNode: _securityAnswerFocus,
@@ -390,13 +417,17 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Password Validation Method
   String? _passwordValidation(String? password) {
-    if (password == null || password.isEmpty) return "Please enter your password";
+    if (password == null || password.isEmpty)
+      return "Please enter your password";
     if (password.length < 8) return "Password must be at least 8 characters";
     if (password.contains(' ')) return "Space is not allowed";
-    if (!RegExp(r'[A-Z]').hasMatch(password)) return "Must contain uppercase letter";
-    if (!RegExp(r'[a-z]').hasMatch(password)) return "Must contain lowercase letter";
+    if (!RegExp(r'[A-Z]').hasMatch(password))
+      return "Must contain uppercase letter";
+    if (!RegExp(r'[a-z]').hasMatch(password))
+      return "Must contain lowercase letter";
     if (!RegExp(r'[0-9]').hasMatch(password)) return "Must contain a number";
-    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) return "Must contain special character (!@#\$&*~_)";
+    if (!RegExp(r'[!@\$&*~_]').hasMatch(password))
+      return "Must contain special character (!@#\$&*~_)";
     return null;
   }
 
@@ -420,7 +451,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Security Questin Validation
   String? _securityQuestionValidation(question) {
-    if (question == null || question.isEmpty) return "Please select the question";
+    if (question == null || question.isEmpty)
+      return "Please select the question";
     return null;
   }
 
@@ -428,7 +460,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   String? _securityAnswerValidation(String? answer) {
     if (answer == null || answer.isEmpty) return "Please enter the answer";
     if (answer.length < 3) return "Answer must be at least 3 characters long";
-    if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer)) return "Only letters and numbers are allowed";
+    if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer))
+      return "Only letters and numbers are allowed";
     return null;
   }
 
