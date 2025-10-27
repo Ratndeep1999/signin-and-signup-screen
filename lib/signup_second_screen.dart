@@ -29,6 +29,20 @@ class SignupSecondScreen extends StatefulWidget {
 }
 
 class _SignupSecondScreenState extends State<SignupSecondScreen> {
+  // Focus Nodes
+  late final FocusNode _passwordFocus;
+  late final FocusNode _securityAnswerFocus;
+  late final FocusNode _phoneNumberFocus;
+
+  // Form key and Controllers
+  final _formKey = GlobalKey<FormState>();
+  late final TextEditingController _passwordController;
+  late final TextEditingController _securityAnswerController;
+  late final TextEditingController _phoneNumberController;
+
+  // Shared Preferences object
+  late final SharedPreferences prefs;
+
   @override
   void initState() {
     super.initState();
@@ -47,20 +61,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     _disposeFocusNodes();
     super.dispose();
   }
-
-  // Focus Nodes
-  late final FocusNode _passwordFocus;
-  late final FocusNode _securityAnswerFocus;
-  late final FocusNode _phoneNumberFocus;
-
-  // Form key and Controllers
-  final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _passwordController;
-  late final TextEditingController _securityAnswerController;
-  late final TextEditingController _phoneNumberController;
-
-  // Shared Preferences object
-  late final SharedPreferences prefs;
 
   // Shared Preferences initialize method
   void _initializedSharedPref() async {
