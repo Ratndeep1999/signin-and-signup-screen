@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
 
@@ -11,13 +12,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
+  late final SharedPreferences prefs;
 
-  /// Init Method
+  @override
   void initState() {
     super.initState();
-    /// After 3 Sec Navigate to Next Page
+    _initSharedPref();
     _navigateToNextScreen();
+  }
+
+  // It Initialize the object of Shared Preferences
+  Future<void> _initSharedPref() async {
+    prefs = await SharedPreferences.getInstance();
   }
 
   /// Navigate After 3 Sec
@@ -34,6 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
       MaterialPageRoute(builder: (context) => SigningScreen()),
     );
   }
+
+
 
   @override
   Widget build(BuildContext context) {
