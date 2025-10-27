@@ -98,6 +98,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 0.0,
         backgroundColor: Color(0xFFefb744),
         automaticallyImplyLeading: false,
       ),
@@ -170,10 +171,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             hintLabel: "Day",
                             dropdownMenuItems: _generateDays(),
                             onChanged: (String? day) {
-                              debugPrint("Selected day: $day");
                               _selectedDay = day;
                             },
-                            //onSaved: (){},
                           ),
                         ),
 
@@ -184,10 +183,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             hintLabel: "Month",
                             dropdownMenuItems: _generateMonths(),
                             onChanged: (String? month) {
-                              debugPrint("Selected day: $month");
                               _selectedMonth = month;
                             },
-                            //onSaved: ,
                           ),
                         ),
 
@@ -198,10 +195,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                             hintLabel: "Year",
                             dropdownMenuItems: _generateYears(),
                             onChanged: (String? year) {
-                              debugPrint("Selected day: $year");
                               _selectedYear = year;
                             },
-                            //onSaved: ,
                           ),
                         ),
                       ],
@@ -341,23 +336,22 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   /// Check all validations
   void _checkValidation() {
     // Validate the form fields
-    if (_formKey.currentState!.validate() && _isPhoneNumberValid) {
-      // Trigger all onSaved methods
+    if (_formKey.currentState!.validate() && _isPhoneNumberValid && _birthdayValidation()) {
       _formKey.currentState!.save();
-      // Check birthday and navigate if valid
-      _birthdayValidation();
+      _navigateToSigningScreen();
     } else {}
   }
 
   /// Birthday Validation
-  void _birthdayValidation() {
+  bool _birthdayValidation() {
     if (_selectedDay == null ||
         _selectedMonth == null ||
         _selectedYear == null) {
       _showBirthdateDialog();
+      return false;
     } else {
       // If Birthday is valid, then proceed
-      _navigateToSigningScreen();
+      return true;
     }
   }
 
@@ -414,17 +408,13 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Password Validation Method
   String? _passwordValidation(String? password) {
-    if (password == null || password.isEmpty)
-      return "Please enter your password";
+    if (password == null || password.isEmpty) return "Please enter your password";
     if (password.length < 8) return "Password must be at least 8 characters";
     if (password.contains(' ')) return "Space is not allowed";
-    if (!RegExp(r'[A-Z]').hasMatch(password))
-      return "Must contain uppercase letter";
-    if (!RegExp(r'[a-z]').hasMatch(password))
-      return "Must contain lowercase letter";
+    if (!RegExp(r'[A-Z]').hasMatch(password)) return "Must contain uppercase letter";
+    if (!RegExp(r'[a-z]').hasMatch(password)) return "Must contain lowercase letter";
     if (!RegExp(r'[0-9]').hasMatch(password)) return "Must contain a number";
-    if (!RegExp(r'[!@\$&*~_]').hasMatch(password))
-      return "Must contain special character (!@#\$&*~_)";
+    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) return "Must contain special character (!@#\$&*~_)";
     return null;
   }
 
