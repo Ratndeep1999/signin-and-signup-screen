@@ -362,6 +362,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Check Saved Data
   void _printSavedData() {
+    debugPrint('Full Name: $_fullName');
+    debugPrint('Email Address: $_emailAddress');
+    debugPrint('UserName: $_userName');
     debugPrint('Birthday: $_birthDate');
     debugPrint('Password: $_password');
     debugPrint('Phone Number: $_phoneNumber');
