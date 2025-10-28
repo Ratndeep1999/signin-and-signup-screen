@@ -34,8 +34,8 @@ class _SigningScreenState extends State<SigningScreen> {
   // Parameters
   bool _obscureText = true;
   bool _savePassword = false;
-  late String _emailAddress;
-  late String _password;
+  String? _emailAddress;
+  String? _password;
 
   @override
   void initState() {
@@ -176,7 +176,7 @@ class _SigningScreenState extends State<SigningScreen> {
                   nextFocusNode: _passwordFocus,
                   autofillHints: [AutofillHints.email],
                   onSaved: (String? password) {
-                    _emailAddress = password!;
+                    _emailAddress = password;
                   },
                 ),
                 const SizedBox(height: 26.0),
@@ -211,7 +211,7 @@ class _SigningScreenState extends State<SigningScreen> {
                   nextFocusNode: null,
                   autofillHints: [AutofillHints.password],
                   onSaved: (String? password) {
-                    _password = password!;
+                    _password = password;
                   },
                 ),
                 const SizedBox(height: 24.0),
