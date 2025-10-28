@@ -22,6 +22,18 @@ class _SigningScreenState extends State<SigningScreen> {
   // object of shared preferences
   late final SharedPreferences prefs;
 
+  // Focus nodes for keyboard navigation
+  late final FocusNode _passwordFocus;
+  late final FocusNode _emailFocus;
+
+  // Controllers
+  final _formKey = GlobalKey<FormState>();
+  late final TextEditingController _emailAddressController;
+  late final TextEditingController _passwordController;
+
+  bool _obscureText = true;
+  bool _savePassword = false;
+
   @override
   void initState() {
     super.initState();
@@ -67,18 +79,6 @@ class _SigningScreenState extends State<SigningScreen> {
     _emailFocus.dispose();
     _passwordFocus.dispose();
   }
-
-  // Focus nodes for keyboard navigation
-  late final FocusNode _passwordFocus;
-  late final FocusNode _emailFocus;
-
-  // Controllers
-  final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _emailAddressController;
-  late final TextEditingController _passwordController;
-
-  bool _obscureText = true;
-  bool _savePassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +162,7 @@ class _SigningScreenState extends State<SigningScreen> {
                   isSuffixIcon: true,
                   suffixIcon: Icons.person,
                   obscureText: false,
-                  controller: _emailAddress,
+                  controller: _emailAddressController,
                   validation: _emailValidation,
                   topPadding: 15.0,
                   bottomPadding: 15.0,
@@ -194,7 +194,7 @@ class _SigningScreenState extends State<SigningScreen> {
                       _obscureText = !_obscureText;
                     });
                   },
-                  controller: _password,
+                  controller: _passwordController,
                   validation: _passwordValidation,
                   topPadding: 15.0,
                   bottomPadding: 15.0,
