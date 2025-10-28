@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
@@ -8,6 +9,12 @@ import 'Custom Widgets/custom_text_field_label.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  /// Initialize Shared Preferences and Delete All Stored Data
+  Future<void> _clearStoredPrefData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +64,9 @@ class HomeScreen extends StatelessWidget {
 
   /// Navigate to Signing Screen
   void _logout(context) {
+    // Clear all Stored Shared Pref Data
+    _clearStoredPrefData();
+
     // Delay 3 seconds
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
