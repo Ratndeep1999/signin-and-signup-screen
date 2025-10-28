@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_phone_number_field.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_security_question_field.dart';
+import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
 import 'Custom Widgets/custom_birthday_dropdown_button.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
@@ -41,7 +41,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   late final TextEditingController _phoneNumberController;
 
   // Shared Preferences object
-  late final SharedPreferences prefs;
+  late final SharedPreferencesServices prefServices;
 
   @override
   void initState() {
@@ -64,7 +64,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   // Shared Preferences initialize method
   Future<void> _initializedSharedPref() async {
-    prefs = await SharedPreferences.getInstance();
+    prefServices.initializeSharedPref();
     debugPrint("SharedPreferences initialized");
   }
 
@@ -104,8 +104,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     'What is your favorite color?',
     'What city were you born in?',
   ];
-
-  // show or hide input text
   bool _obscureText = true;
   bool _isPhoneNumberValid = false;
 
@@ -386,14 +384,14 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Save User Signup data to Shared Preferences
   Future<void> _saveUserSignupPrefs() async {
-    await prefs.setString('fullName', _fullName);
-    await prefs.setString('emailId', _emailAddress);
-    await prefs.setString('userName', _userName);
-    await prefs.setString('birthday', _birthDate);
-    await prefs.setString('password', _password);
-    await prefs.setString('phoneNumber', _phoneNumber);
-    await prefs.setString('securityQue', _securityQuestion);
-    await prefs.setString('securityAns', _securityAnswer);
+    await prefServices.setPrefString(key: SharedPreferencesServices.kFullName, value: _fullName);
+    await prefServices.setPrefString(key: SharedPreferencesServices.kEmailId, value: _emailAddress);
+    await prefServices.setPrefString(key: SharedPreferencesServices.kUserName, value: _userName);
+    await prefServices.setPrefString(key: SharedPreferencesServices.kBirthday, value: _birthDate);
+    await prefServices.setPrefString(key: SharedPreferencesServices.kPassword, value: _password);
+    await prefServices.setPrefString(key: SharedPreferencesServices.kPhoneNumber, value: _phoneNumber);
+    await prefServices.setPrefString(key: SharedPreferencesServices.kSecurityQue, value: _securityQuestion);
+    await prefServices.setPrefString(key: SharedPreferencesServices.kSecurityAns, value: _securityAnswer);
   }
 
   /// Check all validations
