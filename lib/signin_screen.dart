@@ -26,14 +26,14 @@ class _SigningScreenState extends State<SigningScreen> {
   void initState() {
     super.initState();
     _initializeControllers();
+    _initializeFocusNodes();
     _initializeSharedPrefs();
   }
 
   @override
   void dispose() {
     _disposeControllers();
-    _passwordFocus.dispose();
-    _emailFocus.dispose();
+    _disposeFocusNodes();
     super.dispose();
   }
 
@@ -56,10 +56,21 @@ class _SigningScreenState extends State<SigningScreen> {
     _passwordController.dispose();
   }
 
+  /// Initialize FocusNodes
+  void _initializeFocusNodes(){
+    _emailFocus = FocusNode();
+    _passwordFocus = FocusNode();
+  }
+
+  /// Dispose FocusNode
+  void _disposeFocusNodes(){
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
+  }
 
   // Focus nodes for keyboard navigation
-  final FocusNode _passwordFocus = FocusNode();
-  final FocusNode _emailFocus = FocusNode();
+  late final FocusNode _passwordFocus;
+  late final FocusNode _emailFocus;
 
   // Controllers
   final _formKey = GlobalKey<FormState>();
