@@ -23,13 +23,13 @@ class _SigningScreenState extends State<SigningScreen> {
   late final SharedPreferences prefs;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _initializeSharedPrefs();
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _emailAddress.clear();
     _password.clear();
     _passwordFocus.dispose();
@@ -38,7 +38,7 @@ class _SigningScreenState extends State<SigningScreen> {
   }
 
   /// It will Initialize Shared Preferences
-  void _initializeSharedPrefs() async{
+  Future<void> _initializeSharedPrefs() async {
     prefs = await SharedPreferences.getInstance();
     debugPrint("Shred Preferences Initialize");
     _printSavedPrefs();
