@@ -1,7 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
-
   // Object
   late final SharedPreferences? _prefs;
 
@@ -21,6 +20,24 @@ class SharedPreferencesService {
   static const String kSecurityAns = 'securityAns';
   static const String kIsUserLoggedIn = 'isUserLoggedIn';
 
-
-
+  // Method to store Signup Data
+  Future<void> saveSignupData({
+    required firstName,
+    required emailId,
+    required userName,
+    required birthday,
+    required password,
+    required phoneNumber,
+    required securityQue,
+    required securityAns,
+  }) async {
+    await _prefs?.setString(kFullName, firstName);
+    await _prefs?.setString(kEmailId, emailId);
+    await _prefs?.setString(kUserName, userName);
+    await _prefs?.setString(kBirthday, birthday);
+    await _prefs?.setString(kPassword, password);
+    await _prefs?.setString(kPhoneNumber, phoneNumber);
+    await _prefs?.setString(kSecurityQue, securityQue);
+    await _prefs?.setString(kSecurityAns, securityAns);
+  }
 }
