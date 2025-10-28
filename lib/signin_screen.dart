@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_helping_clickable_text.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_text_field_label.dart';
+import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
 import 'package:signin_and_signup_screens/home_screen.dart';
 import 'package:signin_and_signup_screens/signup_first_screen.dart';
 import 'Custom Widgets/custom_button.dart';
@@ -20,7 +20,7 @@ class SigningScreen extends StatefulWidget {
 
 class _SigningScreenState extends State<SigningScreen> {
   // object of shared preferences
-  late final SharedPreferences prefs;
+  late final SharedPreferencesServices prefServices;
 
   // Focus nodes for keyboard navigation
   late final FocusNode _passwordFocus;
@@ -54,9 +54,9 @@ class _SigningScreenState extends State<SigningScreen> {
 
   /// It will Initialize Shared Preferences
   Future<void> _initializeSharedPrefs() async {
-    prefs = await SharedPreferences.getInstance();
+    prefServices.initializeSharedPref();
     debugPrint("Shred Preferences Initialize");
-    _printSavedPrefs();
+    prefServices.printSavedPrefs();
   }
 
   /// Initialize Controller
@@ -253,16 +253,41 @@ class _SigningScreenState extends State<SigningScreen> {
     );
   }
 
-  /// It will print the Saved data from from Prefs
-  void _printSavedPrefs() {
-    debugPrint('Full Name: ${prefs.getString('fullName')}');
-    debugPrint('Email Address: ${prefs.getString('emailId')}');
-    debugPrint('UserName: ${prefs.getString('userName')}');
-    debugPrint('Birthday: ${prefs.getString('birthday')}');
-    debugPrint('Password: ${prefs.getString('password')}');
-    debugPrint('Phone Number: ${prefs.getString('phoneNumber')}');
-    debugPrint('Security Question: ${prefs.getString('securityQue')}');
-    debugPrint('Security Answer: ${prefs.getString('securityAns')}');
+  /// Login Logic
+  void _loginLogic() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      FocusScope.of(context).unfocus();
+
+      // Check Credentials
+      String? dbEmailId = prefServices.getPrefString(
+        key: SharedPreferencesServices.kEmailId,
+      );
+      String? dbPassword = prefServices.getPrefString(
+        key: SharedPreferencesServices.kPassword,
+      );
+
+      // Checks is Account Exists if Not then return Null
+      if (dbEmailId != null || dbPassword != null) {
+        // If Credentials Exists then match with Database
+        if (dbEmailId == _emailAddress && dbPassword == _password) {
+          prefServices.setPrefBool(
+            key: SharedPreferencesServices.kIsUserLoggedIn,
+            value: true,
+          );
+          _showSnackBar(label: 'Login....Please wait');
+          Future.delayed(Duration(seconds: 3), () {
+            _navigateToHomeScreen();
+          });
+        } else {
+          // If Credentials not match with Database
+          _showSnackBar(label: 'Invalid email or password.');
+        }
+      } else {
+        // If dbEmailId and dbPassword is null
+        _showSnackBar(label: 'Account not found. Please sign up first.');
+      }
+    }
   }
 
   /// Email Validation Method
@@ -329,36 +354,6 @@ class _SigningScreenState extends State<SigningScreen> {
       context,
       MaterialPageRoute(builder: (context) => SignupFirstScreen()),
     );
-  }
-
-  /// Login Logic
-  void _loginLogic() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      FocusScope.of(context).unfocus();
-
-      // Check Credentials
-      String? dbEmailId = prefs.getString('emailId');
-      String? dbPassword = prefs.getString('password');
-
-      // Checks is Account Exists if Not then return Null
-      if (dbEmailId != null || dbPassword != null) {
-        // If Credentials Exists then match with Database
-        if (dbEmailId == _emailAddress && dbPassword == _password) {
-          prefs.setBool('isLoggedIn', true);
-          _showSnackBar(label: 'Login....Please wait');
-          Future.delayed(Duration(seconds: 3), () {
-            _navigateToHomeScreen();
-          });
-        } else {
-          // If Credentials not match with Database
-          _showSnackBar(label: 'Invalid email or password.');
-        }
-      } else {
-        // If dbEmailId and dbPassword is null
-        _showSnackBar(label: 'Account not found. Please sign up first.');
-      }
-    }
   }
 
   /// Navigation to Home Screen
