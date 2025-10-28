@@ -40,15 +40,14 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   late final TextEditingController _securityAnswerController;
   late final TextEditingController _phoneNumberController;
 
-  // Shared Preferences object
-  late final SharedPreferencesServices prefServices;
+  // Shared Preferences instance
+  SharedPreferencesServices prefServices = SharedPreferencesServices();
 
   @override
   void initState() {
     super.initState();
     _initializeControllers();
     _initializeFocusNodes();
-    _initializedSharedPref();
     // It initialize data from previous screen
     _fullName = widget.fullName;
     _emailAddress = widget.emailAddress;
@@ -60,12 +59,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     _disposeControllers();
     _disposeFocusNodes();
     super.dispose();
-  }
-
-  // Shared Preferences initialize method
-  Future<void> _initializedSharedPref() async {
-    prefServices.initializeSharedPref();
-    debugPrint("SharedPreferences initialized");
   }
 
   // Initialize Controllers when the Page Loads
@@ -384,20 +377,46 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Save User Signup data to Shared Preferences
   Future<void> _saveUserSignupPrefs() async {
-    await prefServices.setPrefString(key: SharedPreferencesServices.kFullName, value: _fullName);
-    await prefServices.setPrefString(key: SharedPreferencesServices.kEmailId, value: _emailAddress);
-    await prefServices.setPrefString(key: SharedPreferencesServices.kUserName, value: _userName);
-    await prefServices.setPrefString(key: SharedPreferencesServices.kBirthday, value: _birthDate);
-    await prefServices.setPrefString(key: SharedPreferencesServices.kPassword, value: _password);
-    await prefServices.setPrefString(key: SharedPreferencesServices.kPhoneNumber, value: _phoneNumber);
-    await prefServices.setPrefString(key: SharedPreferencesServices.kSecurityQue, value: _securityQuestion);
-    await prefServices.setPrefString(key: SharedPreferencesServices.kSecurityAns, value: _securityAnswer);
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kFullName,
+      value: _fullName,
+    );
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kEmailId,
+      value: _emailAddress,
+    );
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kUserName,
+      value: _userName,
+    );
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kBirthday,
+      value: _birthDate,
+    );
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kPassword,
+      value: _password,
+    );
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kPhoneNumber,
+      value: _phoneNumber,
+    );
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kSecurityQue,
+      value: _securityQuestion,
+    );
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kSecurityAns,
+      value: _securityAnswer,
+    );
   }
 
   /// Check all validations
   Future<void> _checkValidation() async {
     // Validate the form fields
-    if (_formKey.currentState!.validate() && _isPhoneNumberValid && _birthdayValidation()) {
+    if (_formKey.currentState!.validate() &&
+        _isPhoneNumberValid &&
+        _birthdayValidation()) {
       _formKey.currentState!.save();
       _printSavedData();
       await _saveUserSignupPrefs();
