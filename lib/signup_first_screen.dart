@@ -79,7 +79,6 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
 
   // Parameters
   bool _validUsername = false;
-
   // late means it not null or empty (check validation) before save
   late String _firstName;
   late String _lastName;
