@@ -56,6 +56,9 @@ class SharedPreferencesService {
     _prefs?.getString(key);
   }
 
-
+  // Method to Retrieve/Get Single Bool Data
+  void getPrefBool({required key}){
+    _prefs?.getBool(key);
+  }
 
 }
