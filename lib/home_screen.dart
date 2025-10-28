@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
+import 'Shared Preferences/shared_preferences_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  /// Initialize Shared Preferences and Delete All Stored Data
-  Future<void> _clearStoredPrefData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+  /// It Cleared All Stored Data
+  void _clearStoredPrefData() async {
+    SharedPreferencesServices prefServices = SharedPreferencesServices();
+    prefServices.clearPrefData();
   }
 
   @override
