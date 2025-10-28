@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_helping_clickable_text.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_text_field_label.dart';
 import 'package:signin_and_signup_screens/home_screen.dart';
@@ -18,10 +19,13 @@ class SigningScreen extends StatefulWidget {
 }
 
 class _SigningScreenState extends State<SigningScreen> {
+  // object of shared preferences
+  late final SharedPreferences prefs;
 
   @override
   void initState(){
     super.initState();
+    _initializeSharedPrefs();
   }
 
   @override
@@ -31,6 +35,13 @@ class _SigningScreenState extends State<SigningScreen> {
     _passwordFocus.dispose();
     _emailFocus.dispose();
     super.dispose();
+  }
+
+  /// It will Initialize Shared Preferences
+  void _initializeSharedPrefs() async{
+    prefs = await SharedPreferences.getInstance();
+    debugPrint("Shred Preferences Initialize");
+    _printSavedPrefs();
   }
 
   // Focus nodes for keyboard navigation
@@ -212,6 +223,18 @@ class _SigningScreenState extends State<SigningScreen> {
         ),
       ),
     );
+  }
+
+  /// It will print the Saved data from from Prefs
+  void _printSavedPrefs() {
+    debugPrint('Full Name- ${prefs.getString('fullName')}');
+    debugPrint('Email Address- ${prefs.getString('emailId')}');
+    debugPrint('UserName- ${prefs.getString('userName')}');
+    debugPrint('Birthday- ${prefs.getString('birthday')}');
+    debugPrint('Password- ${prefs.getString('password')}');
+    debugPrint('Phone Number- ${prefs.getString('phoneNumber')}');
+    debugPrint('Security Question- ${prefs.getString('securityQue')}');
+    debugPrint('Security Answer- ${prefs.getString('securityAns')}');
   }
 
   /// Email Validation Method
