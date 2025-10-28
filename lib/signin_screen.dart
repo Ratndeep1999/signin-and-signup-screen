@@ -31,8 +31,11 @@ class _SigningScreenState extends State<SigningScreen> {
   late final TextEditingController _emailAddressController;
   late final TextEditingController _passwordController;
 
+  // Parameters
   bool _obscureText = true;
   bool _savePassword = false;
+  late String _emailAddress;
+  late String _password;
 
   @override
   void initState() {
@@ -57,25 +60,25 @@ class _SigningScreenState extends State<SigningScreen> {
   }
 
   /// Initialize Controller
-  void _initializeControllers(){
+  void _initializeControllers() {
     _emailAddressController = TextEditingController();
     _passwordController = TextEditingController();
   }
 
   /// Dispose controller
-  void _disposeControllers(){
+  void _disposeControllers() {
     _emailAddressController.dispose();
     _passwordController.dispose();
   }
 
   /// Initialize FocusNodes
-  void _initializeFocusNodes(){
+  void _initializeFocusNodes() {
     _emailFocus = FocusNode();
     _passwordFocus = FocusNode();
   }
 
   /// Dispose FocusNode
-  void _disposeFocusNodes(){
+  void _disposeFocusNodes() {
     _emailFocus.dispose();
     _passwordFocus.dispose();
   }
@@ -172,6 +175,9 @@ class _SigningScreenState extends State<SigningScreen> {
                   focusNode: _emailFocus,
                   nextFocusNode: _passwordFocus,
                   autofillHints: [AutofillHints.email],
+                  onSaved: (String? password) {
+                    _emailAddress = password!;
+                  },
                 ),
                 const SizedBox(height: 26.0),
 
@@ -204,6 +210,9 @@ class _SigningScreenState extends State<SigningScreen> {
                   focusNode: _passwordFocus,
                   nextFocusNode: null,
                   autofillHints: [AutofillHints.password],
+                  onSaved: (String? password) {
+                    _password = password!;
+                  },
                 ),
                 const SizedBox(height: 24.0),
 
@@ -325,21 +334,31 @@ class _SigningScreenState extends State<SigningScreen> {
   /// Login Logic
   void _loginLogic() {
     if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       FocusScope.of(context).unfocus();
 
-      // Check database
+      // Check Credentials
       String? dbEmailId = prefs.getString('emailId');
       String? dbPassword = prefs.getString('password');
 
-      if(){
-        _showSnackBar(label: 'Login....Please wait');
-        Future.delayed(Duration(seconds: 3), () {
-          _navigateToHomeScreen();
-        });
+      // Checks is Account Exists if Not then return Null
+      if (dbEmailId != null || dbPassword != null) {
+        // If Credentials Exists then match with Database
+        if (dbEmailId == _emailAddress && dbPassword == _password) {
+          prefs.setBool('isLoggedIn', true);
+          _showSnackBar(label: 'Login....Please wait');
+          Future.delayed(Duration(seconds: 3), () {
+            _navigateToHomeScreen();
+          });
+        } else {
+          // If Credentials not match with Database
+          _showSnackBar(label: 'Invalid email or password.');
+        }
       } else {
-        _showSnackBar(label: 'Invalid email or password.');
+        // If dbEmailId and dbPassword is null
+        _showSnackBar(label: 'Account not found. Please sign up first.');
       }
-    } else {}
+    }
   }
 
   /// Navigation to Home Screen
