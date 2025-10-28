@@ -227,14 +227,14 @@ class _SigningScreenState extends State<SigningScreen> {
 
   /// It will print the Saved data from from Prefs
   void _printSavedPrefs() {
-    debugPrint('Full Name- ${prefs.getString('fullName')}');
-    debugPrint('Email Address- ${prefs.getString('emailId')}');
-    debugPrint('UserName- ${prefs.getString('userName')}');
-    debugPrint('Birthday- ${prefs.getString('birthday')}');
-    debugPrint('Password- ${prefs.getString('password')}');
-    debugPrint('Phone Number- ${prefs.getString('phoneNumber')}');
-    debugPrint('Security Question- ${prefs.getString('securityQue')}');
-    debugPrint('Security Answer- ${prefs.getString('securityAns')}');
+    debugPrint('Full Name: ${prefs.getString('fullName')}');
+    debugPrint('Email Address: ${prefs.getString('emailId')}');
+    debugPrint('UserName: ${prefs.getString('userName')}');
+    debugPrint('Birthday: ${prefs.getString('birthday')}');
+    debugPrint('Password: ${prefs.getString('password')}');
+    debugPrint('Phone Number: ${prefs.getString('phoneNumber')}');
+    debugPrint('Security Question: ${prefs.getString('securityQue')}');
+    debugPrint('Security Answer: ${prefs.getString('securityAns')}');
   }
 
   /// Email Validation Method
