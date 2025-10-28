@@ -52,13 +52,13 @@ class SharedPreferencesServices {
   }
 
   // Method to Retrieve/Get Single String Data
-  void getPrefString({required key}){
-    _prefs?.getString(key);
+  String? getPrefString({required key}){
+    return _prefs?.getString(key);
   }
 
   // Method to Retrieve/Get Single Bool Data
-  void getPrefBool({required key}){
-    _prefs?.getBool(key);
+  bool? getPrefBool({required key}){
+    return _prefs?.getBool(key);
   }
 
 }
