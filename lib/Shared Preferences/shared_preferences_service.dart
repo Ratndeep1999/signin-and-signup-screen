@@ -88,4 +88,9 @@ class SharedPreferencesServices {
   bool? getPrefBool({required key}) {
     return _prefs?.getBool(key);
   }
+
+  // Method to Delete all Stored Data
+  Future<bool>? _clearPrefData() {
+    return _prefs?.clear();
+  }
 }
