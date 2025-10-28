@@ -63,8 +63,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   }
 
   // Shared Preferences initialize method
-  void _initializedSharedPref() async {
+  Future<void> _initializedSharedPref() async {
     prefs = await SharedPreferences.getInstance();
+    debugPrint("SharedPreferences initialized");
   }
 
   // Initialize Controllers when the Page Loads
@@ -395,13 +396,25 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     await prefs.setString('securityAns', _securityAnswer);
   }
 
+  /// It will print the Saved data from from Prefs
+  void _printSavedPrefs() {
+    debugPrint('Full Name- ${prefs.getString('fullName')}');
+    debugPrint('Email Address- ${prefs.getString('emailId')}');
+    debugPrint('UserName- ${prefs.getString('userName')}');
+    debugPrint('Birthday- ${prefs.getString('birthday')}');
+    debugPrint('Password- ${prefs.getString('password')}');
+    debugPrint('Phone Number- ${prefs.getString('phoneNumber')}');
+    debugPrint('Security Question- ${prefs.getString('securityQue')}');
+    debugPrint('Security Answer- ${prefs.getString('securityAns')}');
+  }
+
   /// Check all validations
-  void _checkValidation() {
+  Future<void> _checkValidation() async {
     // Validate the form fields
     if (_formKey.currentState!.validate() && _isPhoneNumberValid && _birthdayValidation()) {
       _formKey.currentState!.save();
       _printSavedData();
-      _saveUserSignupPrefs();
+      await _saveUserSignupPrefs();
       _navigateToSigningScreen();
     } else {}
   }
