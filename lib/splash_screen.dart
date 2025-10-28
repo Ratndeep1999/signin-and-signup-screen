@@ -13,18 +13,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late final SharedPreferencesServices prefServices;
+
+  SharedPreferencesServices prefs = SharedPreferencesServices();
 
   @override
   void initState() {
     super.initState();
-    _initSharedPref();
+    prefs.printSavedPrefs();
     _navigateToNextScreen();
-  }
-
-  // It Initialize the object of Shared Preferences
-  Future<void> _initSharedPref() async {
-    prefServices.initializeSharedPref();
   }
 
   /// Navigate After 3 Sec
@@ -36,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   /// Were To Navigate
   void _whereToNavigate() {
-    bool? isUserLoggedIn = prefServices.getPrefBool(
+    bool? isUserLoggedIn = prefs.getPrefBool(
       key: SharedPreferencesServices.kIsUserLoggedIn,
     );
 
