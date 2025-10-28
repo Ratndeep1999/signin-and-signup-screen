@@ -25,13 +25,13 @@ class _SigningScreenState extends State<SigningScreen> {
   @override
   void initState() {
     super.initState();
+    _initializeControllers();
     _initializeSharedPrefs();
   }
 
   @override
   void dispose() {
-    _emailAddress.clear();
-    _password.clear();
+    _disposeControllers();
     _passwordFocus.dispose();
     _emailFocus.dispose();
     super.dispose();
@@ -44,22 +44,30 @@ class _SigningScreenState extends State<SigningScreen> {
     _printSavedPrefs();
   }
 
+  /// Initialize Controller
+  void _initializeControllers(){
+    _emailAddressController = TextEditingController();
+    _passwordController = TextEditingController();
+  }
+
+  /// Dispose controller
+  void _disposeControllers(){
+    _emailAddressController.dispose();
+    _passwordController.dispose();
+  }
+
+
   // Focus nodes for keyboard navigation
   final FocusNode _passwordFocus = FocusNode();
   final FocusNode _emailFocus = FocusNode();
 
-  // show or hide input text
-  bool _obscureText = true;
-
-  // save password
-  bool _savePassword = false;
-
-  // controllers
-  final TextEditingController _emailAddress = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-
-  // formKey
+  // Controllers
   final _formKey = GlobalKey<FormState>();
+  late final TextEditingController _emailAddressController;
+  late final TextEditingController _passwordController;
+
+  bool _obscureText = true;
+  bool _savePassword = false;
 
   @override
   Widget build(BuildContext context) {
