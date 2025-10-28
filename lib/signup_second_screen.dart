@@ -384,15 +384,15 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   }
 
   /// Save User Signup data to Shared Preferences
-  void _saveUserSignupPrefs() {
-    prefs.setString('fullName', _fullName);
-    prefs.setString('emailId', _emailAddress);
-    prefs.setString('userName', _userName);
-    prefs.setString('birthday', _birthDate);
-    prefs.setString('password', _password);
-    prefs.setString('phoneNumber', _phoneNumber);
-    prefs.setString('securityQue', _securityQuestion);
-    prefs.setString('securityAns', _securityAnswer);
+  Future<void> _saveUserSignupPrefs() async {
+    await prefs.setString('fullName', _fullName);
+    await prefs.setString('emailId', _emailAddress);
+    await prefs.setString('userName', _userName);
+    await prefs.setString('birthday', _birthDate);
+    await prefs.setString('password', _password);
+    await prefs.setString('phoneNumber', _phoneNumber);
+    await prefs.setString('securityQue', _securityQuestion);
+    await prefs.setString('securityAns', _securityAnswer);
   }
 
   /// Check all validations
