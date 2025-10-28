@@ -53,7 +53,7 @@ class SharedPreferencesServices {
 
   // Method to Retrieve/Get Single String Data
   String? getPrefString({required key}){
-    return _prefs?.getString(key);
+    return _prefs?.getString(key) ?? '';
   }
 
   // Method to Retrieve/Get Single Bool Data
