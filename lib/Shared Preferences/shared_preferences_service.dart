@@ -42,8 +42,20 @@ class SharedPreferencesService {
   }
 
   // Method to Store Single String Data
-  Future<void> savePrefString({required key, required value}) async {
+  Future<void> setPrefString({required key, required value}) async {
     await _prefs?.setString(key, value);
   }
+
+  // Method to Store Single Bool Data
+  Future<void> setPrefBool({required key, required value}) async {
+    await _prefs?.setString(key, value);
+  }
+
+  // Method to Retrieve/Get Single String Data
+  void getPrefString({required key}){
+    _prefs?.getString(key);
+  }
+
+
 
 }
