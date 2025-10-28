@@ -20,7 +20,7 @@ class SigningScreen extends StatefulWidget {
 
 class _SigningScreenState extends State<SigningScreen> {
   // object of shared preferences
-  late final SharedPreferencesServices prefServices;
+  SharedPreferencesServices prefServices = SharedPreferencesServices();
 
   // Focus nodes for keyboard navigation
   late final FocusNode _passwordFocus;
@@ -42,7 +42,6 @@ class _SigningScreenState extends State<SigningScreen> {
     super.initState();
     _initializeControllers();
     _initializeFocusNodes();
-    _initializeSharedPrefs();
   }
 
   @override
@@ -50,13 +49,6 @@ class _SigningScreenState extends State<SigningScreen> {
     _disposeControllers();
     _disposeFocusNodes();
     super.dispose();
-  }
-
-  /// It will Initialize Shared Preferences
-  Future<void> _initializeSharedPrefs() async {
-    prefServices.initializeSharedPref();
-    debugPrint("Shred Preferences Initialize");
-    prefServices.printSavedPrefs();
   }
 
   /// Initialize Controller
