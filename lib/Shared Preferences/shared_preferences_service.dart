@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesServices {
@@ -39,6 +40,18 @@ class SharedPreferencesServices {
     await _prefs?.setString(kPhoneNumber, phoneNumber);
     await _prefs?.setString(kSecurityQue, securityQue);
     await _prefs?.setString(kSecurityAns, securityAns);
+  }
+
+  // It will print the Saved data from from Prefs
+  void printSavedPrefs() {
+    debugPrint('Full Name: ${_prefs?.getString(kFullName)}');
+    debugPrint('Email Address: ${_prefs?.getString(kEmailId)}');
+    debugPrint('UserName: ${_prefs?.getString(kUserName)}');
+    debugPrint('Birthday: ${_prefs?.getString(kBirthday)}');
+    debugPrint('Password: ${_prefs?.getString(kPassword)}');
+    debugPrint('Phone Number: ${_prefs?.getString(kPhoneNumber)}');
+    debugPrint('Security Question: ${_prefs?.getString(kSecurityQue)}');
+    debugPrint('Security Answer: ${_prefs?.getString(kSecurityAns)}');
   }
 
   // Method to Store Single String Data
