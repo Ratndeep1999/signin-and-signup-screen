@@ -90,7 +90,7 @@ class SharedPreferencesServices {
   }
 
   // Method to Delete all Stored Data
-  Future<bool>? _clearPrefData() {
+  Future<bool>? clearPrefData() {
     return _prefs?.clear();
   }
 }
