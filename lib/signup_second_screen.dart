@@ -383,14 +383,25 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     debugPrint('Security Answer: $_securityAnswer');
   }
 
+  /// Save User Signup data to Shared Preferences
+  void _saveUserSignupPrefs() {
+    prefs.setString('fullName', _fullName);
+    prefs.setString('emailId', _emailAddress);
+    prefs.setString('userName', _userName);
+    prefs.setString('birthday', _birthDate);
+    prefs.setString('password', _password);
+    prefs.setString('phoneNumber', _phoneNumber);
+    prefs.setString('securityQue', _securityQuestion);
+    prefs.setString('securityAns', _securityAnswer);
+  }
+
   /// Check all validations
   void _checkValidation() {
     // Validate the form fields
-    if (_formKey.currentState!.validate() &&
-        _isPhoneNumberValid &&
-        _birthdayValidation()) {
+    if (_formKey.currentState!.validate() && _isPhoneNumberValid && _birthdayValidation()) {
       _formKey.currentState!.save();
       _printSavedData();
+      _saveUserSignupPrefs();
       _navigateToSigningScreen();
     } else {}
   }
