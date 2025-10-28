@@ -1,9 +1,24 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesServices {
+
+  /// Singleton of This Class
+  // 1. Private named constructor
+  SharedPreferencesServices._internal();
+
+  // 2. The single static instance
+  static final SharedPreferencesServices _instance =
+      SharedPreferencesServices._internal();
+
+  // 3. Public factory constructor that returns the same instance
+  factory SharedPreferencesServices(){
+    return _instance;
+  }
+
   // Object
-  late final SharedPreferences? _prefs;
+  static SharedPreferences? _prefs;
 
   // Initialization method
   Future<void> initializeSharedPref() async {
@@ -61,17 +76,16 @@ class SharedPreferencesServices {
 
   // Method to Store Single Bool Data
   Future<void> setPrefBool({required key, required value}) async {
-    await _prefs?.setString(key, value);
+    await _prefs?.setBool(key, value);
   }
 
   // Method to Retrieve/Get Single String Data
-  String? getPrefString({required key}){
+  String getPrefString({required key}) {
     return _prefs?.getString(key) ?? '';
   }
 
   // Method to Retrieve/Get Single Bool Data
-  bool? getPrefBool({required key}){
+  bool? getPrefBool({required key}) {
     return _prefs?.getBool(key);
   }
-
 }
