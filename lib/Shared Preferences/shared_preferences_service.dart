@@ -40,4 +40,10 @@ class SharedPreferencesService {
     await _prefs?.setString(kSecurityQue, securityQue);
     await _prefs?.setString(kSecurityAns, securityAns);
   }
+
+  // Method to Store Single String Data
+  Future<void> savePrefString({required key, required value}) async {
+    await _prefs?.setString(key, value);
+  }
+
 }
