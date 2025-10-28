@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
 import 'package:signin_and_signup_screens/home_screen.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
@@ -13,7 +13,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late final SharedPreferences prefs;
+  late final SharedPreferencesServices prefServices;
 
   @override
   void initState() {
@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   // It Initialize the object of Shared Preferences
   Future<void> _initSharedPref() async {
-    prefs = await SharedPreferences.getInstance();
+    prefServices.initializeSharedPref();
   }
 
   /// Navigate After 3 Sec
@@ -36,7 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   /// Were To Navigate
   void _whereToNavigate() {
-    bool? isUserLoggedIn = prefs.getBool("isLoggedIn");
+    bool? isUserLoggedIn = prefServices.getPrefBool(
+      key: SharedPreferencesServices.kIsUserLoggedIn,
+    );
 
     // If null then Navigate to SigningScreen
     if (isUserLoggedIn != null) {
