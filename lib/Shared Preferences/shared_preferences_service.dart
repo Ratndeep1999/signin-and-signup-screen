@@ -5,19 +5,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPreferencesServices {
 
   /// Singleton of This Class
-  // 1. Private named constructor
-  SharedPreferencesServices._internal();
-
-  // 2. The single static instance
+  // 1. The single static instance
   static final SharedPreferencesServices _instance =
       SharedPreferencesServices._internal();
+
+  // 2. Private named constructor
+  SharedPreferencesServices._internal();
 
   // 3. Public factory constructor that returns the same instance
   factory SharedPreferencesServices(){
     return _instance;
   }
 
-  // Object
+  // Private variable to hold SharedPreferences instance
   static SharedPreferences? _prefs;
 
   // Initialization method
@@ -70,22 +70,24 @@ class SharedPreferencesServices {
   }
 
   // Method to Store Single String Data
-  Future<void> setPrefString({required key, required value}) async {
+  Future<void> setPrefString({required String key, required String value}) async {
+    // debugPrint("Step In SetString");
     await _prefs?.setString(key, value);
+    // debugPrint("Step Out SatString");
   }
 
   // Method to Store Single Bool Data
-  Future<void> setPrefBool({required key, required value}) async {
+  Future<void> setPrefBool({required String key, required bool value}) async {
     await _prefs?.setBool(key, value);
   }
 
   // Method to Retrieve/Get Single String Data
-  String getPrefString({required key}) {
-    return _prefs?.getString(key) ?? '';
+  String? getPrefString({required String key}) {
+    return _prefs?.getString(key);
   }
 
   // Method to Retrieve/Get Single Bool Data
-  bool? getPrefBool({required key}) {
+  bool? getPrefBool({required String key}) {
     return _prefs?.getBool(key);
   }
 
