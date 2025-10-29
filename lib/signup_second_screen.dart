@@ -365,6 +365,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Check Saved Data
   void _printSavedData() {
+    // debugPrint("_printSavedData Start");
     debugPrint('Full Name: $_fullName');
     debugPrint('Email Address: $_emailAddress');
     debugPrint('UserName: $_userName');
@@ -373,42 +374,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     debugPrint('Phone Number: $_phoneNumber');
     debugPrint('Security Question: $_securityQuestion');
     debugPrint('Security Answer: $_securityAnswer');
-  }
-
-  /// Save User Signup data to Shared Preferences
-  Future<void> _saveUserSignupPrefs() async {
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kFullName,
-      value: _fullName,
-    );
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kEmailId,
-      value: _emailAddress,
-    );
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kUserName,
-      value: _userName,
-    );
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kBirthday,
-      value: _birthDate,
-    );
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kPassword,
-      value: _password,
-    );
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kPhoneNumber,
-      value: _phoneNumber,
-    );
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kSecurityQue,
-      value: _securityQuestion,
-    );
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kSecurityAns,
-      value: _securityAnswer,
-    );
+    // debugPrint("_printSavedData End");
   }
 
   /// Check all validations
@@ -420,8 +386,57 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
       _formKey.currentState!.save();
       _printSavedData();
       await _saveUserSignupPrefs();
+      // debugPrint("_checkValidation Step 1");
+      prefServices.printSavedPrefs();
+      // debugPrint("_checkValidation Step 2");
       _navigateToSigningScreen();
-    } else {}
+    }
+  }
+
+  /// Save User Signup data to Shared Preferences
+  Future<void> _saveUserSignupPrefs() async {
+    // debugPrint("_saveUserSignupPrefs Start");
+    // debugPrint("_saveUserSignupPrefs Step 1");
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kFullName,
+      value: _fullName,
+    );
+    // debugPrint("_saveUserSignupPrefs Step 2");
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kEmailId,
+      value: _emailAddress,
+    );
+    // debugPrint("_saveUserSignupPrefs Step 3");
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kUserName,
+      value: _userName,
+    );
+    // debugPrint("_saveUserSignupPrefs Step 4");
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kBirthday,
+      value: _birthDate,
+    );
+    // debugPrint("_saveUserSignupPrefs Step 5");
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kPassword,
+      value: _password,
+    );
+    // debugPrint("_saveUserSignupPrefs Step 6");
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kPhoneNumber,
+      value: _phoneNumber,
+    );
+    // debugPrint("_saveUserSignupPrefs Step 7");
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kSecurityQue,
+      value: _securityQuestion,
+    );
+    // debugPrint("_saveUserSignupPrefs Step 8");
+    await prefServices.setPrefString(
+      key: SharedPreferencesServices.kSecurityAns,
+      value: _securityAnswer,
+    );
+    // debugPrint("_saveUserSignupPrefs End");
   }
 
   /// Birthday Validation
