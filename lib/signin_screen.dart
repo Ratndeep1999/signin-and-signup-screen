@@ -170,8 +170,8 @@ class _SigningScreenState extends State<SigningScreen> {
                   focusNode: _emailFocus,
                   nextFocusNode: _passwordFocus,
                   autofillHints: [AutofillHints.email],
-                  onSaved: (String? password) {
-                    _emailAddress = password;
+                  onSaved: (String? emailAddress) {
+                    _emailAddress = emailAddress;
                   },
                 ),
                 const SizedBox(height: 26.0),
