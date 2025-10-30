@@ -387,7 +387,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
       _printSavedData();
       await _saveUserSignupPrefs();
       // debugPrint("_checkValidation Step 1");
-      prefServices.printSavedPrefs();
+      // prefServices.printSavedPrefs();
       // debugPrint("_checkValidation Step 2");
       _navigateToSigningScreen();
     }
