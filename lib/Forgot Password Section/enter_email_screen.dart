@@ -131,21 +131,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
                   label: 'Check Email',
                   loginClick: () {
                     /// If Email is valid then Next..
-                    //_checkValidation();
-                    _formKey.currentState!.validate();
-                    _formKey.currentState!.save();
-                    if (_forgetPasswordEmail ==
-                        pefService.getPrefString(
-                          key: SharedPreferencesServices.kEmailId,
-                        )) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => SigningScreen(),
-                        ),
-                      );
-                    } else {
-                      _showSnackBar(label: "Your Email Address Is Not Matching");
-                    }
+                    _checkValidation();
                   },
                 ),
                 const SizedBox(height: 20.0),
@@ -200,5 +186,26 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
         ),
       ),
     );
+  }
+
+  /// check Email Button validation
+  void _checkValidation() {
+    // if validate then return true and all save() method call
+    if (_formKey.currentState!.validate()){
+      _formKey.currentState!.save();
+      // if inputted email and existence email match then return true
+      if (_forgetPasswordEmail ==
+          pefService.getPrefString(
+            key: SharedPreferencesServices.kEmailId,
+          )) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => SigningScreen(),
+          ),
+        );
+      } else {
+        _showSnackBar(label: "Your Email Address Is Not Matching");
+      }
+    }
   }
 }
