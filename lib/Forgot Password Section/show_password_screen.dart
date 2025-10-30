@@ -74,7 +74,6 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
 
                         /// Email Address
                         _buildText(context, label: _userEmail ?? 'Refresh'),
-
                         const SizedBox(height: 22.0),
 
                         /// Password Label
@@ -86,7 +85,6 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
 
                         /// Password
                         _buildText(context, label: _userPassword ?? 'Refresh'),
-
                         const SizedBox(height: 40.0),
 
                         /// Refresh Button
@@ -158,6 +156,7 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
 
   /// Update Details method
   void _updateDetails() {
+    _showSnackBar(label: 'Refreshed..');
     Timer(Duration(seconds: 2), () {
       setState(() {
         // update email and password
@@ -173,5 +172,23 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
             "Empty";
       });
     });
+  }
+
+  /// SnackBar Method
+  void _showSnackBar({required String label}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: CustomTextFieldLabel(label: label, labelFontSize: 15.0),
+        duration: Duration(seconds: 2),
+        backgroundColor: const Color(0xFFfeb64d),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 28.0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12.0),
+            topRight: Radius.circular(12.0),
+          ),
+        ),
+      ),
+    );
   }
 }
