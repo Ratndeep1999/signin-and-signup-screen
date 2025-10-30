@@ -49,80 +49,82 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
                     ),
                     const SizedBox(height: 40),
 
-                    /// Refactored Card Method
-                    Card(
-                      margin: EdgeInsets.symmetric(horizontal: 20.0),
-                      elevation: 5.0,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 50.0,
-                        ),
-                        child: AutofillGroup(
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                /// 2nd Heading
-                                CustomSecondHeading(
-                                  bigText: "Enter Your Email\n",
-                                  smallText:
-                                      "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
-                                ),
-                                const SizedBox(height: 32.0),
-
-                                /// Email Label
-                                const CustomTextFieldLabel(
-                                  label: 'Email Address',
-                                  labelFontSize: 15.0,
-                                ),
-                                const SizedBox(height: 8.0),
-
-                                /// Email Address Field
-                                CustomTextField(
-                                  hintText: "Your Email Address",
-                                  keyboardType: TextInputType.emailAddress,
-                                  isSuffixIcon: true,
-                                  suffixIcon: Icons.person,
-                                  obscureText: false,
-                                  controller: _emailAddressController,
-                                  validation: _emailValidation,
-                                  topPadding: 15.0,
-                                  bottomPadding: 15.0,
-                                  leftPadding: 20.0,
-                                  hintTextFontSize: 14,
-                                  textInputAction: TextInputAction.next,
-                                  autofillHints: [AutofillHints.email],
-                                  onSaved: (String? password) {
-                                    forgetPasswordEmail = password;
-                                  },
-                                ),
-                                const SizedBox(height: 22.0),
-
-                                /// Save & Continue Button
-                                CustomButton(
-                                  label: 'Check Email',
-                                  loginClick: () {
-                                    /// If Email is valid then Next..
-                                    //_checkValidation();
-                                  },
-                                ),
-                                const SizedBox(height: 20.0),
-
-                                /// Create Account text Button
-                                CustomClickableText(
-                                  label: 'Back to Login',
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    /// Card Section
+                    _buildCard(context),
                   ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Refactored Card Method
+  Card _buildCard(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: 20.0),
+      elevation: 5.0,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
+        child: AutofillGroup(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                /// 2nd Heading
+                CustomSecondHeading(
+                  bigText: "Enter Your Email\n",
+                  smallText:
+                      "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                ),
+                const SizedBox(height: 32.0),
+
+                /// Email Label
+                const CustomTextFieldLabel(
+                  label: 'Email Address',
+                  labelFontSize: 15.0,
+                ),
+                const SizedBox(height: 8.0),
+
+                /// Email Address Field
+                CustomTextField(
+                  hintText: "Your Email Address",
+                  keyboardType: TextInputType.emailAddress,
+                  isSuffixIcon: true,
+                  suffixIcon: Icons.person,
+                  obscureText: false,
+                  controller: _emailAddressController,
+                  validation: _emailValidation,
+                  topPadding: 15.0,
+                  bottomPadding: 15.0,
+                  leftPadding: 20.0,
+                  hintTextFontSize: 14,
+                  textInputAction: TextInputAction.next,
+                  autofillHints: [AutofillHints.email],
+                  onSaved: (String? password) {
+                    forgetPasswordEmail = password;
+                  },
+                ),
+                const SizedBox(height: 22.0),
+
+                /// Save & Continue Button
+                CustomButton(
+                  label: 'Check Email',
+                  loginClick: () {
+                    /// If Email is valid then Next..
+                    //_checkValidation();
+                  },
+                ),
+                const SizedBox(height: 20.0),
+
+                /// Create Account text Button
+                CustomClickableText(
+                  label: 'Back to Login',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                 ),
               ],
             ),
@@ -147,7 +149,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
   }
 
   /// Method to unfocus the keyboard
-  void _unfocusKeyboard(){
+  void _unfocusKeyboard() {
     FocusScope.of(context).unfocus();
   }
 }
