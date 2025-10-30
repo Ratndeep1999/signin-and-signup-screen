@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
+import '../Custom Widgets/custom_button.dart';
+import '../Custom Widgets/custom_clickable_text.dart';
+import '../Custom Widgets/custom_heading.dart';
+import '../Custom Widgets/custom_second_heading.dart';
+import '../Custom Widgets/custom_security_question_field.dart';
+import '../Custom Widgets/custom_text_field.dart';
+import '../Custom Widgets/custom_text_field_label.dart';
 
 class ValidateAnswerScreen extends StatefulWidget {
   const ValidateAnswerScreen({super.key});
@@ -8,6 +16,34 @@ class ValidateAnswerScreen extends StatefulWidget {
 }
 
 class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
+
+  // Controller
+  late TextEditingController _securityAnswerController;
+
+  // Security Questions
+  final List<String> _questions = [
+    'What is your pet’s name?',
+    'What is your mother’s maiden name?',
+    'What was your first school?',
+    'What is your favorite color?',
+    'What city were you born in?',
+  ];
+  // parameters
+  String? _securityQuestion;
+  String? _securityAnswer;
+
+  @override
+  void initState() {
+    _securityAnswerController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _securityAnswerController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,10 +53,116 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
       ),
       body: SingleChildScrollView(
         child: InkWell(
-          onTap: () {},
-          child: SafeArea(child: Column()),
+          onTap: _unfocusKeyboard,
+          child: SafeArea(
+            child: Stack(
+              children: [
+                /// Custom Background Design
+                CustomClippingDesign(),
+
+                Column(
+                  children: [
+                    /// Heading Text
+                    CustomHeading(
+                      bigText: "Now\n",
+                      smallText: "Conform Yourself!",
+                    ),
+                    const SizedBox(height: 40),
+
+                    /// Card
+                    Card(
+                      margin: EdgeInsets.symmetric(horizontal: 20.0),
+                      elevation: 5.0,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20.0,
+                          vertical: 50.0,
+                        ),
+                        child: Column(
+                          children: [
+                            /// 2nd Heading
+                            CustomSecondHeading(
+                              bigText: "Select Question\n",
+                              smallText:
+                              "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                            ),
+                            const SizedBox(height: 32.0),
+
+                            /// Security Question Label
+                            const CustomTextFieldLabel(
+                              label: 'Security Question',
+                              labelFontSize: 12.0,
+                            ),
+                            const SizedBox(height: 8.0),
+
+                            /// Security Question Field
+                            CustomDropdownButton(
+                              hintLabel: "example1234",
+                              dropdownMenuItems: _questions,
+                              validation: (String? question) {
+                                // other way to write validation function
+                                return _securityQuestionValidation(question);
+                              },
+                              onChanged: (String? selectedQuestion) {
+                                //_securityQuestion = selectedQuestion!;
+                              },
+                              onSaved: (String? securityQuestion) {
+                               //_securityQuestion = securityQuestion!;
+                              },
+                            ),
+                            const SizedBox(height: 8.0),
+
+                            /// Security Answer Field
+                            CustomTextField(
+                              hintText: "Your Answer...",
+                              controller: _securityAnswerController,
+                              keyboardType: TextInputType.text,
+                              autofillHints: const [AutofillHints.name],
+                              textInputAction: TextInputAction.done,
+                              isSuffixIcon: false,
+                              validation: _securityAnswerValidation,
+                              topPadding: 12.0,
+                              bottomPadding: 12.0,
+                              leftPadding: 20.0,
+                              hintTextFontSize: 13.0,
+                              obscureText: false,
+                              onSaved: (String? securityAnswer) {
+                                //_securityAnswer = securityAnswer!;
+                              },
+                            ),
+                            const SizedBox(height: 22.0),
+
+                            /// Save & Continue Button
+                            CustomButton(
+                              label: 'Get Password',
+                              loginClick: _checkValidation,
+                            ),
+                            const SizedBox(height: 20.0),
+
+                            /// Create Account text Button
+                            CustomClickableText(
+                              label: 'Back to Login',
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
+
+  void _checkValidation() {
+  }
+
+
 }
