@@ -19,7 +19,7 @@ class SigningScreen extends StatefulWidget {
 }
 
 class _SigningScreenState extends State<SigningScreen> {
-  // object of shared preferences
+  // Object of shared preferences
   SharedPreferencesServices prefServices = SharedPreferencesServices();
 
   // Focus nodes for keyboard navigation
@@ -42,6 +42,8 @@ class _SigningScreenState extends State<SigningScreen> {
     super.initState();
     _initializeControllers();
     _initializeFocusNodes();
+    prefServices.printSavedPrefs();
+    // debugPrint("Signing screen initState() method call");
   }
 
   @override
