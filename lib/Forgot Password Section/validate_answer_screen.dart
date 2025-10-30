@@ -108,10 +108,10 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                     return _securityQuestionValidation(question);
                                   },
                                   onChanged: (String? selectedQuestion) {
-                                    //_securityQuestion = selectedQuestion!;
+                                    _securityQuestion = selectedQuestion!;
                                   },
                                   onSaved: (String? securityQuestion) {
-                                   //_securityQuestion = securityQuestion!;
+                                    _securityQuestion = securityQuestion;
                                   },
                                 ),
                                 const SizedBox(height: 8.0),
@@ -131,7 +131,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                   hintTextFontSize: 13.0,
                                   obscureText: false,
                                   onSaved: (String? securityAnswer) {
-                                    //_securityAnswer = securityAnswer!;
+                                    _securityAnswer = securityAnswer;
                                   },
                                 ),
                                 const SizedBox(height: 22.0),
