@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
+import 'package:signin_and_signup_screens/Forgot%20Password%20Section/validate_answer_screen.dart';
 import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
-import 'package:signin_and_signup_screens/signin_screen.dart';
 import '../Custom Widgets/custom_button.dart';
 import '../Custom Widgets/custom_clickable_text.dart';
 import '../Custom Widgets/custom_heading.dart';
@@ -200,7 +200,7 @@ class _EnterEmailScreenState extends State<ValidateEmailScreen> {
           )) {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => SigningScreen(),
+            builder: (context) => ValidateAnswerScreen(),
           ),
         );
       } else {
