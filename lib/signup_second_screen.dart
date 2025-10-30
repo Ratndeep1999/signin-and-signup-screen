@@ -348,7 +348,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                 ),
                 const SizedBox(height: 20.0),
 
-                /// Create Account text Button
+                /// Back to Login text Button
                 CustomClickableText(
                   label: 'Back to Login',
                   onTap: () {
