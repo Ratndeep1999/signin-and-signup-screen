@@ -69,7 +69,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                   children: [
                     /// Heading Text
                     CustomHeading(
-                      bigText: "Now\n",
+                      bigText: "Security\n",
                       smallText: "Conform Yourself!",
                     ),
                     const SizedBox(height: 40),
