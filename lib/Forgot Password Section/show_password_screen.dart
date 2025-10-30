@@ -56,12 +56,20 @@ class ShowPasswordScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 8.0),
 
+                        /// Email Address
+                        _buildText(context, label: 'Email'),
+
+                        const SizedBox(height: 22.0),
+
                         /// Password Label
                         const CustomTextFieldLabel(
                           label: 'Password',
                           labelFontSize: 15.0,
                         ),
                         const SizedBox(height: 8.0),
+
+                        /// Password
+                        _buildText(context, label: 'Password'),
                       ],
                     ),
                   ),
@@ -69,6 +77,24 @@ class ShowPasswordScreen extends StatelessWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// Custom method to Show Email and Password
+  Widget _buildText(BuildContext context, {required String label}) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        label,
+        textAlign: TextAlign.left,
+        textDirection: TextDirection.ltr,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: Colors.black54,
+          letterSpacing: 2.0,
         ),
       ),
     );
