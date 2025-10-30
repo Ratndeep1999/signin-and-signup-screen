@@ -4,11 +4,13 @@ class CustomHelpingClickableText extends StatelessWidget {
   const CustomHelpingClickableText({
     super.key,
     required this.savePassword,
-    required this.onTap,
+    required this.onTapPassword,
+    required this.onTapForgotPassword,
   });
 
   final bool savePassword;
-  final Function onTap;
+  final Function onTapPassword;
+  final Function onTapForgotPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -28,36 +30,11 @@ class CustomHelpingClickableText extends StatelessWidget {
     );
   }
 
-  /// SavePassword Label Widget
-  Text buildSavePasswordLabel(String label) {
-    return Text(
-      label,
-      style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold),
-    );
-  }
-
-  /// ForgetPassword Widget
-  InkWell buildForgetPassword(String clickableLabel) {
-    return InkWell(
-      onTap: () {},
-      splashColor: Colors.transparent,
-      child: Text(
-        clickableLabel,
-        style: TextStyle(
-          fontSize: 12.5,
-          fontWeight: FontWeight.bold,
-          decoration: TextDecoration.underline,
-          decorationThickness: 2.0,
-        ),
-      ),
-    );
-  }
-
   /// SavePassword Widget
   Widget buildSavePassword() {
     return InkWell(
       onTap: () {
-        onTap();
+        onTapPassword();
       },
       splashColor: Colors.transparent,
       child: CircleAvatar(
@@ -75,6 +52,33 @@ class CustomHelpingClickableText extends StatelessWidget {
               weight: 50,
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  /// SavePassword Label Widget
+  Text buildSavePasswordLabel(String label) {
+    return Text(
+      label,
+      style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold),
+    );
+  }
+
+  /// ForgetPassword Widget
+  InkWell buildForgetPassword(String clickableLabel) {
+    return InkWell(
+      onTap: () {
+        onTapForgotPassword();
+      },
+      splashColor: Colors.transparent,
+      child: Text(
+        clickableLabel,
+        style: TextStyle(
+          fontSize: 12.5,
+          fontWeight: FontWeight.bold,
+          decoration: TextDecoration.underline,
+          decorationThickness: 2.0,
         ),
       ),
     );
