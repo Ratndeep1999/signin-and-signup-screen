@@ -1,13 +1,141 @@
 import 'package:flutter/material.dart';
+import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
+import '../Custom Widgets/custom_button.dart';
+import '../Custom Widgets/custom_clickable_text.dart';
+import '../Custom Widgets/custom_heading.dart';
+import '../Custom Widgets/custom_second_heading.dart';
+import '../Custom Widgets/custom_text_field.dart';
+import '../Custom Widgets/custom_text_field_label.dart';
 
-class EnterEmailScreen extends StatelessWidget {
+class EnterEmailScreen extends StatefulWidget {
   const EnterEmailScreen({super.key});
+
+  @override
+  State<EnterEmailScreen> createState() => _EnterEmailScreenState();
+}
+
+class _EnterEmailScreenState extends State<EnterEmailScreen> {
+  // Controller
+  final TextEditingController _emailAddressController = TextEditingController();
+  String? forgetPasswordEmail;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(child: child),
+      appBar: AppBar(
+        backgroundColor: Color(0xFFefb744),
+        automaticallyImplyLeading: false,
+      ),
+      body: SingleChildScrollView(
+        child: InkWell(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: SafeArea(
+            child: Stack(
+              children: [
+                /// Background Custom Design
+                const CustomClippingDesign(),
+
+                Column(
+                  children: [
+
+                    /// Heading Text
+                    CustomHeading(
+                      bigText: "Get Your\n",
+                      smallText: "Forgotten Password!",
+                    ),
+                    const SizedBox(height: 40),
+
+                    //
+                    Card(
+                      margin: EdgeInsets.symmetric(horizontal: 20.0),
+                      elevation: 5.0,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0,
+                          vertical: 50.0,
+                        ),
+                        child: Column(
+                          children: [
+                            /// 2nd Heading
+                            CustomSecondHeading(
+                              bigText: "Enter Your Email\n",
+                              smallText:
+                                  "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                            ),
+                            const SizedBox(height: 32.0),
+
+                            /// Email Label
+                            const CustomTextFieldLabel(
+                              label: 'Email Address',
+                              labelFontSize: 15.0,
+                            ),
+                            const SizedBox(height: 8.0),
+
+                            /// Email Address Field
+                            CustomTextField(
+                              hintText: "Your Email Address",
+                              keyboardType: TextInputType.emailAddress,
+                              isSuffixIcon: true,
+                              suffixIcon: Icons.person,
+                              obscureText: false,
+                              controller: _emailAddressController,
+                              validation: _emailValidation,
+                              topPadding: 15.0,
+                              bottomPadding: 15.0,
+                              leftPadding: 20.0,
+                              hintTextFontSize: 14,
+                              textInputAction: TextInputAction.next,
+                              autofillHints: [AutofillHints.email],
+                              onSaved: (String? password) {
+                                forgetPasswordEmail = password;
+                              },
+                            ),
+                            const SizedBox(height: 22.0),
+
+                            /// Save & Continue Button
+                            CustomButton(
+                              label: 'Check Email',
+                              loginClick: () {
+                                /// If Email is valid then Next..
+                                //_checkValidation();
+                              },
+                            ),
+                            const SizedBox(height: 20.0),
+
+                            /// Create Account text Button
+                            CustomClickableText(
+                              label: 'Back to Login',
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
+  }
+
+  /// Email Validation Method
+  String? _emailValidation(String? emailAddress) {
+    if (emailAddress == null || emailAddress.isEmpty) {
+      return 'Please enter your email';
+    }
+    if (emailAddress.contains(' ')) {
+      return 'Space is not allow';
+    }
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(emailAddress)) {
+      return "Email address must contain '@' and '.com'";
+    }
+    return null;
   }
 }
