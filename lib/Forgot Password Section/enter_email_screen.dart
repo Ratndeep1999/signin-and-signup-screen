@@ -21,11 +21,23 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
   SharedPreferencesServices pefService = SharedPreferencesServices();
 
   // Controller and Key
-  final TextEditingController _emailAddressController = TextEditingController();
+  late final TextEditingController _emailAddressController;
   final _formKey = GlobalKey<FormState>();
 
   // Parameters
   String? _forgetPasswordEmail;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailAddressController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _emailAddressController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +134,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
                     //_checkValidation();
                     _formKey.currentState!.validate();
                     _formKey.currentState!.save();
-                    if ( _forgetPasswordEmail ==
+                    if (_forgetPasswordEmail ==
                         pefService.getPrefString(
                           key: SharedPreferencesServices.kEmailId,
                         )) {
@@ -131,7 +143,7 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
                           builder: (context) => SigningScreen(),
                         ),
                       );
-                    }
+                    } else {}
                   },
                 ),
                 const SizedBox(height: 20.0),
