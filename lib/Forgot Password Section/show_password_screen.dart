@@ -82,6 +82,24 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
 
                         /// Password
                         _buildText(context, label: 'Password'),
+
+                        const SizedBox(height: 30.0),
+
+                        /// Refresh Button
+                        InkWell(
+                          onTap: (){
+                            setState(() {});
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: Color(0xFFefb744),
+                            radius: 25.0,
+                            child: Icon(
+                              Icons.refresh,
+                              color: Color(0xFFf7f0fa),
+                              size: 43.0,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
