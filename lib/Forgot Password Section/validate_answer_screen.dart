@@ -186,11 +186,14 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
             prefService.getPrefString(
               key: SharedPreferencesServices.kSecurityAns,
             )) {
+          // Navigate to Next...
         } else {
           // For wrong Que
+          _showSnackBar(label: "Selected Question Is Wrong");
         }
       } else {
         // For wrong Ans
+        _showSnackBar(label: "Your Answer Is Wrong");
       }
     }
   }
@@ -213,5 +216,23 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
     if (answer.length < 3) return "Answer must be at least 3 characters long";
     if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer)) return "Only letters and numbers are allowed";
     return null;
+  }
+
+  /// SnackBar Method
+  void _showSnackBar({required String label}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: CustomTextFieldLabel(label: label, labelFontSize: 15.0),
+        duration: Duration(seconds: 2),
+        backgroundColor: const Color(0xFFfeb64d),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 28.0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12.0),
+            topRight: Radius.circular(12.0),
+          ),
+        ),
+      ),
+    );
   }
 }
