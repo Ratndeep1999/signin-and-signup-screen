@@ -42,6 +42,7 @@ class _EnterEmailScreenState extends State<ValidateEmailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Color(0xFFefb744),
         automaticallyImplyLeading: false,
