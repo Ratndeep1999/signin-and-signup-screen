@@ -90,13 +90,23 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                           onTap: (){
                             setState(() {});
                           },
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xFFefb744),
-                            radius: 25.0,
-                            child: Icon(
-                              Icons.refresh,
-                              color: Color(0xFFf7f0fa),
-                              size: 43.0,
+                          radius: 25.0,
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          child: Material(
+                            shape: const CircleBorder(),
+                            elevation: 10.0,
+                            shadowColor: Colors.black87,
+                            color: const Color(0xFFefb744),
+                            child: const CircleAvatar(
+                              backgroundColor: Color(0xFFefb744),
+                              radius: 25.0,
+                              child: Icon(
+                                Icons.refresh,
+                                color: Color(0xFFf7f0fa),
+                                size: 43.0,
+                                weight: 10,
+                              ),
                             ),
                           ),
                         ),
