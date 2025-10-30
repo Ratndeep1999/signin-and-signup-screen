@@ -92,10 +92,8 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         /// Refresh Button
                         InkWell(
                           onTap: () {
-                            setState(() {
-                              // Update Details
-                              _updateDetails();
-                            });
+                            // to update email and password values
+                            _updateDetails();
                           },
                           radius: 25.0,
                           splashColor: Colors.transparent,
