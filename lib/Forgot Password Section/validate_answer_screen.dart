@@ -17,8 +17,9 @@ class ValidateAnswerScreen extends StatefulWidget {
 
 class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
 
-  // Controller
+  // Controller and form key
   late TextEditingController _securityAnswerController;
+  final _formKey = GlobalKey<FormState>();
 
   // Security Questions
   final List<String> _questions = [
@@ -28,7 +29,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
     'What is your favorite color?',
     'What city were you born in?',
   ];
-  // parameters
+  // Parameters
   String? _securityQuestion;
   String? _securityAnswer;
 
@@ -78,76 +79,81 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                           horizontal: 20.0,
                           vertical: 50.0,
                         ),
-                        child: Column(
-                          children: [
-                            /// 2nd Heading
-                            CustomSecondHeading(
-                              bigText: "Select Question\n",
-                              smallText:
-                              "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
-                            ),
-                            const SizedBox(height: 32.0),
+                        child: AutofillGroup(
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                /// 2nd Heading
+                                CustomSecondHeading(
+                                  bigText: "Select Question\n",
+                                  smallText:
+                                  "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                                ),
+                                const SizedBox(height: 32.0),
 
-                            /// Security Question Label
-                            const CustomTextFieldLabel(
-                              label: 'Security Question',
-                              labelFontSize: 12.0,
-                            ),
-                            const SizedBox(height: 8.0),
+                                /// Security Question Label
+                                const CustomTextFieldLabel(
+                                  label: 'Security Question',
+                                  labelFontSize: 12.0,
+                                ),
+                                const SizedBox(height: 8.0),
 
-                            /// Security Question Field
-                            CustomDropdownButton(
-                              hintLabel: "example1234",
-                              dropdownMenuItems: _questions,
-                              validation: (String? question) {
-                                // other way to write validation function
-                                return _securityQuestionValidation(question);
-                              },
-                              onChanged: (String? selectedQuestion) {
-                                //_securityQuestion = selectedQuestion!;
-                              },
-                              onSaved: (String? securityQuestion) {
-                               //_securityQuestion = securityQuestion!;
-                              },
-                            ),
-                            const SizedBox(height: 8.0),
+                                /// Security Question Field
+                                CustomDropdownButton(
+                                  hintLabel: "example1234",
+                                  dropdownMenuItems: _questions,
+                                  validation: (String? question) {
+                                    // other way to write validation function
+                                    return _securityQuestionValidation(question);
+                                  },
+                                  onChanged: (String? selectedQuestion) {
+                                    //_securityQuestion = selectedQuestion!;
+                                  },
+                                  onSaved: (String? securityQuestion) {
+                                   //_securityQuestion = securityQuestion!;
+                                  },
+                                ),
+                                const SizedBox(height: 8.0),
 
-                            /// Security Answer Field
-                            CustomTextField(
-                              hintText: "Your Answer...",
-                              controller: _securityAnswerController,
-                              keyboardType: TextInputType.text,
-                              autofillHints: const [AutofillHints.name],
-                              textInputAction: TextInputAction.done,
-                              isSuffixIcon: false,
-                              validation: _securityAnswerValidation,
-                              topPadding: 12.0,
-                              bottomPadding: 12.0,
-                              leftPadding: 20.0,
-                              hintTextFontSize: 13.0,
-                              obscureText: false,
-                              onSaved: (String? securityAnswer) {
-                                //_securityAnswer = securityAnswer!;
-                              },
-                            ),
-                            const SizedBox(height: 22.0),
+                                /// Security Answer Field
+                                CustomTextField(
+                                  hintText: "Your Answer...",
+                                  controller: _securityAnswerController,
+                                  keyboardType: TextInputType.text,
+                                  autofillHints: const [AutofillHints.name],
+                                  textInputAction: TextInputAction.done,
+                                  isSuffixIcon: false,
+                                  validation: _securityAnswerValidation,
+                                  topPadding: 12.0,
+                                  bottomPadding: 12.0,
+                                  leftPadding: 20.0,
+                                  hintTextFontSize: 13.0,
+                                  obscureText: false,
+                                  onSaved: (String? securityAnswer) {
+                                    //_securityAnswer = securityAnswer!;
+                                  },
+                                ),
+                                const SizedBox(height: 22.0),
 
-                            /// Save & Continue Button
-                            CustomButton(
-                              label: 'Get Password',
-                              loginClick: _checkValidation,
-                            ),
-                            const SizedBox(height: 20.0),
+                                /// Save & Continue Button
+                                CustomButton(
+                                  label: 'Get Password',
+                                  loginClick: _checkValidation,
+                                ),
+                                const SizedBox(height: 20.0),
 
-                            /// Create Account text Button
-                            CustomClickableText(
-                              label: 'Back to Login',
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                            ),
+                                /// Create Account text Button
+                                CustomClickableText(
+                                  label: 'Back to Login',
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
 
-                          ],
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
