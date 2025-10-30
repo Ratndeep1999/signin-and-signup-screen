@@ -192,11 +192,11 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
           _navigateToShowPasswordScreen();
         } else {
           // For wrong Que
-          _showSnackBar(label: "Selected Question Is Wrong");
+          _showSnackBar(label: "Your Answer Is Wrong");
         }
       } else {
         // For wrong Ans
-        _showSnackBar(label: "Your Answer Is Wrong");
+        _showSnackBar(label: "Selected Question Is Wrong");
       }
     }
   }
