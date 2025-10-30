@@ -143,7 +143,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                 ),
                                 const SizedBox(height: 22.0),
 
-                                /// Save & Continue Button
+                                /// Get Password Button
                                 CustomButton(
                                   label: 'Get Password',
                                   loginClick: _checkValidation,
