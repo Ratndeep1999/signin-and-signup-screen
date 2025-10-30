@@ -341,9 +341,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                 ),
                 const SizedBox(height: 22.0),
 
-                /// Save & Continue Button
+                /// Create Account Button
                 CustomButton(
-                  label: 'Save & Continue',
+                  label: 'Create Account',
                   loginClick: _checkValidation,
                 ),
                 const SizedBox(height: 20.0),
