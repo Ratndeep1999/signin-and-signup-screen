@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
+import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
+import 'package:signin_and_signup_screens/signin_screen.dart';
 import '../Custom Widgets/custom_button.dart';
 import '../Custom Widgets/custom_clickable_text.dart';
 import '../Custom Widgets/custom_heading.dart';
@@ -15,12 +17,15 @@ class EnterEmailScreen extends StatefulWidget {
 }
 
 class _EnterEmailScreenState extends State<EnterEmailScreen> {
+  // SharedPreferencesServices Object
+  SharedPreferencesServices pefService = SharedPreferencesServices();
+
   // Controller and Key
   final TextEditingController _emailAddressController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   // Parameters
-  String? forgetPasswordEmail;
+  String? _forgetPasswordEmail;
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +108,8 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
                   hintTextFontSize: 14,
                   textInputAction: TextInputAction.next,
                   autofillHints: [AutofillHints.email],
-                  onSaved: (String? password) {
-                    forgetPasswordEmail = password;
+                  onSaved: (String? emailAddress) {
+                    _forgetPasswordEmail = emailAddress;
                   },
                 ),
                 const SizedBox(height: 22.0),
@@ -115,6 +120,18 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
                   loginClick: () {
                     /// If Email is valid then Next..
                     //_checkValidation();
+                    _formKey.currentState!.validate();
+                    _formKey.currentState!.save();
+                    if ( _forgetPasswordEmail ==
+                        pefService.getPrefString(
+                          key: SharedPreferencesServices.kEmailId,
+                        )) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SigningScreen(),
+                        ),
+                      );
+                    }
                   },
                 ),
                 const SizedBox(height: 20.0),
