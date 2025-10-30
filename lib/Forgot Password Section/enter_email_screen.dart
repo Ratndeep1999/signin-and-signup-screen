@@ -143,7 +143,9 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
                           builder: (context) => SigningScreen(),
                         ),
                       );
-                    } else {}
+                    } else {
+                      _showSnackBar(label: "Your Email Address Is Not Matching");
+                    }
                   },
                 ),
                 const SizedBox(height: 20.0),
@@ -180,5 +182,23 @@ class _EnterEmailScreenState extends State<EnterEmailScreen> {
   /// Method to unfocus the keyboard
   void _unfocusKeyboard() {
     FocusScope.of(context).unfocus();
+  }
+
+  /// SnackBar Method
+  void _showSnackBar({required String label}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: CustomTextFieldLabel(label: label, labelFontSize: 15.0),
+        duration: Duration(seconds: 2),
+        backgroundColor: const Color(0xFFfeb64d),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 28.0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12.0),
+            topRight: Radius.circular(12.0),
+          ),
+        ),
+      ),
+    );
   }
 }
