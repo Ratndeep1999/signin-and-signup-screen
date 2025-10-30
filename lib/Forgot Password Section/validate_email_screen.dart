@@ -198,7 +198,7 @@ class _EnterEmailScreenState extends State<ValidateEmailScreen> {
           pefService.getPrefString(
             key: SharedPreferencesServices.kEmailId,
           )) {
-        Navigator.of(context).push(
+        Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => ValidateAnswerScreen(),
           ),
