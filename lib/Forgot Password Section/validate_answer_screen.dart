@@ -150,7 +150,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                 ),
                                 const SizedBox(height: 20.0),
 
-                                /// Create Account text Button
+                                /// Back To Login Button
                                 CustomClickableText(
                                   label: 'Back to Login',
                                   onTap: () {
