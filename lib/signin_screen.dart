@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_helping_clickable_text.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_text_field_label.dart';
-import 'package:signin_and_signup_screens/Forgot%20Password%20Section/enter_email_screen.dart';
+import 'package:signin_and_signup_screens/Forgot%20Password%20Section/validate_email_screen.dart';
 import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
 import 'package:signin_and_signup_screens/home_screen.dart';
 import 'package:signin_and_signup_screens/signup_first_screen.dart';
