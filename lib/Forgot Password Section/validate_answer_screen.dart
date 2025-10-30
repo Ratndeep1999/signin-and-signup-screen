@@ -32,6 +32,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
     'What is your favorite color?',
     'What city were you born in?',
   ];
+
   // Parameters
   String? _securityQuestion;
   String? _securityAnswer;
@@ -91,7 +92,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                 CustomSecondHeading(
                                   bigText: "Select Question\n",
                                   smallText:
-                                  "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                                      "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
                                 ),
                                 const SizedBox(height: 32.0),
 
@@ -108,7 +109,9 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                   dropdownMenuItems: _questions,
                                   validation: (String? question) {
                                     // other way to write validation function
-                                    return _securityQuestionValidation(question);
+                                    return _securityQuestionValidation(
+                                      question,
+                                    );
                                   },
                                   onChanged: (String? selectedQuestion) {
                                     _securityQuestion = selectedQuestion;
@@ -153,7 +156,6 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                     Navigator.pop(context);
                                   },
                                 ),
-
                               ],
                             ),
                           ),
@@ -171,7 +173,26 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
   }
 
   void _checkValidation() {
-
+    // If validate then return true and all save() method call
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      // If security question match then it return true
+      if (_securityQuestion ==
+          prefService.getPrefString(
+            key: SharedPreferencesServices.kSecurityQue,
+          )) {
+        // If Answer match then it return true
+        if (_securityAnswer ==
+            prefService.getPrefString(
+              key: SharedPreferencesServices.kSecurityAns,
+            )) {
+        } else {
+          // For wrong Que
+        }
+      } else {
+        // For wrong Ans
+      }
+    }
   }
 
   /// Method to unfocus the keyboard
