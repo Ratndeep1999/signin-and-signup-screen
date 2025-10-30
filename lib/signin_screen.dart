@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_helping_clickable_text.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_text_field_label.dart';
+import 'package:signin_and_signup_screens/Forgot%20Password%20Section/enter_email_screen.dart';
 import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
 import 'package:signin_and_signup_screens/home_screen.dart';
 import 'package:signin_and_signup_screens/signup_first_screen.dart';
@@ -212,12 +213,13 @@ class _SigningScreenState extends State<SigningScreen> {
 
                 /// Save Password and Forgot Password Section
                 CustomHelpingClickableText(
-                  onTap: () {
+                  onTapPassword: () {
                     setState(() {
                       _savePassword = !_savePassword;
                     });
                   },
                   savePassword: _savePassword,
+                  onTapForgotPassword: _navigateToForgotPasswordSection,
                 ),
                 const SizedBox(height: 24.0),
 
@@ -360,5 +362,12 @@ class _SigningScreenState extends State<SigningScreen> {
         },
       ),
     );
+  }
+
+  /// Navigate to Forgot password Section
+  void _navigateToForgotPasswordSection() {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (context) => EnterEmailScreen()));
   }
 }
