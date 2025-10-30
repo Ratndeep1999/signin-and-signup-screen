@@ -34,8 +34,8 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
   ];
 
   // Parameters
-  String? _securityQuestion;
-  String? _securityAnswer;
+  String? _userSecurityQuestion;
+  String? _userSecurityAnswer;
 
   @override
   void initState() {
@@ -114,10 +114,10 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                     );
                                   },
                                   onChanged: (String? selectedQuestion) {
-                                    _securityQuestion = selectedQuestion;
+                                    _userSecurityQuestion = selectedQuestion;
                                   },
                                   onSaved: (String? securityQuestion) {
-                                    _securityQuestion = securityQuestion;
+                                    _userSecurityQuestion = securityQuestion;
                                   },
                                 ),
                                 const SizedBox(height: 8.0),
@@ -137,7 +137,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                   hintTextFontSize: 13.0,
                                   obscureText: false,
                                   onSaved: (String? securityAnswer) {
-                                    _securityAnswer = securityAnswer;
+                                    _userSecurityAnswer = securityAnswer;
                                   },
                                 ),
                                 const SizedBox(height: 22.0),
@@ -177,12 +177,12 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       // If security question match then it return true
-      if (_securityQuestion ==
+      if (_userSecurityQuestion ==
           prefService.getPrefString(
             key: SharedPreferencesServices.kSecurityQue,
           )) {
         // If Answer match then it return true
-        if (_securityAnswer ==
+        if (_userSecurityAnswer ==
             prefService.getPrefString(
               key: SharedPreferencesServices.kSecurityAns,
             )) {
