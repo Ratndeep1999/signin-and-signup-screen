@@ -20,7 +20,8 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
   SharedPreferencesServices prefService = SharedPreferencesServices();
 
   // Parameters
-  String? _userEmail ;
+  String? _userEmail;
+
   String? _userPassword;
 
   @override
@@ -159,17 +160,20 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
 
   /// Update Details method
   void _updateDetails() {
-    Timer(Duration(seconds: 2), (){
+    Timer(Duration(seconds: 2), () {
       setState(() {
         // update email and password
-        _userEmail = prefService.getPrefString(
-          key: SharedPreferencesServices.kEmailId,
-        ) ?? "Empty";
-        _userPassword = prefService.getPrefString(
-          key: SharedPreferencesServices.kPassword,
-        ) ?? "Empty";
+        _userEmail =
+            prefService.getPrefString(
+              key: SharedPreferencesServices.kEmailId,
+            ) ??
+            "Empty";
+        _userPassword =
+            prefService.getPrefString(
+              key: SharedPreferencesServices.kPassword,
+            ) ??
+            "Empty";
       });
     });
-
   }
 }
