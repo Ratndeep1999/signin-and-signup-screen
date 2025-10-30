@@ -234,7 +234,7 @@ class _SigningScreenState extends State<SigningScreen> {
                 ),
                 const SizedBox(height: 25.0),
 
-                /// Create Account text Button
+                /// Create New Account text Button
                 CustomClickableText(
                   label: 'Create New Account',
                   onTap: () {
