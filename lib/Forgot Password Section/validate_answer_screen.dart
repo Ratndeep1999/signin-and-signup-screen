@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
+import 'package:signin_and_signup_screens/Forgot%20Password%20Section/show_password_screen.dart';
 import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
 import '../Custom Widgets/custom_button.dart';
 import '../Custom Widgets/custom_clickable_text.dart';
@@ -188,6 +189,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
               key: SharedPreferencesServices.kSecurityAns,
             )) {
           // Navigate to Next...
+          _navigateToShowPasswordScreen();
         } else {
           // For wrong Que
           _showSnackBar(label: "Selected Question Is Wrong");
@@ -234,6 +236,13 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  /// Navigate To Next Screen To Show Password
+  void _navigateToShowPasswordScreen() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => ShowPasswordScreen()),
     );
   }
 }
