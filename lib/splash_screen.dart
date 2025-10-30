@@ -18,9 +18,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    prefServices.printSavedPrefs();
+    debugPrint("Step 1");
+    _initializePref();
+    debugPrint("initialize SharedPefs Step 4");
     _navigateToNextScreen();
   }
+
+  Future<void> _initializePref() async {
+    debugPrint("initialize SharedPefs Step 2");
+    await prefServices.initializeSharedPref(); // ensures _prefs is ready
+    debugPrint("initialize SharedPefs Step 3");
+  }
+
 
   /// Navigate After 3 Sec
   void _navigateToNextScreen() {
