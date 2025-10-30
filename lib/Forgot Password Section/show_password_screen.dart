@@ -16,6 +16,10 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
   // SharedPreferencesService Object
   SharedPreferencesServices prefService = SharedPreferencesServices();
 
+  // Parameters
+  String? _userEmail;
+  String? userPassword;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +37,8 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
               children: [
                 /// Heading Text
                 CustomHeading(
-                  bigText: "Be Careful\n",
-                  smallText: "Forgotten Password!",
+                  bigText: "Warning!\n",
+                  smallText: "Don't Share With Anyone",
                 ),
                 const SizedBox(height: 40),
 
