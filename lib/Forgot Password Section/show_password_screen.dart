@@ -1,6 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
+
+import '../Custom Widgets/custom_heading.dart';
+import '../Custom Widgets/custom_second_heading.dart';
+import '../Custom Widgets/custom_text_field_label.dart';
 
 class ShowPasswordScreen extends StatelessWidget {
   const ShowPasswordScreen({super.key});
@@ -12,9 +15,62 @@ class ShowPasswordScreen extends StatelessWidget {
         backgroundColor: Color(0xFFefb744),
         automaticallyImplyLeading: false,
       ),
-      body: SafeArea(child: Stack(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            /// Custom Background Design
+            CustomClippingDesign(),
 
-      )),
+            Column(
+              children: [
+                /// Heading Text
+                CustomHeading(
+                  bigText: "Be Careful\n",
+                  smallText: "Forgotten Password!",
+                ),
+                const SizedBox(height: 40),
+
+                /// Card
+                Card(
+                  margin: EdgeInsets.symmetric(horizontal: 20.0),
+                  elevation: 5.0,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 50.0,
+                    ),
+                    child: Column(
+                      children: [
+                        /// 2nd Heading
+                        CustomSecondHeading(
+                          bigText: "Don't Forget Again\n",
+                          smallText:
+                              "Lorem ipsum dolor sit amet. consectetuer adipiscing sed\n diam nonummy nibh euismod tincidunt.",
+                        ),
+                        const SizedBox(height: 32.0),
+
+                        /// Email Label
+                        const CustomTextFieldLabel(
+                          label: 'Email Address',
+                          labelFontSize: 15.0,
+                        ),
+                        const SizedBox(height: 8.0),
+
+                        /// Password Label
+                        const CustomTextFieldLabel(
+                          label: 'Password',
+                          labelFontSize: 15.0,
+                        ),
+                        const SizedBox(height: 8.0),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
