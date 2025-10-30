@@ -172,6 +172,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
     );
   }
 
+  /// Get Password Button Validation
   void _checkValidation() {
     // If validate then return true and all save() method call
     if (_formKey.currentState!.validate()) {
