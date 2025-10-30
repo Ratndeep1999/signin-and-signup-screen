@@ -164,5 +164,23 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
   void _checkValidation() {
   }
 
+  /// Method to unfocus the keyboard
+  void _unfocusKeyboard() {
+    FocusScope.of(context).unfocus();
+  }
 
+  /// Security Questin Validation
+  String? _securityQuestionValidation(question) {
+    if (question == null || question.isEmpty) return "Please select the question";
+    return null;
+  }
+
+  /// Security Answer Validation
+  String? _securityAnswerValidation(String? answer) {
+    answer = answer?.trim();
+    if (answer == null || answer.isEmpty) return "Please enter the answer";
+    if (answer.length < 3) return "Answer must be at least 3 characters long";
+    if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer)) return "Only letters and numbers are allowed";
+    return null;
+  }
 }
