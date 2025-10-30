@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
-
+import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
 import '../Custom Widgets/custom_heading.dart';
 import '../Custom Widgets/custom_second_heading.dart';
 import '../Custom Widgets/custom_text_field_label.dart';
 
-class ShowPasswordScreen extends StatelessWidget {
+class ShowPasswordScreen extends StatefulWidget {
   const ShowPasswordScreen({super.key});
+
+  @override
+  State<ShowPasswordScreen> createState() => _ShowPasswordScreenState();
+}
+
+class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
+  // SharedPreferencesService Object
+  SharedPreferencesServices prefService = SharedPreferencesServices();
 
   @override
   Widget build(BuildContext context) {
