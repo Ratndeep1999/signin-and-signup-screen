@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
 import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
@@ -18,7 +20,7 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
   SharedPreferencesServices prefService = SharedPreferencesServices();
 
   // Parameters
-  String? _userEmail;
+  String? _userEmail ;
   String? _userPassword;
 
   @override
@@ -70,7 +72,7 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         const SizedBox(height: 8.0),
 
                         /// Email Address
-                        _buildText(context, label: 'Email'),
+                        _buildText(context, label: _userEmail ?? 'Refresh'),
 
                         const SizedBox(height: 22.0),
 
@@ -82,7 +84,7 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         const SizedBox(height: 8.0),
 
                         /// Password
-                        _buildText(context, label: 'Password'),
+                        _buildText(context, label: _userPassword ?? 'Refresh'),
 
                         const SizedBox(height: 40.0),
 
@@ -157,16 +159,17 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
 
   /// Update Details method
   void _updateDetails() {
-    setState(() {
-      // debugPrint('Update Details');
-      // It Updates Email
-      _userEmail = prefService.getPrefString(
-        key: SharedPreferencesServices.kEmailId,
-      );
-      // It Updates password
-      _userPassword = prefService.getPrefString(
-        key: SharedPreferencesServices.kPassword,
-      );
+    Timer(Duration(seconds: 2), (){
+      setState(() {
+        // update email and password
+        _userEmail = prefService.getPrefString(
+          key: SharedPreferencesServices.kEmailId,
+        ) ?? "Empty";
+        _userPassword = prefService.getPrefString(
+          key: SharedPreferencesServices.kPassword,
+        ) ?? "Empty";
+      });
     });
+
   }
 }
