@@ -53,6 +53,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Color(0xFFefb744),
         automaticallyImplyLeading: false,
