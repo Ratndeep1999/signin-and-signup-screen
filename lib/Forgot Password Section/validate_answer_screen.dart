@@ -108,7 +108,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                     return _securityQuestionValidation(question);
                                   },
                                   onChanged: (String? selectedQuestion) {
-                                    _securityQuestion = selectedQuestion!;
+                                    _securityQuestion = selectedQuestion;
                                   },
                                   onSaved: (String? securityQuestion) {
                                     _securityQuestion = securityQuestion;
