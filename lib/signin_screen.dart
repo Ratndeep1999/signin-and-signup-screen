@@ -368,6 +368,6 @@ class _SigningScreenState extends State<SigningScreen> {
   void _navigateToForgotPasswordSection() {
     Navigator.of(
       context,
-    ).push(MaterialPageRoute(builder: (context) => EnterEmailScreen()));
+    ).push(MaterialPageRoute(builder: (context) => ValidateEmailScreen()));
   }
 }

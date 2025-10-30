@@ -9,14 +9,14 @@ import '../Custom Widgets/custom_second_heading.dart';
 import '../Custom Widgets/custom_text_field.dart';
 import '../Custom Widgets/custom_text_field_label.dart';
 
-class EnterEmailScreen extends StatefulWidget {
-  const EnterEmailScreen({super.key});
+class ValidateEmailScreen extends StatefulWidget {
+  const ValidateEmailScreen({super.key});
 
   @override
-  State<EnterEmailScreen> createState() => _EnterEmailScreenState();
+  State<ValidateEmailScreen> createState() => _EnterEmailScreenState();
 }
 
-class _EnterEmailScreenState extends State<EnterEmailScreen> {
+class _EnterEmailScreenState extends State<ValidateEmailScreen> {
   // SharedPreferencesServices Object
   SharedPreferencesServices pefService = SharedPreferencesServices();
 
