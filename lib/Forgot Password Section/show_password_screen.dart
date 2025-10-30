@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
 import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
+import '../Custom Widgets/custom_clickable_text.dart';
 import '../Custom Widgets/custom_heading.dart';
 import '../Custom Widgets/custom_second_heading.dart';
 import '../Custom Widgets/custom_text_field_label.dart';
@@ -18,7 +19,7 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
 
   // Parameters
   String? _userEmail;
-  String? userPassword;
+  String? _userPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +84,15 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         /// Password
                         _buildText(context, label: 'Password'),
 
-                        const SizedBox(height: 30.0),
+                        const SizedBox(height: 40.0),
 
                         /// Refresh Button
                         InkWell(
-                          onTap: (){
-                            setState(() {});
+                          onTap: () {
+                            setState(() {
+                              // Update Details
+                              _updateDetails();
+                            });
                           },
                           radius: 25.0,
                           splashColor: Colors.transparent,
@@ -109,6 +113,17 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                               ),
                             ),
                           ),
+                        ),
+                        const SizedBox(height: 40.0),
+
+                        /// Back To Login Button
+                        CustomClickableText(
+                          label: 'Back to Login',
+                          onTap: () {
+                            Navigator.of(
+                              context,
+                            ).popUntil((route) => route.isFirst);
+                          },
                         ),
                       ],
                     ),
@@ -138,5 +153,20 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
         ),
       ),
     );
+  }
+
+  /// Update Details method
+  void _updateDetails() {
+    setState(() {
+      // debugPrint('Update Details');
+      // It Updates Email
+      _userEmail = prefService.getPrefString(
+        key: SharedPreferencesServices.kEmailId,
+      );
+      // It Updates password
+      _userPassword = prefService.getPrefString(
+        key: SharedPreferencesServices.kPassword,
+      );
+    });
   }
 }
