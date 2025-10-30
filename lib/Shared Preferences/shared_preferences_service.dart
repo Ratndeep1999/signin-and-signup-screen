@@ -22,7 +22,9 @@ class SharedPreferencesServices {
 
   // Initialization method
   Future<void> initializeSharedPref() async {
+    // debugPrint("initialize SharedPefs Step In");
     _prefs = await SharedPreferences.getInstance();
+    // debugPrint("initialize SharedPefs Step Out");
   }
 
   // Static keys
