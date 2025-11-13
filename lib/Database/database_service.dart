@@ -1,3 +1,4 @@
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
@@ -18,9 +19,16 @@ class DatabaseService {
     return _database!;
   }
 
-
-
-
-
-
+  /// Method to create Database
+  Future<Database> createDB() async {
+    final path = join(await getDatabasesPath(), 'users.db');
+    var database = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (Database db, int version) {
+        db.execute();
+      },
+    );
+    return database;
+  }
 }
