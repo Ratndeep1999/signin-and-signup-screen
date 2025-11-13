@@ -19,9 +19,20 @@ class DatabaseService {
     return _database!;
   }
 
+  /// Method that return path of database
+  Future<String> get fullPath async {
+    // database name
+    const String dbName = 'users.db';
+    // path
+    final path = await getDatabasesPath();
+
+    return join(path, dbName);
+  }
+
   /// Method to create Database
   Future<Database> createDB() async {
-    final path = join(await getDatabasesPath(), 'users.db');
+    // get full path
+    final path = await fullPath;
     var database = await openDatabase(
       path,
       version: 1,
