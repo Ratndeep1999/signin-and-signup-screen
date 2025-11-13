@@ -50,8 +50,24 @@ class DBTable {
   }
 
   /// Method to update user data
-  updateUserData(UserModel user) async {
+  Future<void> updateUserData(UserModel user) async {
     final db = await DatabaseService().database;
-    db.update(tableName, user.toMap(), where: '$id = ?', whereArgs: [user.id]);
+    await db.update(
+      tableName,
+      user.toMap(),
+      where: '$id = ?',
+      whereArgs: [user.id],
+    );
+  }
+
+  /// Method to delete user data from table
+  Future<bool> deleteUser(int id) async {
+    final db = await DatabaseService().database;
+    int rowEffected = await db.delete(
+      tableName,
+      where: '$id = ?',
+      whereArgs: [id],
+    );
+    return rowEffected > 0;
   }
 }
