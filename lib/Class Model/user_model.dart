@@ -1,4 +1,6 @@
 class UserModel {
+
+  /// Parameters
   final int? id;
   final String firstName;
   final String lastName;
@@ -10,7 +12,7 @@ class UserModel {
   final String securityQuestion;
   final String securityAnswer;
 
-  // Constructor
+  /// Constructor
   UserModel({
     this.id,
     required this.firstName,
@@ -23,4 +25,20 @@ class UserModel {
     required this.securityQuestion,
     required this.securityAnswer,
   });
+
+  /// Method to convert object to map (use to inserting data)
+  Map<String, dynamic> toMap(){
+    return {
+      'id' : id,
+      'firstName' : firstName,
+      'lastName' : lastName,
+      'emailId' : emailId,
+      'userName' : userName,
+      'birthday' : birthday,
+      'password' : password,
+      'phoneNumber' : phoneNumber,
+      'securityQuestion' : securityQuestion,
+      'securityAnswer' : securityAnswer,
+    };
+  }
 }
