@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
-import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
-import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
 import 'Shared Preferences/shared_preferences_service.dart';
 
@@ -19,7 +17,24 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color(0xFFefb744)),
+      appBar: AppBar(
+        backgroundColor: Color(0xFFefb744),
+        title: Text(
+          "Users Database",
+          style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              _showSnackBar(label: 'Logout', context: context);
+              _logout(context);
+            },
+            icon: Icon(Icons.logout_outlined, semanticLabel: "Logout"),
+          ),
+        ],
+        actionsPadding: EdgeInsets.only(right: 20.0),
+      ),
       body: SafeArea(
         child: Stack(
           children: [
@@ -30,30 +45,7 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  /// Heading Text
-                  CustomHeading(
-                    bigText: "Home Screen\n",
-                    smallText: "Welcome To Dashboard",
-                  ),
-
-                  /// Dashboard Icon
-                  Image.asset(
-                    "assets/icons/home.png",
-                    width: 200,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-
-                  /// Logout Button
-                  CustomButton(
-                    label: 'Logout',
-                    loginClick: () {
-                      _showSnackBar(label: 'Logout', context: context);
-                      _logout(context);
-                    },
-                  ),
-                ],
+                children: [],
               ),
             ),
           ],
