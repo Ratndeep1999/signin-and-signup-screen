@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:signin_and_signup_screens/Class%20Model/user_model.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_phone_number_field.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_security_question_field.dart';
 import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
@@ -43,6 +44,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   // Shared Preferences instance
   SharedPreferencesServices prefServices = SharedPreferencesServices();
+
   /// dbTables object
   final DBTable dbService = DBTable();
 
@@ -392,8 +394,25 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
       // debugPrint("_checkValidation Step 1");
       // prefServices.printSavedPrefs();
       // debugPrint("_checkValidation Step 2");
+      // add user to database
+      await _addUser();
       _navigateToSigningScreen();
     }
+  }
+
+  /// Save User to Database
+  Future<void> _addUser() async {
+    UserModel newUser = UserModel(
+      fullName: _fullName,
+      emailId: _emailAddress,
+      userName: _userName,
+      birthday: _birthDate,
+      password: _birthDate,
+      phoneNumber: _phoneNumber,
+      securityQuestion: _securityQuestion,
+      securityAnswer: _securityAnswer,
+    );
+    await dbService.insertUser(newUser);
   }
 
   /// Save User Signup data to Shared Preferences
@@ -509,13 +528,17 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Password Validation Method
   String? _passwordValidation(String? password) {
-    if (password == null || password.isEmpty) return "Please enter your password";
+    if (password == null || password.isEmpty)
+      return "Please enter your password";
     if (password.length < 8) return "Password must be at least 8 characters";
     if (password.contains(' ')) return "Space is not allowed";
-    if (!RegExp(r'[A-Z]').hasMatch(password)) return "Must contain uppercase letter";
-    if (!RegExp(r'[a-z]').hasMatch(password)) return "Must contain lowercase letter";
+    if (!RegExp(r'[A-Z]').hasMatch(password))
+      return "Must contain uppercase letter";
+    if (!RegExp(r'[a-z]').hasMatch(password))
+      return "Must contain lowercase letter";
     if (!RegExp(r'[0-9]').hasMatch(password)) return "Must contain a number";
-    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) return "Must contain special character (!@#\$&*~_)";
+    if (!RegExp(r'[!@\$&*~_]').hasMatch(password))
+      return "Must contain special character (!@#\$&*~_)";
     return null;
   }
 
@@ -539,7 +562,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// Security Questin Validation
   String? _securityQuestionValidation(question) {
-    if (question == null || question.isEmpty) return "Please select the question";
+    if (question == null || question.isEmpty)
+      return "Please select the question";
     return null;
   }
 
@@ -548,7 +572,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     answer = answer?.trim();
     if (answer == null || answer.isEmpty) return "Please enter the answer";
     if (answer.length < 3) return "Answer must be at least 3 characters long";
-    if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer)) return "Only letters and numbers are allowed";
+    if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer))
+      return "Only letters and numbers are allowed";
     return null;
   }
 
