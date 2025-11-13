@@ -41,11 +41,19 @@ class HomeScreen extends StatelessWidget {
             /// Background Custom Design
             const CustomClippingDesign(),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [],
+            SizedBox(
+              width: double.infinity,
+              height: 650.0,
+              child: Card(
+                margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                elevation: 5.0,
+                child: Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return ListTile();
+                    },
+                  ),
+                ),
               ),
             ),
           ],
