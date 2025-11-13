@@ -42,6 +42,8 @@ samples, guidance on mobile development, and a full API reference.
 # 8) Home Screen
 ![home screen](assets/images/home_screen.png)
 
+# FORGET PASSWORD SECTION OF SHARED PREF
+
 # 9) Validate Email Screen (Forget Password Section)
 ![validate email screen](assets/images/validate_email_screen.png)
 
@@ -53,3 +55,5 @@ samples, guidance on mobile development, and a full API reference.
 
 # 12) Shown Forgotten Details Screen (Forget Password Section)
 ![shown forgotten details screen (forget password section)](assets/images/shown_forgotten_details.png)
+
+# FORGET PASSWORD SECTION OF DATABASE
