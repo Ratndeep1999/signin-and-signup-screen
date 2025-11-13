@@ -1,8 +1,7 @@
 class UserModel {
   /// Parameters
   final int? id;
-  final String firstName;
-  final String lastName;
+  final String fullName;
   final String emailId;
   final String userName;
   final String birthday;
@@ -14,8 +13,7 @@ class UserModel {
   /// Constructor
   UserModel({
     this.id,
-    required this.firstName,
-    required this.lastName,
+    required this.fullName,
     required this.emailId,
     required this.userName,
     required this.birthday,
@@ -29,8 +27,7 @@ class UserModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'firstName': firstName,
-      'lastName': lastName,
+      'fullName': fullName,
       'emailId': emailId,
       'userName': userName,
       'birthday': birthday,
@@ -45,8 +42,7 @@ class UserModel {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       id: map['id'],
-      firstName: map['firstName'],
-      lastName: map['lastName'],
+      fullName: map['fullName'],
       emailId: map['emailId'],
       userName: map['userName'],
       birthday: map['birthday'],
