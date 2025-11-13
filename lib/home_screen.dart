@@ -45,14 +45,41 @@ class HomeScreen extends StatelessWidget {
               width: double.infinity,
               height: 650.0,
               child: Card(
-                margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                margin: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
                 elevation: 5.0,
-                child: Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return ListTile();
-                    },
-                  ),
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(vertical: 5.0),
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: CircleAvatar(child: Text("1")),
+                      trailing: SizedBox(
+                        width: 100,
+                        child: Row(
+                          children: [
+                            /// Edit Icon
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.edit, size: 20.0),
+                            ),
+
+                            /// Delete Icon
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.delete, size: 20.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                      title: Text(
+                        "Ratndeep Chandankhede",
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+                      subtitle: Text(
+                        "06 Feb 1999",
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -94,3 +121,24 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+// Container(
+// margin: EdgeInsets.symmetric(
+// horizontal: 10.0,
+// vertical: 5.0,
+// ),
+// // padding: ,
+// decoration: BoxDecoration(color: Colors.red.shade400),
+// child: Column(
+// children: [
+// Text("Ratndeep Chandankhede"),
+// Text("Ratndeep@gmail.com"),
+// Text("ratndeep_01"),
+// Text("+91 8551830830"),
+// Text("06 Feb 1999"),
+// Text("Rajratna@121"),
+// Text("What is your Favourite colour?"),
+// Text("Brown"),
+// ],
+// ),
+// );
