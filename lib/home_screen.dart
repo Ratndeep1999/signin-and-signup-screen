@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:signin_and_signup_screens/Class%20Model/user_model.dart';
+import 'package:signin_and_signup_screens/Database/db_table.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
@@ -13,10 +15,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  /// It Cleared All Stored Data
-  void _clearStoredPrefData() async {
-    SharedPreferencesServices prefServices = SharedPreferencesServices();
-    prefServices.clearPrefData();
+
+  /// dbTables object
+  final DBTable dbService = DBTable();
+  /// variable that holds users list
+ late Future<List<UserModel>> usersList;
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserList();
   }
 
   @override
@@ -132,25 +140,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
 
-// Container(
-// margin: EdgeInsets.symmetric(
-// horizontal: 10.0,
-// vertical: 5.0,
-// ),
-// // padding: ,
-// decoration: BoxDecoration(color: Colors.red.shade400),
-// child: Column(
-// children: [
-// Text("Ratndeep Chandankhede"),
-// Text("Ratndeep@gmail.com"),
-// Text("ratndeep_01"),
-// Text("+91 8551830830"),
-// Text("06 Feb 1999"),
-// Text("Rajratna@121"),
-// Text("What is your Favourite colour?"),
-// Text("Brown"),
-// ],
-// ),
-// );
+  /// It Cleared All Stored Data
+  void _clearStoredPrefData() async {
+    SharedPreferencesServices prefServices = SharedPreferencesServices();
+    prefServices.clearPrefData();
+  }
+
+  void loadUserList() {
+    usersList = dbService.getUsersList();
+  }
+}
