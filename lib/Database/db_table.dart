@@ -49,7 +49,9 @@ class DBTable {
     return usersList.map((element) => UserModel.fromMap(element)).toList();
   }
 
-
-
-
+  /// Method to update user data
+  updateUserData(UserModel user) async {
+    final db = await DatabaseService().database;
+    db.update(tableName, user.toMap(), where: '$id = ?', whereArgs: [user.id]);
+  }
 }
