@@ -35,8 +35,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   # Local Storage
+  # SharedPref
   shared_preferences: ^2.5.3
+  # Database
+  sqflite: ^2.4.2
+  # Path of database
+  path: ^1.9.1
+  # Input Phone number with Country code
   intl_phone_field: ^3.2.0
+
 
 dev_dependencies:
   flutter_test:
