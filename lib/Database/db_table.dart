@@ -3,9 +3,9 @@ import 'package:signin_and_signup_screens/Database/database_service.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBTable {
-
   // table name
   final String tableName = 'user';
+
   // column names
   final String id = 'id';
   final String firstName = 'First_Name';
@@ -20,8 +20,7 @@ class DBTable {
 
   /// Method that create table in database
   Future<void> createTable(Database database) async {
-    await database.execute(
-      '''
+    await database.execute('''
       CREATE TABLE IF NOT EXISTS $tableName (
       "$id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       "$firstName" TEXT NOT NULL,
@@ -34,8 +33,7 @@ class DBTable {
       "$secuQue" TEXT NOT NULL,
       "$secuAns" TEXT NOT NULL,
       )
-      '''
-    );
+      ''');
   }
 
   /// Method to insert user data
@@ -44,6 +42,12 @@ class DBTable {
     await db.insert(tableName, user.toMap());
   }
 
+  /// Method to read/ fetch users list
+  Future<List<UserModel>> getUsersList() async {
+    final db = await DatabaseService().database;
+    List usersList = await db.query(tableName);
+    return usersList.map((element) => UserModel.fromMap(element)).toList();
+  }
 
 
 
