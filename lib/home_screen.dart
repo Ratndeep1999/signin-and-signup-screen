@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    loadUserList();
+    _loadUserList();
   }
 
   @override
@@ -147,7 +147,10 @@ class _HomeScreenState extends State<HomeScreen> {
     prefServices.clearPrefData();
   }
 
-  void loadUserList() {
-    usersList = dbService.getUsersList();
+  /// Method to load users List
+  void _loadUserList() {
+    setState(() {
+      usersList = dbService.getUsersList();
+    });
   }
 }
