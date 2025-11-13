@@ -15,11 +15,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   /// dbTables object
   final DBTable dbService = DBTable();
+
   /// variable that holds users list
- late Future<List<UserModel>> usersList;
+  late Future<List<UserModel>> usersList;
 
   @override
   void initState() {
@@ -60,44 +60,73 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Card(
                 margin: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
                 elevation: 5.0,
-                child: ListView.builder(
-                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: ListTile(
-                        leading: CircleAvatar(child: Text("1")),
-                        trailing: SizedBox(
-                          width: 100,
-                          child: Row(
-                            children: [
-                              /// Edit Icon
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.edit, size: 20.0),
-                              ),
+                child: FutureBuilder<List<UserModel>>(
+                  future: usersList,
+                  builder: (context, snapshot) {
+                    // 🔄 1. While loading
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    }
 
-                              /// Delete Icon
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.delete, size: 20.0),
-                              ),
-                            ],
-                          ),
-                        ),
-                        title: Text(
-                          "Ratndeep Chandankhede",
-                          style: TextStyle(fontSize: 12.0),
-                        ),
-                        subtitle: Text(
-                          "06 Feb 1999",
-                          style: TextStyle(fontSize: 12.0),
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          side: BorderSide(color: Colors.black),
-                        ),
+                    // ❌ 2. Error
+                    if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    }
+
+                    // ✅ 3. When data loaded
+                    final users = snapshot.data ?? [];
+
+                    if (users.isEmpty) {
+                      return Center(child: Text('No users found'));
+                    }
+
+                    return ListView.builder(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 10.0,
                       ),
+                      itemCount: users.length,
+                      itemBuilder: (context, index) {
+                        final user = users[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5.0),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              child: Text(user.id.toString()),
+                            ),
+                            trailing: SizedBox(
+                              width: 100,
+                              child: Row(
+                                children: [
+                                  /// Edit Icon
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.edit, size: 20.0),
+                                  ),
+
+                                  /// Delete Icon
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.delete, size: 20.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            title: Text(
+                              user.fullName,
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                            subtitle: Text(
+                              user.birthday,
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0),
+                              side: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),
@@ -152,5 +181,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       usersList = dbService.getUsersList();
     });
+    debugPrint(usersList.toString());
   }
 }
