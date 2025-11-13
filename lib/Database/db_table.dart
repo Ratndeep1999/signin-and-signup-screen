@@ -1,3 +1,5 @@
+import 'package:signin_and_signup_screens/Class%20Model/user_model.dart';
+import 'package:signin_and_signup_screens/Database/database_service.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBTable {
@@ -37,6 +39,10 @@ class DBTable {
   }
 
   /// Method to insert user data
+  Future<void> insertUser(UserModel user) async {
+    final db = await DatabaseService().database;
+    await db.insert(tableName, user.toMap());
+  }
 
 
 
