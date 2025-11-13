@@ -48,35 +48,42 @@ class HomeScreen extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
                 elevation: 5.0,
                 child: ListView.builder(
-                  padding: EdgeInsets.symmetric(vertical: 5.0),
+                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: CircleAvatar(child: Text("1")),
-                      trailing: SizedBox(
-                        width: 100,
-                        child: Row(
-                          children: [
-                            /// Edit Icon
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.edit, size: 20.0),
-                            ),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: ListTile(
+                        leading: CircleAvatar(child: Text("1")),
+                        trailing: SizedBox(
+                          width: 100,
+                          child: Row(
+                            children: [
+                              /// Edit Icon
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.edit, size: 20.0),
+                              ),
 
-                            /// Delete Icon
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.delete, size: 20.0),
-                            ),
-                          ],
+                              /// Delete Icon
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.delete, size: 20.0),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      title: Text(
-                        "Ratndeep Chandankhede",
-                        style: TextStyle(fontSize: 12.0),
-                      ),
-                      subtitle: Text(
-                        "06 Feb 1999",
-                        style: TextStyle(fontSize: 12.0),
+                        title: Text(
+                          "Ratndeep Chandankhede",
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                        subtitle: Text(
+                          "06 Feb 1999",
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          side: BorderSide(color: Colors.black),
+                        ),
                       ),
                     );
                   },
