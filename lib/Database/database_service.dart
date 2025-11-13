@@ -11,12 +11,12 @@ class DatabaseService {
   factory DatabaseService() => _instance;
 
   /// Database object
-  Database? _database;
+  static Database? _database;
 
   /// Getter method to create Database If Database already exists then return
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database == await createDB();
+    _database = await createDB();
     return _database!;
   }
 
