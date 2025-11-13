@@ -10,6 +10,7 @@ import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_second_heading.dart';
 import 'Custom Widgets/custom_text_field.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
+import 'Database/db_table.dart';
 
 class SignupSecondScreen extends StatefulWidget {
   // To get data from previous page
@@ -42,6 +43,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   // Shared Preferences instance
   SharedPreferencesServices prefServices = SharedPreferencesServices();
+  /// dbTables object
+  final DBTable dbService = DBTable();
 
   @override
   void initState() {
