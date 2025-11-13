@@ -1,4 +1,5 @@
 import 'package:path/path.dart';
+import 'package:signin_and_signup_screens/Database/db_table.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
@@ -36,10 +37,12 @@ class DatabaseService {
     var database = await openDatabase(
       path,
       version: 1,
-      onCreate: (Database db, int version) {
-        db.execute();
-      },
+      onCreate: _create,
+      singleInstance: true,
     );
     return database;
   }
+
+  Future<void> _create(Database database, int version) async =>
+      await DBTable().createTable(database);
 }
