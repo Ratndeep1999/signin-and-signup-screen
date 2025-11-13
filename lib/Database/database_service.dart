@@ -46,4 +46,5 @@ class DatabaseService {
   /// Method that create Database and call method that create database tables
   Future<void> _create(Database database, int version) async =>
       await DBTable().createTable(database);
+
 }
