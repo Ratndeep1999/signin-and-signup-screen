@@ -5,9 +5,14 @@ import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
 import 'Shared Preferences/shared_preferences_service.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   /// It Cleared All Stored Data
   void _clearStoredPrefData() async {
     SharedPreferencesServices prefServices = SharedPreferencesServices();
