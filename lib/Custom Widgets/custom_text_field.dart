@@ -12,7 +12,7 @@ class CustomTextField extends StatelessWidget {
     required this.bottomPadding,
     required this.leftPadding,
     required this.hintTextFontSize,
-    required this.obscureText,
+    this.obscureText,
     this.suffixIcon,
     this.suffixTap,
     this.suffixIconColor,
@@ -31,7 +31,7 @@ class CustomTextField extends StatelessWidget {
   final List<String>? autofillHints;
   final String hintText;
   final IconData? suffixIcon;
-  final bool obscureText;
+  final bool? obscureText;
   final bool isSuffixIcon;
   final VoidCallback? suffixTap;
   final double topPadding;
@@ -67,7 +67,7 @@ class CustomTextField extends StatelessWidget {
         }
       },
       autofillHints: autofillHints,
-      obscureText: obscureText,
+      obscureText: obscureText ?? false,
       obscuringCharacter: '*',
       // Input Text Style
       style: TextStyle(
