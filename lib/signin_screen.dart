@@ -11,6 +11,7 @@ import 'Custom Widgets/custom_heading.dart';
 import 'Custom Widgets/custom_second_heading.dart';
 import 'Custom Widgets/custom_text_field.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
+import 'Database/db_table.dart';
 
 class SigningScreen extends StatefulWidget {
   const SigningScreen({super.key});
@@ -21,6 +22,8 @@ class SigningScreen extends StatefulWidget {
 
 class _SigningScreenState extends State<SigningScreen> {
   SharedPreferencesServices prefServices = SharedPreferencesServices();
+  late final DBTable dbService;
+
   late final TextEditingController _emailAddressController;
   late final TextEditingController _passwordController;
   late final FocusNode _passwordFocus;
@@ -28,12 +31,13 @@ class _SigningScreenState extends State<SigningScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
   bool _savePassword = false;
-  String? _emailAddress;
+  String? _email;
   String? _password;
 
   @override
   void initState() {
     super.initState();
+    dbService = DBTable();
     _emailAddressController = TextEditingController();
     _passwordController = TextEditingController();
     _emailFocus = FocusNode();
@@ -52,18 +56,11 @@ class _SigningScreenState extends State<SigningScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // This stops content from moving
-      // resizeToAvoidBottomInset: false,
-      /// Appbar
+      // resizeToAvoidBottomInset: false, // make content static
       appBar: AppBar(backgroundColor: Color(0xFFefb744)),
-
-      /// Body
       body: SingleChildScrollView(
         child: InkWell(
-          /// Method to Disable Hardware Keyboard
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
+          onTap: () => FocusScope.of(context).unfocus(),
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           child: SafeArea(
@@ -72,7 +69,7 @@ class _SigningScreenState extends State<SigningScreen> {
                 /// Background Custom Design
                 const CustomClippingDesign(),
 
-                /// Vertical Widget
+                /// Card Section
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,7 +81,7 @@ class _SigningScreenState extends State<SigningScreen> {
                     ),
                     const SizedBox(height: 40),
 
-                    /// Main Card Section
+                    /// Card
                     _buildCard(context),
                   ],
                 ),
@@ -102,7 +99,6 @@ class _SigningScreenState extends State<SigningScreen> {
       margin: EdgeInsets.symmetric(horizontal: 20.0),
       elevation: 5.0,
       child: Padding(
-        /// Content Padding
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 32.0),
         child: AutofillGroup(
           child: Form(
@@ -130,7 +126,6 @@ class _SigningScreenState extends State<SigningScreen> {
                   keyboardType: TextInputType.emailAddress,
                   isSuffixIcon: true,
                   suffixIcon: Icons.person,
-                  obscureText: false,
                   controller: _emailAddressController,
                   validation: _emailValidation,
                   topPadding: 15.0,
@@ -141,9 +136,7 @@ class _SigningScreenState extends State<SigningScreen> {
                   focusNode: _emailFocus,
                   nextFocusNode: _passwordFocus,
                   autofillHints: [AutofillHints.email],
-                  onSaved: (String? emailAddress) {
-                    _emailAddress = emailAddress;
-                  },
+                  onSaved: (String? email) => _email = email,
                 ),
                 const SizedBox(height: 26.0),
 
@@ -161,11 +154,7 @@ class _SigningScreenState extends State<SigningScreen> {
                   isSuffixIcon: true,
                   suffixIcon: _obscureText ? Icons.lock : Icons.lock_open,
                   obscureText: _obscureText,
-                  suffixTap: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
+                  suffixTap: () => setState(() => _obscureText = !_obscureText),
                   controller: _passwordController,
                   validation: _passwordValidation,
                   topPadding: 15.0,
@@ -174,35 +163,22 @@ class _SigningScreenState extends State<SigningScreen> {
                   hintTextFontSize: 14,
                   textInputAction: TextInputAction.done,
                   focusNode: _passwordFocus,
-                  nextFocusNode: null,
                   autofillHints: [AutofillHints.password],
-                  onSaved: (String? password) {
-                    _password = password;
-                  },
+                  onSaved: (String? password) => _password = password,
                 ),
                 const SizedBox(height: 24.0),
 
                 /// Save Password and Forgot Password Section
                 CustomHelpingClickableText(
-                  onTapPassword: () {
-                    setState(() {
-                      _savePassword = !_savePassword;
-                    });
-                  },
+                  onTapPassword: () =>
+                      setState(() => _savePassword = !_savePassword),
                   savePassword: _savePassword,
                   onTapForgotPassword: _navigateToForgotPasswordSection,
                 ),
                 const SizedBox(height: 24.0),
 
                 /// Login Button
-                CustomButton(
-                  label: 'Login Account',
-                  loginClick: () {
-                    /// If Details is valid then Login..
-                    FocusScope.of(context).unfocus();
-                    _loginLogic();
-                  },
-                ),
+                CustomButton(label: 'Login Account', loginClick: _loginPress),
                 const SizedBox(height: 25.0),
 
                 /// Create New Account text Button
@@ -221,51 +197,33 @@ class _SigningScreenState extends State<SigningScreen> {
   }
 
   /// Login Logic
-  void _loginLogic() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      FocusScope.of(context).unfocus();
+  Future<void> _loginPress() async {
+    FocusScope.of(context).unfocus();
+    if (!_formKey.currentState!.validate()) return;
+    _formKey.currentState!.save();
 
-      // Check Credentials
-      String? dbEmailId = prefServices.getPrefString(
-        key: SharedPreferencesServices.kEmailId,
-      );
-      String? dbPassword = prefServices.getPrefString(
-        key: SharedPreferencesServices.kPassword,
-      );
+    /// Check Credential in Database
+    final user = await dbService.loginUser(
+      emailOrUsername: _email!,
+      password: _password!,
+    );
+    if (!mounted) return;
+    if (user == null) return _showSnackBar(label: "Invalid Email and Password");
 
-      // Checks is Account Exists if Not then return Null
-      if (dbEmailId != null || dbPassword != null) {
-        // If Credentials Exists then match with Database
-        if (dbEmailId == _emailAddress && dbPassword == _password) {
-          prefServices.setPrefBool(
-            key: SharedPreferencesServices.kIsUserLoggedIn,
-            value: true,
-          );
-          _showSnackBar(label: 'Login....Please wait');
-          Future.delayed(Duration(seconds: 3), () {
-            _navigateToHomeScreen();
-          });
-        } else {
-          // If Credentials not match with Database
-          _showSnackBar(label: 'Invalid email or password.');
-        }
-      } else {
-        // If dbEmailId and dbPassword is null
-        _showSnackBar(label: 'Account not found. Please sign up first.');
-      }
-    }
+    _navigateToHomeScreen();
+
+    // prefServices.setIsLoggedIn(value: true);
+    _showSnackBar(label: "Login Please Wait...");
   }
 
   /// Email Validation Method
-  String? _emailValidation(String? emailAddress) {
-    if (emailAddress == null || emailAddress.isEmpty) {
+  String? _emailValidation(String? email) {
+    if (email == null || email.isEmpty) {
       return 'Please enter your email';
     }
-    if (emailAddress.contains(' ')) {
-      return 'Space is not allow';
-    }
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(emailAddress)) {
+    if (email.contains(' ')) return 'Space is not allow';
+    final emailRegExp = r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$';
+    if (!RegExp(emailRegExp).hasMatch(email)) {
       return "Email address must contain '@' and '.com'";
     }
     return null;
@@ -279,9 +237,8 @@ class _SigningScreenState extends State<SigningScreen> {
     if (password.length < 8) {
       return "Password must be at least 8 characters";
     }
-    if (password.contains(' ')) {
-      return "Space is not allowed";
-    }
+    if (password.contains(' ')) return "Space is not allowed";
+
     if (!RegExp(r'[A-Z]').hasMatch(password)) {
       return "Password must contain at least one uppercase letter";
     }
