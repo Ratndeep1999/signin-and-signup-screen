@@ -20,19 +20,12 @@ class SigningScreen extends StatefulWidget {
 }
 
 class _SigningScreenState extends State<SigningScreen> {
-  // Object of shared preferences
   SharedPreferencesServices prefServices = SharedPreferencesServices();
-
-  // Focus nodes for keyboard navigation
-  late final FocusNode _passwordFocus;
-  late final FocusNode _emailFocus;
-
-  // Controllers
-  final _formKey = GlobalKey<FormState>();
   late final TextEditingController _emailAddressController;
   late final TextEditingController _passwordController;
-
-  // Parameters
+  late final FocusNode _passwordFocus;
+  late final FocusNode _emailFocus;
+  final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
   bool _savePassword = false;
   String? _emailAddress;
@@ -41,41 +34,19 @@ class _SigningScreenState extends State<SigningScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeControllers();
-    _initializeFocusNodes();
-    prefServices.printSavedPrefs();
-    // debugPrint("Signing screen initState() method call");
-  }
-
-  @override
-  void dispose() {
-    _disposeControllers();
-    _disposeFocusNodes();
-    super.dispose();
-  }
-
-  /// Initialize Controller
-  void _initializeControllers() {
     _emailAddressController = TextEditingController();
     _passwordController = TextEditingController();
-  }
-
-  /// Dispose controller
-  void _disposeControllers() {
-    _emailAddressController.dispose();
-    _passwordController.dispose();
-  }
-
-  /// Initialize FocusNodes
-  void _initializeFocusNodes() {
     _emailFocus = FocusNode();
     _passwordFocus = FocusNode();
   }
 
-  /// Dispose FocusNode
-  void _disposeFocusNodes() {
+  @override
+  void dispose() {
+    _emailAddressController.dispose();
+    _passwordController.dispose();
     _emailFocus.dispose();
     _passwordFocus.dispose();
+    super.dispose();
   }
 
   @override
