@@ -16,74 +16,43 @@ class SignupFirstScreen extends StatefulWidget {
 }
 
 class _SignupFirstScreenState extends State<SignupFirstScreen> {
-  // Form key
   final _formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    super.initState();
-    _initializeControllers();
-    _initializeFocusNodes();
-  }
-
-  @override
-  void dispose() {
-    _disposeControllers();
-    _disposeFocusNodes();
-    super.dispose();
-  }
-
-  // Focus nodes for keyboard navigation
-  late final FocusNode _firstNameFocus;
-  late final FocusNode _lastNameFocus;
-  late final FocusNode _emailFocus;
-  late final FocusNode _userNameFocus;
-
-  // Controllers
   late final TextEditingController _firstNameController;
   late final TextEditingController _lastNameController;
   late final TextEditingController _emailAddressController;
   late final TextEditingController _userNameController;
 
-  // Initialize Controllers when the Page Loads
-  void _initializeControllers() {
+  late final FocusNode _firstNameFocus;
+  late final FocusNode _lastNameFocus;
+  late final FocusNode _emailFocus;
+  late final FocusNode _userNameFocus;
+
+  @override
+  void initState() {
+    super.initState();
     _firstNameController = TextEditingController();
     _lastNameController = TextEditingController();
     _emailAddressController = TextEditingController();
     _userNameController = TextEditingController();
-  }
-
-  // Dispose Controllers when the Page Removed from Stack (Dispose)
-  void _disposeControllers() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _emailAddressController.dispose();
-    _userNameController.dispose();
-  }
-
-  // Initialize FocusNodes when the Page Loads
-  void _initializeFocusNodes() {
     _firstNameFocus = FocusNode();
     _lastNameFocus = FocusNode();
     _emailFocus = FocusNode();
     _userNameFocus = FocusNode();
   }
 
-  // Dispose FocusNodes When the Page Removed from Stack (Dispose
-  void _disposeFocusNodes() {
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailAddressController.dispose();
+    _userNameController.dispose();
     _firstNameFocus.dispose();
     _lastNameFocus.dispose();
     _emailFocus.dispose();
     _userNameFocus.dispose();
+    super.dispose();
   }
-
-  // Parameters
-  bool _validUsername = false;
-  // late means it not null or empty (check validation) before save
-  late String _firstName;
-  late String _lastName;
-  late String _emailAddress;
-  late String _userName;
 
   @override
   Widget build(BuildContext context) {
