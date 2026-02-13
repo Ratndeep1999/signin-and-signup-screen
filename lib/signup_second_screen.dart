@@ -43,6 +43,31 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   late final FocusNode _securityAnswerFocus;
   late final FocusNode _phoneNumberFocus;
 
+  bool _obscureText = true;
+  bool _isNumberValid = false;
+
+  late String _fullName;
+  late String _emailAddress;
+  late String _userName;
+  late String _birthDate;
+  late String _password;
+  late String _phoneNumber;
+  late String _securityQuestion;
+  late String _securityAnswer;
+
+  String? _selectedDay;
+  String? _selectedMonth;
+  String? _selectedYear;
+
+  // Security Questions
+  final List<String> questions = [
+    'What is your pet’s name?',
+    'What is your mother’s maiden name?',
+    'What was your first school?',
+    'What is your favorite color?',
+    'What city were you born in?',
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -70,32 +95,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     super.dispose();
   }
 
-  // Security Questions
-  final List<String> questions = [
-    'What is your pet’s name?',
-    'What is your mother’s maiden name?',
-    'What was your first school?',
-    'What is your favorite color?',
-    'What city were you born in?',
-  ];
-  bool _obscureText = true;
-  bool _isPhoneNumberValid = false;
-
-  // Parameters
-  late String _fullName;
-  late String _emailAddress;
-  late String _userName;
-  late String _birthDate;
-  late String _password;
-  late String _phoneNumber;
-  late String _securityQuestion;
-  late String _securityAnswer;
-
-  // For Birthday
-  String? _selectedDay;
-  String? _selectedMonth;
-  String? _selectedYear;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,13 +103,9 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
         backgroundColor: Color(0xFFefb744),
         automaticallyImplyLeading: false,
       ),
-
-      /// Body
       body: SingleChildScrollView(
         child: InkWell(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
+          onTap: () => FocusScope.of(context).unfocus(),
           child: SafeArea(
             child: Stack(
               children: [
@@ -133,7 +128,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
       margin: EdgeInsets.symmetric(horizontal: 20.0),
       elevation: 5.0,
       child: Padding(
-        /// Content Padding
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 32.0),
         child: AutofillGroup(
           child: Form(
@@ -172,9 +166,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           child: CustomBirthdayDropdownButton(
                             hintLabel: "Day",
                             dropdownMenuItems: _generateDays(),
-                            onChanged: (String? day) {
-                              _selectedDay = day;
-                            },
+                            onChanged: (String? day) => _selectedDay = day,
                           ),
                         ),
 
@@ -184,9 +176,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           child: CustomBirthdayDropdownButton(
                             hintLabel: "Month",
                             dropdownMenuItems: _generateMonths(),
-                            onChanged: (String? month) {
-                              _selectedMonth = month;
-                            },
+                            onChanged: (String? month) =>
+                                _selectedMonth = month,
                           ),
                         ),
 
@@ -196,9 +187,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                           child: CustomBirthdayDropdownButton(
                             hintLabel: "Year",
                             dropdownMenuItems: _generateYears(),
-                            onChanged: (String? year) {
-                              _selectedYear = year;
-                            },
+                            onChanged: (String? year) => _selectedYear = year,
                           ),
                         ),
                       ],
@@ -218,29 +207,23 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                 CustomTextField(
                   hintText: "Enter Your Password",
                   keyboardType: TextInputType.visiblePassword,
+                  controller: _passwordController,
+                  validation: _passwordValidation,
                   autofillHints: [AutofillHints.newPassword],
                   focusNode: _passwordFocus,
-                  textInputAction: TextInputAction.next,
                   nextFocusNode: _phoneNumberFocus,
+                  textInputAction: TextInputAction.next,
                   isSuffixIcon: true,
                   suffixIcon: _obscureText
                       ? Icons.visibility_off
                       : Icons.visibility,
                   obscureText: _obscureText,
-                  suffixTap: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
-                  controller: _passwordController,
-                  validation: _passwordValidation,
+                  suffixTap: () => setState(() => _obscureText = !_obscureText),
                   topPadding: 12.0,
                   bottomPadding: 12.0,
                   leftPadding: 20.0,
                   hintTextFontSize: 13.0,
-                  onSaved: (String? password) {
-                    _password = password ?? '';
-                  },
+                  onSaved: (String? password) => _password = password ?? '',
                 ),
                 const SizedBox(height: 20.0),
 
@@ -254,26 +237,18 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                 /// Phone Number Field
                 CustomPhoneNumberField(
                   textInputAction: TextInputAction.next,
+                  controller: _phoneNumberController,
+                  validation: _phoneNumberValidation,
                   focusNode: _phoneNumberFocus,
                   nextFocusNode: _securityAnswerFocus,
-                  suffixIcon: _isPhoneNumberValid
+                  suffixIcon: _isNumberValid
                       ? Icons.check_circle
                       : Icons.cancel,
-                  suffixIconColor: _isPhoneNumberValid
+                  suffixIconColor: _isNumberValid
                       ? Color(0xFF93c743)
                       : Color(0xFFFF4C4C),
-                  controller: _phoneNumberController,
-                  onChanged: (PhoneNumber number) {
-                    // debugPrint("Phone Number: ${number.completeNumber}");
-                    // Phone Number: +918551830830
-                    _onChangedPhoneNumber(number.number);
-                  },
-                  validation: _phoneNumberValidation,
-                  onSaved: (PhoneNumber? phoneNumber) {
-                    // Phone no: PhoneNumber(countryISOCode: IN, countryCode: +91, number: 8551830830)
-                    _phoneNumber =
-                        ("${phoneNumber!.countryISOCode}  ${phoneNumber.countryCode} ${phoneNumber.number}");
-                  },
+                  onChanged: _onChangedPhoneNumber,
+                  onSaved: _onSaveNumber,
                 ),
                 const SizedBox(height: 20.0),
 
@@ -288,16 +263,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                 CustomDropdownButton(
                   hintLabel: "example1234",
                   dropdownMenuItems: questions,
-                  validation: (String? question) {
-                    // other way to write validation function
-                    return _securityQuestionValidation(question);
-                  },
-                  onChanged: (String? selectedQuestion) {
-                    _securityQuestion = selectedQuestion!;
-                  },
-                  onSaved: (String? securityQuestion) {
-                    _securityQuestion = securityQuestion!;
-                  },
+                  validation: _securityQuestionValidation,
+                  onChanged: (String? selectedQuestion) =>
+                      _securityQuestion = selectedQuestion!,
+                  onSaved: (String? securityQuestion) =>
+                      _securityQuestion = securityQuestion!,
                 ),
                 const SizedBox(height: 8.0),
 
@@ -305,36 +275,31 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                 CustomTextField(
                   hintText: "Your Answer...",
                   controller: _securityAnswerController,
+                  validation: _securityAnswerValidation,
                   keyboardType: TextInputType.text,
                   autofillHints: const [AutofillHints.name],
                   focusNode: _securityAnswerFocus,
                   textInputAction: TextInputAction.done,
-                  isSuffixIcon: false,
-                  validation: _securityAnswerValidation,
                   topPadding: 12.0,
                   bottomPadding: 12.0,
                   leftPadding: 20.0,
                   hintTextFontSize: 13.0,
-                  obscureText: false,
-                  onSaved: (String? securityAnswer) {
-                    _securityAnswer = securityAnswer!;
-                  },
+                  onSaved: (String? securityAnswer) =>
+                      _securityAnswer = securityAnswer!,
                 ),
                 const SizedBox(height: 22.0),
 
                 /// Create Account Button
                 CustomButton(
                   label: 'Create Account',
-                  loginClick: _checkValidation,
+                  loginClick: _createAccount,
                 ),
                 const SizedBox(height: 20.0),
 
                 /// Back to Login text Button
                 CustomClickableText(
                   label: 'Back to Login',
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                  onTap: () => Navigator.pop(context),
                 ),
               ],
             ),
@@ -344,25 +309,16 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     );
   }
 
-  /// Check Saved Data
-  void _printSavedData() {
-    // debugPrint("_printSavedData Start");
-    debugPrint('Full Name: $_fullName');
-    debugPrint('Email Address: $_emailAddress');
-    debugPrint('UserName: $_userName');
-    debugPrint('Birthday: $_birthDate');
-    debugPrint('Password: $_password');
-    debugPrint('Phone Number: $_phoneNumber');
-    debugPrint('Security Question: $_securityQuestion');
-    debugPrint('Security Answer: $_securityAnswer');
-    // debugPrint("_printSavedData End");
+  /// onSave() of PhoneNumber()
+  void _onSaveNumber(PhoneNumber? num) {
+    // Phone no: PhoneNumber(countryISOCode: IN, countryCode: +91, number: 8551830830)
+    _phoneNumber = ("${num!.countryISOCode}  ${num.countryCode} ${num.number}");
   }
 
-  /// Check all validations
-  Future<void> _checkValidation() async {
-    // Validate the form fields
+  /// Creates User Account
+  Future<void> _createAccount() async {
     if (_formKey.currentState!.validate() &&
-        _isPhoneNumberValid &&
+        _isNumberValid &&
         _birthdayValidation()) {
       _formKey.currentState!.save();
       _printSavedData();
@@ -393,52 +349,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
       securityAnswer: _securityAnswer,
     );
     await dbService.insertUser(newUser);
-  }
-
-  /// Save User Signup data to Shared Preferences
-  Future<void> _saveUserSignupPrefs() async {
-    // debugPrint("_saveUserSignupPrefs Start");
-    // debugPrint("_saveUserSignupPrefs Step 1");
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kFullName,
-      value: _fullName,
-    );
-    // debugPrint("_saveUserSignupPrefs Step 2");
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kEmailId,
-      value: _emailAddress,
-    );
-    // debugPrint("_saveUserSignupPrefs Step 3");
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kUserName,
-      value: _userName,
-    );
-    // debugPrint("_saveUserSignupPrefs Step 4");
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kBirthday,
-      value: _birthDate,
-    );
-    // debugPrint("_saveUserSignupPrefs Step 5");
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kPassword,
-      value: _password,
-    );
-    // debugPrint("_saveUserSignupPrefs Step 6");
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kPhoneNumber,
-      value: _phoneNumber,
-    );
-    // debugPrint("_saveUserSignupPrefs Step 7");
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kSecurityQue,
-      value: _securityQuestion,
-    );
-    // debugPrint("_saveUserSignupPrefs Step 8");
-    await prefServices.setPrefString(
-      key: SharedPreferencesServices.kSecurityAns,
-      value: _securityAnswer,
-    );
-    // debugPrint("_saveUserSignupPrefs End");
   }
 
   /// Birthday Validation
@@ -532,16 +442,16 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   }
 
   /// Phone Number live Validation Check
-  void _onChangedPhoneNumber(String phoneNumber) {
+  void _onChangedPhoneNumber(PhoneNumber number) {
+    // debugPrint("Phone Number: ${number.completeNumber}"); Phone Number: +918551830830
+    final userNumber = number.number;
     final bool isValid =
-        phoneNumber.length == 10 && RegExp(r'^[0-9]+$').hasMatch(phoneNumber);
-    setState(() {
-      _isPhoneNumberValid = isValid;
-    });
+        userNumber.length == 10 && RegExp(r'^[0-9]+$').hasMatch(userNumber);
+    setState(() => _isNumberValid = isValid);
   }
 
   /// Security Questin Validation
-  String? _securityQuestionValidation(question) {
+  String? _securityQuestionValidation(String? question) {
     if (question == null || question.isEmpty)
       return "Please select the question";
     return null;
@@ -606,4 +516,18 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
       ),
     );
   }
+
+// /// Check Saved Data
+// void _printSavedData() {
+//   // debugPrint("_printSavedData Start");
+//   debugPrint('Full Name: $_fullName');
+//   debugPrint('Email Address: $_emailAddress');
+//   debugPrint('UserName: $_userName');
+//   debugPrint('Birthday: $_birthDate');
+//   debugPrint('Password: $_password');
+//   debugPrint('Phone Number: $_phoneNumber');
+//   debugPrint('Security Question: $_securityQuestion');
+//   debugPrint('Security Answer: $_securityAnswer');
+//   // debugPrint("_printSavedData End");
+// }
 }
