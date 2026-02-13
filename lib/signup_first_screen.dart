@@ -28,6 +28,8 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   late final FocusNode _emailFocus;
   late final FocusNode _userNameFocus;
 
+  late String _firstName;
+
   @override
   void initState() {
     super.initState();
@@ -57,18 +59,13 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /// Appbar
       appBar: AppBar(
         backgroundColor: Color(0xFFefb744),
         automaticallyImplyLeading: false,
       ),
-
-      /// Body
       body: SingleChildScrollView(
         child: InkWell(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
+          onTap: () => FocusScope.of(context).unfocus(),
           splashColor: Colors.transparent,
           child: SafeArea(
             child: Stack(
@@ -105,7 +102,6 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
       margin: EdgeInsets.symmetric(horizontal: 20.0),
       elevation: 5.0,
       child: Padding(
-        /// Content Padding
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
         child: AutofillGroup(
           child: Form(
@@ -140,8 +136,6 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                         focusNode: _firstNameFocus,
                         nextFocusNode: _lastNameFocus,
                         autofillHints: [AutofillHints.givenName],
-                        obscureText: false,
-                        isSuffixIcon: false,
                         controller: _firstNameController,
                         validation: _firstNameValidation,
                         topPadding: 12.0,
