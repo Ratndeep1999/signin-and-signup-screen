@@ -13,64 +13,32 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  SharedPreferencesServices prefServices = SharedPreferencesServices();
+  late final SharedPreferencesServices prefServices =
+      SharedPreferencesServices();
 
   @override
   void initState() {
     super.initState();
-    // debugPrint("Step 1");
-    _initializePref();
-    // debugPrint("initialize SharedPefs Step 4");
-    _navigateToNextScreen();
+    prefServices.initSharedPref;
+    _whereToGo();
   }
 
-  Future<void> _initializePref() async {
-    // debugPrint("initialize SharedPefs Step 2");
-    await prefServices.initializeSharedPref(); // ensures _prefs is ready
-    // debugPrint("initialize SharedPefs Step 3");
-  }
+  /// Navigate After 2 Sec
+  Future<void> _whereToGo() async {
+    final loginStatus = await prefServices.getLoggedInStatus();
 
-
-  /// Navigate After 3 Sec
-  void _navigateToNextScreen() {
-    Timer(Duration(milliseconds: 3000), () {
-      _whereToNavigate();
-    });
-  }
-
-  /// Were To Navigate
-  void _whereToNavigate() {
-    bool? isUserLoggedIn = prefServices.getPrefBool(
-      key: SharedPreferencesServices.kIsUserLoggedIn,
-    );
-
-    // If null then Navigate to SigningScreen
-    if (isUserLoggedIn != null) {
-      // If not null then check this condition
-      if (isUserLoggedIn) {
-        // If true then Home screen
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-        );
-      } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => SigningScreen()),
-        );
-      }
-    } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => SigningScreen()),
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => loginStatus ? HomeScreen() : SigningScreen(),
+        ),
       );
-    }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /// Appbar
       appBar: AppBar(backgroundColor: Color(0xFFefb744)),
       body: SafeArea(
         child: Stack(
