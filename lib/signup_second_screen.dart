@@ -4,6 +4,7 @@ import 'package:signin_and_signup_screens/Class%20Model/user_model.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_phone_number_field.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_security_question_field.dart';
 import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
+import 'package:signin_and_signup_screens/home_screen.dart';
 import 'Custom Widgets/custom_birthday_dropdown_button.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
@@ -31,29 +32,28 @@ class SignupSecondScreen extends StatefulWidget {
 }
 
 class _SignupSecondScreenState extends State<SignupSecondScreen> {
-  // Focus Nodes
-  late final FocusNode _passwordFocus;
-  late final FocusNode _securityAnswerFocus;
-  late final FocusNode _phoneNumberFocus;
-
-  // Form key and Controllers
   final _formKey = GlobalKey<FormState>();
+  final DBTable dbService = DBTable();
+
   late final TextEditingController _passwordController;
   late final TextEditingController _securityAnswerController;
   late final TextEditingController _phoneNumberController;
 
-  // Shared Preferences instance
-  SharedPreferencesServices prefServices = SharedPreferencesServices();
-
-  /// dbTables object
-  final DBTable dbService = DBTable();
+  late final FocusNode _passwordFocus;
+  late final FocusNode _securityAnswerFocus;
+  late final FocusNode _phoneNumberFocus;
 
   @override
   void initState() {
     super.initState();
-    _initializeControllers();
-    _initializeFocusNodes();
-    // It initialize data from previous screen
+    _passwordController = TextEditingController();
+    _securityAnswerController = TextEditingController();
+    _phoneNumberController = TextEditingController();
+    _passwordFocus = FocusNode();
+    _securityAnswerFocus = FocusNode();
+    _phoneNumberFocus = FocusNode();
+
+    // Initialize data from previous screen
     _fullName = widget.fullName;
     _emailAddress = widget.emailAddress;
     _userName = widget.userName;
@@ -61,37 +61,13 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   @override
   void dispose() {
-    _disposeControllers();
-    _disposeFocusNodes();
-    super.dispose();
-  }
-
-  // Initialize Controllers when the Page Loads
-  void _initializeControllers() {
-    _passwordController = TextEditingController();
-    _securityAnswerController = TextEditingController();
-    _phoneNumberController = TextEditingController();
-  }
-
-  // Dispose Controllers when the Page Removed from Stack (Dispose)
-  void _disposeControllers() {
     _passwordController.dispose();
     _securityAnswerController.dispose();
     _phoneNumberController.dispose();
-  }
-
-  // Initialize FocusNodes when the Page Loads
-  void _initializeFocusNodes() {
-    _passwordFocus = FocusNode();
-    _securityAnswerFocus = FocusNode();
-    _phoneNumberFocus = FocusNode();
-  }
-
-  // Dispose FocusNodes when the Page Removed from Stack (Dispose)
-  void _disposeFocusNodes() {
     _passwordFocus.dispose();
     _securityAnswerFocus.dispose();
     _phoneNumberFocus.dispose();
+    super.dispose();
   }
 
   // Security Questions
@@ -396,7 +372,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
       // debugPrint("_checkValidation Step 2");
       // add user to database
       await _addUser();
-      _navigateToSigningScreen();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+      // _navigateToSigningScreen();
     }
   }
 
