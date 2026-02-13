@@ -3,48 +3,48 @@ import 'package:signin_and_signup_screens/Database/db_table.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
-  /// Singleton pattern
+  /// Singleton Pattern
+  // static single instance
   static final DatabaseService _instance = DatabaseService._internal();
 
-  DatabaseService._internal();
+  DatabaseService._internal(); // private constructor
 
-  factory DatabaseService() => _instance;
+  factory DatabaseService() => _instance; // return single instance
 
-  /// Database object
+  /// Database Object
   static Database? _database;
 
-  /// Getter method to create Database If Database already exists then return
+  /// Database Config
+  static const String _dbName = 'users.db';
+  static const int _dbVersion = 1;
+
+  /// Return Database
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await createDB();
+    _database = await _createDB();
     return _database!;
   }
 
-  /// Method that return path of database
-  Future<String> get fullPath async {
-    // database name
-    const String dbName = 'users.db';
-    // path
-    final path = await getDatabasesPath();
-
-    return join(path, dbName);
+  /// Database Path
+  Future<String> get _dbPath async {
+    final dbPath = await getDatabasesPath();
+    return join(dbPath, _dbName);
   }
 
-  /// Method to create Database
-  Future<Database> createDB() async {
-    // get full path
-    final path = await fullPath;
-    var database = await openDatabase(
+  /// Create Database
+  Future<Database> _createDB() async {
+    final path = await _dbPath;
+    Database database = await openDatabase(
       path,
-      version: 1,
-      onCreate: _create,
+      version: _dbVersion,
+      onCreate: _onCreate,
       singleInstance: true,
     );
     return database;
   }
 
-  /// Method that create Database and call method that create database tables
-  Future<void> _create(Database database, int version) async =>
-      await DBTable().createTable(database);
-
+  /// Create Database Table
+  Future<void> _onCreate(Database database, int version) async {
+    return await DBTable().createTable(database);
+  }
 }
