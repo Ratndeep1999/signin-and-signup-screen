@@ -1,100 +1,33 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesServices {
-
   /// Singleton of This Class
-  // 1. The single static instance
-  static final SharedPreferencesServices _instance =
+  static final SharedPreferencesServices _instance = // static instance
       SharedPreferencesServices._internal();
 
-  // 2. Private named constructor
-  SharedPreferencesServices._internal();
+  SharedPreferencesServices._internal(); // named constructor
 
-  // 3. Public factory constructor that returns the same instance
-  factory SharedPreferencesServices(){
-    return _instance;
-  }
+  factory SharedPreferencesServices() => _instance; // return same instance
 
-  // Private variable to hold SharedPreferences instance
   static SharedPreferences? _prefs;
 
-  // Initialization method
-  Future<void> initializeSharedPref() async {
-    // debugPrint("initialize SharedPefs Step In");
-    _prefs = await SharedPreferences.getInstance();
-    // debugPrint("initialize SharedPefs Step Out");
+  Future<SharedPreferences> get initSharedPref async =>
+      _prefs ??= await SharedPreferences.getInstance();
+
+  static const String _kIsLoggedIn = 'is_logged_in';
+
+  Future<void> setIsLoggedIn({required bool value}) async {
+    final prefs = await initSharedPref;
+    await prefs.setBool(_kIsLoggedIn, value);
   }
 
-  // Static keys
-  static const String kFullName = 'fullName';
-  static const String kEmailId = 'emailId';
-  static const String kUserName = 'userName';
-  static const String kBirthday = 'birthday';
-  static const String kPassword = 'password';
-  static const String kPhoneNumber = 'phoneNumber';
-  static const String kSecurityQue = 'securityQue';
-  static const String kSecurityAns = 'securityAns';
-  static const String kIsUserLoggedIn = 'isUserLoggedIn';
-
-  // Method to store Signup Data
-  Future<void> saveSignupData({
-    required firstName,
-    required emailId,
-    required userName,
-    required birthday,
-    required password,
-    required phoneNumber,
-    required securityQue,
-    required securityAns,
-  }) async {
-    await _prefs?.setString(kFullName, firstName);
-    await _prefs?.setString(kEmailId, emailId);
-    await _prefs?.setString(kUserName, userName);
-    await _prefs?.setString(kBirthday, birthday);
-    await _prefs?.setString(kPassword, password);
-    await _prefs?.setString(kPhoneNumber, phoneNumber);
-    await _prefs?.setString(kSecurityQue, securityQue);
-    await _prefs?.setString(kSecurityAns, securityAns);
+  Future<bool> getLoggedInStatus() async {
+    final prefs = await initSharedPref;
+    return prefs.getBool(_kIsLoggedIn) ?? false;
   }
 
-  // It will print the Saved data from from Prefs
-  void printSavedPrefs() {
-    debugPrint('Full Name: ${_prefs?.getString(kFullName)}');
-    debugPrint('Email Address: ${_prefs?.getString(kEmailId)}');
-    debugPrint('UserName: ${_prefs?.getString(kUserName)}');
-    debugPrint('Birthday: ${_prefs?.getString(kBirthday)}');
-    debugPrint('Password: ${_prefs?.getString(kPassword)}');
-    debugPrint('Phone Number: ${_prefs?.getString(kPhoneNumber)}');
-    debugPrint('Security Question: ${_prefs?.getString(kSecurityQue)}');
-    debugPrint('Security Answer: ${_prefs?.getString(kSecurityAns)}');
-  }
-
-  // Method to Store Single String Data
-  Future<void> setPrefString({required String key, required String value}) async {
-    // debugPrint("Step In SetString");
-    await _prefs?.setString(key, value);
-    // debugPrint("Step Out SatString");
-  }
-
-  // Method to Store Single Bool Data
-  Future<void> setPrefBool({required String key, required bool value}) async {
-    await _prefs?.setBool(key, value);
-  }
-
-  // Method to Retrieve/Get Single String Data
-  String? getPrefString({required String key}) {
-    return _prefs?.getString(key);
-  }
-
-  // Method to Retrieve/Get Single Bool Data
-  bool? getPrefBool({required String key}) {
-    return _prefs?.getBool(key);
-  }
-
-  // Method to Delete all Stored Data
-  Future<bool>? clearPrefData() {
-    return _prefs?.clear();
+  Future<void> clearLoginData() async {
+    final prefs = await initSharedPref;
+    await prefs.remove(_kIsLoggedIn);
   }
 }
