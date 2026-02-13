@@ -1,71 +1,140 @@
-import 'package:signin_and_signup_screens/Class%20Model/user_model.dart';
 import 'package:signin_and_signup_screens/Database/database_service.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBTable {
-  // table name
-  final String tableName = 'user';
 
-  // column names
-  final String id = 'id';
-  final String fullName = 'fullName';
-  final String emailId = 'emailId';
-  final String userName = 'userName';
-  final String birthday = 'birthday';
-  final String password = 'password';
-  final String phoneNo = 'phoneNumber';
-  final String secuQue = 'securityQuestion';
-  final String secuAns = 'securityAnswer';
+  /// Configure Database Table and Columns
+  static const String _kUsersTable = 'users_table';
+  static const String kId = "users_id";
+  static const String kFullName = 'full_name';
+  static const String kEmailId = 'email_id';
+  static const String kUserName = 'user_name';
+  static const String kBirthday = 'birthday';
+  static const String kPassword = 'password';
+  static const String kPhoneNo = 'phone_number';
+  static const String kSecurityQue = 'security_question';
+  static const String kSecurityAns = 'security_answer';
 
-  /// Method that create table in database
+  /// Create Table in Database
   Future<void> createTable(Database database) async {
     await database.execute('''
-      CREATE TABLE IF NOT EXISTS $tableName (
-      "$id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-      "$fullName" TEXT NOT NULL,
-      "$emailId" TEXT NOT NULL,
-      "$userName" TEXT NOT NULL,
-      "$birthday" TEXT NOT NULL,
-      "$password" TEXT NOT NULL,
-      "$phoneNo" TEXT NOT NULL,
-      "$secuQue" TEXT NOT NULL,
-      "$secuAns" TEXT NOT NULL
+      CREATE TABLE IF NOT EXISTS $_kUsersTable (
+      "$kId" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      "$kFullName" TEXT NOT NULL,
+      "$kEmailId" TEXT NOT NULL,
+      "$kUserName" TEXT NOT NULL,
+      "$kBirthday" TEXT NOT NULL,
+      "$kPassword" TEXT NOT NULL,
+      "$kPhoneNo" TEXT NOT NULL,
+      "$kSecurityQue" TEXT NOT NULL,
+      "$kSecurityAns" TEXT NOT NULL
       );
       ''');
   }
 
-  /// Method to insert user data
-  Future<void> insertUser(UserModel user) async {
-    final db = await DatabaseService().database;
-    await db.insert(tableName, user.toMap());
+  /// Database migrations (future use)
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    // handle migrations here
   }
 
-  /// Method to read/ fetch users list
-  Future<List<UserModel>> getUsersList() async {
+  /// Create User to Database
+  Future<bool> insertUser({
+    required int id,
+    required String fullName,
+    required String email,
+    required String userName,
+    required String birthday,
+    required String phoneNo,
+    required String securityQue,
+    required String securityAns,
+    required String password,
+  }) async {
     final db = await DatabaseService().database;
-    List usersList = await db.query(tableName);
-    return usersList.map((element) => UserModel.fromMap(element)).toList();
+    int user = await db.insert(_kUsersTable, {
+      kId: id,
+      kFullName: fullName,
+      kEmailId: email,
+      kUserName: userName,
+      kBirthday: birthday,
+      kPhoneNo: phoneNo,
+      kSecurityQue: securityQue,
+      kSecurityAns: securityAns,
+      kPassword: password,
+    }, conflictAlgorithm: ConflictAlgorithm.abort);
+    return (user > 0);
   }
 
-  /// Method to update user data
-  Future<void> updateUserData(UserModel user) async {
+  /// Read Users from Database
+  Future<List<Map<String, Object?>>> getUsersList() async {
     final db = await DatabaseService().database;
-    await db.update(
-      tableName,
-      user.toMap(),
-      where: '$id = ?',
-      whereArgs: [user.id],
-    );
+    final List<Map<String, Object?>> usersList = await db.query(_kUsersTable);
+    return usersList;
   }
 
-  /// Method to delete user data from table
-  Future<bool> deleteUser(int id) async {
+  /// Update User Data in Database
+  Future<bool> updateUserData({
+    required int id,
+    required String fullName,
+    required String email,
+    required String userName,
+    required String birthday,
+    required String phoneNo,
+    required String securityQue,
+    required String securityAns,
+  }) async {
     final db = await DatabaseService().database;
-    int rowEffected = await db.delete(
-      tableName,
-      where: '$id = ?',
+    int user = await db.update(
+      _kUsersTable,
+      {
+        kFullName: fullName,
+        kEmailId: email,
+        kUserName: userName,
+        kBirthday: birthday,
+        kPhoneNo: phoneNo,
+        kSecurityQue: securityQue,
+        kSecurityAns: securityAns,
+      },
+      where: '$kId = ?',
       whereArgs: [id],
     );
-    return rowEffected > 0;
+    return (user > 0);
+  }
+
+  /// Delete User from Database
+  Future<bool> deleteUser({required int id}) async {
+    final db = await DatabaseService().database;
+    int user = await db.delete(
+      _kUsersTable,
+      where: '$kId = ?',
+      whereArgs: [id],
+    );
+    return (user > 0);
+  }
+
+  /// Check User Data to Login User
+  Future<Map<String, Object?>?> loginUser({
+    required String emailOrUsername,
+    required String password,
+  }) async {
+    final db = await DatabaseService().database;
+    final result = await db.query(
+      _kUsersTable,
+      where: '$kEmailId = ? OR $kUserName = ?',
+      whereArgs: [emailOrUsername, emailOrUsername],
+      limit: 1,
+    );
+    if (result.isEmpty) return null;
+    final user = result.first;
+
+    if (user[kPassword] != password) return null;
+    return user;
+  }
+
+  /// Close Database
+  Future<void> closeDatabase() async {
+    final db = await DatabaseService().database;
+    if (db != null) {
+      await db.close();
+    }
   }
 }
