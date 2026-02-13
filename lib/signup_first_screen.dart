@@ -28,7 +28,11 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   late final FocusNode _emailFocus;
   late final FocusNode _userNameFocus;
 
+  bool _isValidUsername = false;
   late String _firstName;
+  late String _lastName;
+  late String _email;
+  late String _userName;
 
   @override
   void initState() {
@@ -132,44 +136,37 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                       child: CustomTextField(
                         hintText: 'First Name',
                         keyboardType: TextInputType.name,
+                        controller: _firstNameController,
+                        validation: _firstNameValidation,
                         textInputAction: TextInputAction.next,
                         focusNode: _firstNameFocus,
                         nextFocusNode: _lastNameFocus,
                         autofillHints: [AutofillHints.givenName],
-                        controller: _firstNameController,
-                        validation: _firstNameValidation,
                         topPadding: 12.0,
                         bottomPadding: 12.0,
                         leftPadding: 20.0,
                         hintTextFontSize: 13.0,
-                        onSaved: (String? firstname) {
-                          _firstName = firstname!;
-                        },
+                        onSaved: (String? firstname) => _firstName = firstname!,
                       ),
                     ),
-
-                    SizedBox(width: 10.0),
+                    const SizedBox(width: 10.0),
 
                     /// Last Name Field
                     Flexible(
                       child: CustomTextField(
                         hintText: 'Last Name',
                         keyboardType: TextInputType.name,
+                        controller: _lastNameController,
+                        validation: _lastNameValidation,
                         textInputAction: TextInputAction.next,
                         focusNode: _lastNameFocus,
                         nextFocusNode: _emailFocus,
                         autofillHints: [AutofillHints.familyName],
-                        obscureText: false,
-                        isSuffixIcon: false,
-                        controller: _lastNameController,
-                        validation: _lastNameValidation,
                         topPadding: 12.0,
                         bottomPadding: 12.0,
                         leftPadding: 20.0,
                         hintTextFontSize: 13.0,
-                        onSaved: (String? lastname) {
-                          _lastName = lastname!;
-                        },
+                        onSaved: (String? lastname) => _lastName = lastname!,
                       ),
                     ),
                   ],
@@ -187,22 +184,19 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                 CustomTextField(
                   hintText: "Your Email Address",
                   keyboardType: TextInputType.emailAddress,
+                  controller: _emailAddressController,
+                  validation: _emailValidation,
                   textInputAction: TextInputAction.next,
                   focusNode: _emailFocus,
                   nextFocusNode: _userNameFocus,
                   autofillHints: [AutofillHints.email],
                   isSuffixIcon: true,
                   suffixIcon: Icons.email,
-                  obscureText: false,
-                  controller: _emailAddressController,
-                  validation: _emailValidation,
                   topPadding: 12.0,
                   bottomPadding: 12.0,
                   leftPadding: 20.0,
                   hintTextFontSize: 13.0,
-                  onSaved: (String? email) {
-                    _emailAddress = email!;
-                  },
+                  onSaved: (String? email) => _email = email!,
                 ),
                 const SizedBox(height: 20.0),
 
@@ -217,48 +211,38 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                 CustomTextField(
                   hintText: "example1234",
                   keyboardType: TextInputType.name,
-                  textInputAction: TextInputAction.done,
-                  focusNode: _userNameFocus,
-                  nextFocusNode: null,
-                  // close keyboard
-                  autofillHints: [AutofillHints.username],
-                  isSuffixIcon: true,
-                  suffixIcon: _validUsername
-                      ? Icons.check_circle
-                      : Icons.cancel,
-                  suffixIconColor: _validUsername
-                      ? Color(0xFF93c743)
-                      : Color(0xFFFF4C4C),
-                  obscureText: false,
                   controller: _userNameController,
                   validation: _userNameValidation,
+                  textInputAction: TextInputAction.done,
+                  focusNode: _userNameFocus,
+                  autofillHints: [AutofillHints.username],
+                  isSuffixIcon: true,
+                  suffixIcon: _isValidUsername
+                      ? Icons.check_circle
+                      : Icons.cancel,
+                  suffixIconColor: _isValidUsername
+                      ? Color(0xFF93c743)
+                      : Color(0xFFFF4C4C),
                   topPadding: 12.0,
                   bottomPadding: 12.0,
                   leftPadding: 20.0,
                   hintTextFontSize: 14.0,
                   onChanged: _onChangedUsername,
-                  onSaved: (String? username) {
-                    _userName = username!;
-                  },
+                  onSaved: (String? username) => _userName = username!,
                 ),
                 const SizedBox(height: 22.0),
 
                 /// Save & Continue Button
                 CustomButton(
                   label: 'Save & Continue',
-                  loginClick: () {
-                    /// If Details is valid then Next..
-                    _checkValidation();
-                  },
+                  loginClick: _saveAndContinue,
                 ),
                 const SizedBox(height: 20.0),
 
                 /// Back to Login text Button
                 CustomClickableText(
                   label: 'Back to Login',
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                  onTap: () => Navigator.pop(context),
                 ),
               ],
             ),
@@ -269,50 +253,51 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   }
 
   /// It Validate all Fields
-  void _checkValidation() {
-    if (_formKey.currentState!.validate()) {
-      FocusScope.of(context).unfocus();
-      // This triggers all onSaved methods
-      _formKey.currentState!.save();
-      _printSavedData();
-      // Navigate to Next Screen
-      _navigateToSignupSecondScreen();
-    }
-  }
+  void _saveAndContinue() {
+    FocusScope.of(context).unfocus();
+    if (!_formKey.currentState!.validate()) return;
+    _formKey.currentState!.save();
 
-  /// Check Saved Data
-  void _printSavedData() {
-    debugPrint('First Name: $_firstName');
-    debugPrint('Last Name: $_lastName');
-    debugPrint('Email Address: $_emailAddress');
-    debugPrint('UserName: $_userName');
-  }
-
-  /// Navigate to signup second screen
-  void _navigateToSignupSecondScreen() {
-    Navigator.push(
-      context,
+    Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) {
-          return SignupSecondScreen(
-            fullName: ("$_firstName $_lastName"),
-            emailAddress: _emailAddress,
-            userName: _userName,
-          );
-        },
+        builder: (_) => SignupSecondScreen(
+          fullName: _firstName + _lastName,
+          emailAddress: _email,
+          userName: _userName,
+        ),
       ),
     );
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text("Data Saved")));
+  }
+
+  /// Username live Validation check
+  void _onChangedUsername(String username) {
+    username = username.trim();
+    // is userName match the pattern
+    final bool isValidPattern = RegExp(
+      r'^[a-zA-Z0-9_]{4,}$',
+    ).hasMatch(username);
+
+    // Check if username equals other fields or not
+    final bool isDifferentFromOthers =
+        username != _emailAddressController.text.trim() &&
+        username != _firstNameController.text.trim() &&
+        username != _lastNameController.text.trim();
+
+    // Final check isValid and notSameAsOthers
+    final bool isValid = isValidPattern && isDifferentFromOthers;
+
+    setState(() => _isValidUsername = isValid);
   }
 
   /// First Name Validation
   String? _firstNameValidation(String? firstName) {
     firstName = firstName?.trim();
-    if (firstName == null || firstName.isEmpty) {
-      return 'Enter your first name';
-    }
-    if (firstName.length < 2) {
-      return 'Name is too short';
-    }
+    if (firstName == null || firstName.isEmpty) return 'Enter your first name';
+    if (firstName.length < 2) return 'Name is too short';
     if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(firstName)) {
       return 'Please enter letters only';
     }
@@ -322,12 +307,8 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   /// Last Name Validation
   String? _lastNameValidation(String? lastName) {
     lastName = lastName?.trim();
-    if (lastName == null || lastName.isEmpty) {
-      return 'Enter your last name';
-    }
-    if (lastName.length < 4) {
-      return 'Name is too short';
-    }
+    if (lastName == null || lastName.isEmpty) return 'Enter your last name';
+    if (lastName.length < 4) return 'Name is too short';
     if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(lastName)) {
       return 'Please enter letters only';
     }
@@ -335,15 +316,11 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
   }
 
   /// Email Validation Method
-  String? _emailValidation(String? emailAddress) {
-    emailAddress = emailAddress?.trim();
-    if (emailAddress == null || emailAddress.isEmpty) {
-      return 'Please enter your email';
-    }
-    if (emailAddress.contains(' ')) {
-      return 'Space is not allow';
-    }
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(emailAddress)) {
+  String? _emailValidation(String? email) {
+    email = email?.trim();
+    if (email == null || email.isEmpty) return 'Please enter your email';
+    if (email.contains(' ')) return 'Space is not allow';
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email)) {
       return "Email address must contain '@' and '.com'";
     }
     return null;
@@ -355,12 +332,12 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     if (userName == null || userName.isEmpty) {
       return 'Please enter your username';
     }
-    if (userName.length < 4) {
-      return 'Username is too short';
-    }
-    if (userName == _emailAddressController.text ||
-        userName == _firstNameController.text ||
-        userName == _lastNameController.text) {
+    if (userName.length < 4) return 'Username is too short';
+    if ([
+      _emailAddressController.text,
+      _firstNameController.text,
+      _lastNameController.text,
+    ].contains(userName)) {
       return "Username need to be different from others";
     }
     if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(userName)) {
@@ -370,29 +347,5 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     //   return 'Username is already taken';
     // }
     return null;
-  }
-
-  /// Username live Validation check
-  void _onChangedUsername(String username) {
-    // remove any spaces
-    username = username.trim();
-
-    // allows letters, numbers, underscores and at least 4 chars
-    final bool isValidPattern = RegExp(
-      r'^[a-zA-Z0-9_]{4,}$',
-    ).hasMatch(username);
-
-    // Check if username equals other fields or not
-    final bool isDifferentFromOthers =
-        username != _emailAddressController.text.trim() &&
-        username != _firstNameController.text.trim() &&
-        username != _lastNameController.text.trim();
-
-    // Final condition: valid pattern AND not same as other fields
-    final bool isValid = isValidPattern && isDifferentFromOthers;
-
-    setState(() {
-      _validUsername = isValid;
-    });
   }
 }
