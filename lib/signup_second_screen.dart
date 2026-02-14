@@ -289,7 +289,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                 /// Create Account Button
                 CustomButton(
                   label: 'Create Account',
-                  loginClick: _createAccount,
+                  buttonPress: _createAccount,
                 ),
                 const SizedBox(height: 20.0),
 
