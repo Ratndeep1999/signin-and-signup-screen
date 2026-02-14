@@ -17,7 +17,6 @@ class ValidateEmailScreen extends StatefulWidget {
 }
 
 class _EnterEmailScreenState extends State<ValidateEmailScreen> {
-  SharedPreferencesServices pefService = SharedPreferencesServices();
   late final TextEditingController _emailController;
   final _formKey = GlobalKey<FormState>();
 
