@@ -218,6 +218,7 @@ class _SigningScreenState extends State<SigningScreen> {
 
   /// Email Validation Method
   String? _emailValidation(String? email) {
+    email = email?.trim().toLowerCase();
     if (email == null || email.isEmpty) {
       return 'Please enter your email';
     }
