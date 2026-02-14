@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:signin_and_signup_screens/Class%20Model/user_model.dart';
 import 'package:signin_and_signup_screens/Database/db_table.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
@@ -15,16 +14,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  /// dbTables object
+  SharedPreferencesServices prefServices = SharedPreferencesServices();
   final DBTable dbService = DBTable();
 
-  /// variable that holds users list
-  late Future<List<UserModel>> usersList;
+  late Future<List<Map<String, Object?>>> usersList;
 
   @override
   void initState() {
     super.initState();
     _loadUserList();
+  }
+
+  /// Delete user
+  void _deleteUser(int id) async {
+    final isUserDelete = await dbService.deleteUser(id: id);
+    if (!mounted) return;
+    if (isUserDelete) {
+      print("User deleted successfully");
+      _loadUserList();
+    } else {
+      print("No user found with id = $id");
+    }
   }
 
   @override
@@ -39,10 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {
-              _showSnackBar(label: 'Logout', context: context);
-              _logout(context);
-            },
+            onPressed: () => _logout,
             icon: Icon(Icons.logout_outlined, semanticLabel: "Logout"),
           ),
         ],
@@ -60,24 +67,27 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Card(
                 margin: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
                 elevation: 5.0,
-                child: FutureBuilder<List<UserModel>>(
+                child: FutureBuilder<List<Map<String, Object?>>>(
                   future: usersList,
                   builder: (context, snapshot) {
-                    // 🔄 1. While loading
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
                     }
-
-                    // ❌ 2. Error
                     if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     }
-
-                    // ✅ 3. When data loaded
                     final users = snapshot.data ?? [];
 
                     if (users.isEmpty) {
-                      return Center(child: Text('No users found'));
+                      return Center(
+                        child: Text(
+                          'No users found',
+                          style: TextStyle(
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
                     }
 
                     return ListView.builder(
@@ -87,37 +97,28 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       itemCount: users.length,
                       itemBuilder: (context, index) {
+                        // Separate User
                         final user = users[index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: ListTile(
                             leading: CircleAvatar(
-                              child: Text(user.id.toString()),
+                              child: Text(user[DBTable.kId].toString()),
                             ),
                             trailing: SizedBox(
                               width: 100,
-                              child: Row(
-                                children: [
-                                  /// Edit Icon
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.edit, size: 20.0),
-                                  ),
-
-                                  /// Delete Icon
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.delete, size: 20.0),
-                                  ),
-                                ],
+                              child: IconButton(
+                                onPressed: () =>
+                                    _deleteUser(user[DBTable.kId] as int),
+                                icon: Icon(Icons.delete, size: 20.0),
                               ),
                             ),
                             title: Text(
-                              user.fullName,
+                              user[DBTable.kFullName].toString(),
                               style: TextStyle(fontSize: 12.0),
                             ),
                             subtitle: Text(
-                              user.birthday,
+                              user[DBTable.kBirthday].toString(),
                               style: TextStyle(fontSize: 12.0),
                             ),
                             shape: RoundedRectangleBorder(
@@ -140,16 +141,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   /// Navigate to Signing Screen
   void _logout(context) {
-    // Clear all Stored Shared Pref Data
-    _clearStoredPrefData();
-
-    // Delay 3 seconds
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => SigningScreen()),
-      );
-    });
+    prefServices.clearLoginData(); // Remove key
+    _showSnackBar(label: 'Logout', context: context);
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (_) => SigningScreen()));
   }
 
   /// SnackBar Method
@@ -170,17 +166,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /// It Cleared All Stored Data
-  void _clearStoredPrefData() async {
-    SharedPreferencesServices prefServices = SharedPreferencesServices();
-    prefServices.clearPrefData();
-  }
-
-  /// Method to load users List
+  /// Insert User into usersList
   void _loadUserList() {
-    setState(() {
-      usersList = dbService.getUsersList();
-    });
+    setState(() => usersList = dbService.getUsersList());
     debugPrint(usersList.toString());
   }
 }
