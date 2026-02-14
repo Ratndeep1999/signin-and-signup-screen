@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
-import 'package:signin_and_signup_screens/Class%20Model/user_model.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_phone_number_field.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_security_question_field.dart';
-import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
-import 'package:signin_and_signup_screens/home_screen.dart';
 import 'Custom Widgets/custom_birthday_dropdown_button.dart';
 import 'Custom Widgets/custom_button.dart';
 import 'Custom Widgets/custom_clickable_text.dart';
@@ -47,7 +44,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   bool _isNumberValid = false;
 
   late String _fullName;
-  late String _emailAddress;
+  late String _email;
   late String _userName;
   late String _birthDate;
   late String _password;
@@ -80,7 +77,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
     // Initialize data from previous screen
     _fullName = widget.fullName;
-    _emailAddress = widget.emailAddress;
+    _email = widget.emailAddress;
     _userName = widget.userName;
   }
 
@@ -223,7 +220,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                   bottomPadding: 12.0,
                   leftPadding: 20.0,
                   hintTextFontSize: 13.0,
-                  onSaved: (String? password) => _password = password ?? '',
+                  onSaved: (String? password) => _password = password!,
                 ),
                 const SizedBox(height: 20.0),
 
@@ -309,69 +306,64 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     );
   }
 
+  /// Check validation of number, birthdate, and form
+  bool validateAll() {
+    final isFormValid = _formKey.currentState!.validate();
+    final isBirthdayValid = _birthdayValidation();
+    return _isNumberValid && isFormValid && isBirthdayValid;
+  }
+
+  /// Creates User Account
+  Future<void> _createAccount() async {
+    if (validateAll()) {
+      final isUserAdded = await addUser();
+      if (!isUserAdded) return;
+      if (!mounted) return;
+
+      Navigator.popUntil(context, (route) => route.isFirst);
+      _printSavedData();
+    } else {}
+  }
+
+  /// Insert User to Database
+  Future<bool> addUser() async {
+    final isUserAdd = await dbService.insertUser(
+      fullName: _fullName,
+      email: _email,
+      userName: _userName,
+      birthday: _birthDate,
+      phoneNo: _phoneNumber,
+      securityQue: _securityQuestion,
+      securityAns: _securityAnswer,
+      password: _password,
+    );
+    return isUserAdd;
+  }
+
   /// onSave() of PhoneNumber()
   void _onSaveNumber(PhoneNumber? num) {
     // Phone no: PhoneNumber(countryISOCode: IN, countryCode: +91, number: 8551830830)
     _phoneNumber = ("${num!.countryISOCode}  ${num.countryCode} ${num.number}");
   }
 
-  /// Creates User Account
-  Future<void> _createAccount() async {
-    if (_formKey.currentState!.validate() &&
-        _isNumberValid &&
-        _birthdayValidation()) {
-      _formKey.currentState!.save();
-      _printSavedData();
-      await _saveUserSignupPrefs();
-      // debugPrint("_checkValidation Step 1");
-      // prefServices.printSavedPrefs();
-      // debugPrint("_checkValidation Step 2");
-      // add user to database
-      await _addUser();
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-      );
-      // _navigateToSigningScreen();
-    }
-  }
-
-  /// Save User to Database
-  Future<void> _addUser() async {
-    UserModel newUser = UserModel(
-      fullName: _fullName,
-      emailId: _emailAddress,
-      userName: _userName,
-      birthday: _birthDate,
-      password: _birthDate,
-      phoneNumber: _phoneNumber,
-      securityQuestion: _securityQuestion,
-      securityAnswer: _securityAnswer,
-    );
-    await dbService.insertUser(newUser);
-  }
-
   /// Birthday Validation
   bool _birthdayValidation() {
-    if (_selectedDay == null ||
-        _selectedMonth == null ||
-        _selectedYear == null) {
+    // final isValid =
+    //     _selectedDay != null && _selectedMonth != null && _selectedYear != null;
+    // if (isValid) {
+    //   _showBirthdateDialog();
+    //   return false;
+    // }
+
+    if ([_selectedDay, _selectedMonth, _selectedYear].contains(null)) {
       _showBirthdateDialog();
       return false;
-    } else {
-      _birthDate = ("$_selectedDay $_selectedMonth $_selectedYear");
-      // If Birthday is valid, then proceed
-      return true;
     }
+    _birthDate = ("$_selectedDay $_selectedMonth $_selectedYear");
+    return true;
   }
 
-  /// Navigate to Signing Screen
-  void _navigateToSigningScreen() {
-    // Direct navigate to First Page of Stack and Remove all Pages
-    Navigator.popUntil(context, (route) => route.isFirst);
-  }
-
-  /// Alert Dialog for Birthday Validation
+  /// Alert Dialog if Birthdate is invalid
   void _showBirthdateDialog() {
     showDialog(
       context: context,
@@ -416,7 +408,16 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     );
   }
 
-  /// Password Validation Method
+  /// onChanged() PhoneNumber
+  void _onChangedPhoneNumber(PhoneNumber number) {
+    // debugPrint("Phone Number: ${number.completeNumber}"); Phone Number: +918551830830
+    final userNumber = number.number;
+    final bool isValid =
+        userNumber.length == 10 && RegExp(r'^[0-9]+$').hasMatch(userNumber);
+    setState(() => _isNumberValid = isValid);
+  }
+
+  /// Password Validation
   String? _passwordValidation(String? password) {
     if (password == null || password.isEmpty)
       return "Please enter your password";
@@ -439,15 +440,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     if (phone.length != 10) return "Mobile number must be 10 digits";
     if (!RegExp(r'^[0-9]+$').hasMatch(phone)) return "Only numbers are allowed";
     return null;
-  }
-
-  /// Phone Number live Validation Check
-  void _onChangedPhoneNumber(PhoneNumber number) {
-    // debugPrint("Phone Number: ${number.completeNumber}"); Phone Number: +918551830830
-    final userNumber = number.number;
-    final bool isValid =
-        userNumber.length == 10 && RegExp(r'^[0-9]+$').hasMatch(userNumber);
-    setState(() => _isNumberValid = isValid);
   }
 
   /// Security Questin Validation
@@ -517,17 +509,15 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     );
   }
 
-// /// Check Saved Data
-// void _printSavedData() {
-//   // debugPrint("_printSavedData Start");
-//   debugPrint('Full Name: $_fullName');
-//   debugPrint('Email Address: $_emailAddress');
-//   debugPrint('UserName: $_userName');
-//   debugPrint('Birthday: $_birthDate');
-//   debugPrint('Password: $_password');
-//   debugPrint('Phone Number: $_phoneNumber');
-//   debugPrint('Security Question: $_securityQuestion');
-//   debugPrint('Security Answer: $_securityAnswer');
-//   // debugPrint("_printSavedData End");
-// }
+  /// Check Saved Data
+  void _printSavedData() {
+    debugPrint('Full Name: $_fullName');
+    debugPrint('Email Address: $_email');
+    debugPrint('UserName: $_userName');
+    debugPrint('Birthday: $_birthDate');
+    debugPrint('Password: $_password');
+    debugPrint('Phone Number: $_phoneNumber');
+    debugPrint('Security Question: $_securityQuestion');
+    debugPrint('Security Answer: $_securityAnswer');
+  }
 }
