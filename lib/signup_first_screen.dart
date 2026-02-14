@@ -235,7 +235,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                 /// Save & Continue Button
                 CustomButton(
                   label: 'Save & Continue',
-                  loginClick: _saveAndContinue,
+                  buttonPress: _saveAndContinue,
                 ),
                 const SizedBox(height: 20.0),
 
