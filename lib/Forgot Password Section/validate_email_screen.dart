@@ -17,25 +17,19 @@ class ValidateEmailScreen extends StatefulWidget {
 }
 
 class _EnterEmailScreenState extends State<ValidateEmailScreen> {
-  // SharedPreferencesServices Object
   SharedPreferencesServices pefService = SharedPreferencesServices();
-
-  // Controller and Key
-  late final TextEditingController _emailAddressController;
+  late final TextEditingController _emailController;
   final _formKey = GlobalKey<FormState>();
-
-  // Parameters
-  String? _forgetPasswordEmail;
 
   @override
   void initState() {
     super.initState();
-    _emailAddressController = TextEditingController();
+    _emailController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _emailAddressController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
@@ -49,7 +43,7 @@ class _EnterEmailScreenState extends State<ValidateEmailScreen> {
       ),
       body: SingleChildScrollView(
         child: InkWell(
-          onTap: _unfocusKeyboard,
+          onTap: () => FocusScope.of(context).unfocus(),
           child: SafeArea(
             child: Stack(
               children: [
@@ -112,8 +106,7 @@ class _EnterEmailScreenState extends State<ValidateEmailScreen> {
                   keyboardType: TextInputType.emailAddress,
                   isSuffixIcon: true,
                   suffixIcon: Icons.person,
-                  obscureText: false,
-                  controller: _emailAddressController,
+                  controller: _emailController,
                   validation: _emailValidation,
                   topPadding: 15.0,
                   bottomPadding: 15.0,
@@ -121,28 +114,20 @@ class _EnterEmailScreenState extends State<ValidateEmailScreen> {
                   hintTextFontSize: 14,
                   textInputAction: TextInputAction.next,
                   autofillHints: [AutofillHints.email],
-                  onSaved: (String? emailAddress) {
-                    _forgetPasswordEmail = emailAddress;
-                  },
                 ),
                 const SizedBox(height: 22.0),
 
                 /// Check Email Button
                 CustomButton(
                   label: 'Check Email',
-                  loginClick: () {
-                    /// If Email is valid then Next..
-                    _checkValidation();
-                  },
+                  buttonPress: () => _checkValidation(),
                 ),
                 const SizedBox(height: 20.0),
 
                 /// Back to Login text Button
                 CustomClickableText(
                   label: 'Back to Login',
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                  onTap: () => Navigator.pop(context),
                 ),
               ],
             ),
@@ -153,22 +138,13 @@ class _EnterEmailScreenState extends State<ValidateEmailScreen> {
   }
 
   /// Email Validation Method
-  String? _emailValidation(String? emailAddress) {
-    if (emailAddress == null || emailAddress.isEmpty) {
-      return 'Please enter your email';
-    }
-    if (emailAddress.contains(' ')) {
-      return 'Space is not allow';
-    }
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(emailAddress)) {
+  String? _emailValidation(String? email) {
+    email = email?.trim().toLowerCase();
+    if (email == null || email.isEmpty) return 'Please enter your email';
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email)) {
       return "Email address must contain '@' and '.com'";
     }
     return null;
-  }
-
-  /// Method to unfocus the keyboard
-  void _unfocusKeyboard() {
-    FocusScope.of(context).unfocus();
   }
 
   /// SnackBar Method
@@ -189,24 +165,16 @@ class _EnterEmailScreenState extends State<ValidateEmailScreen> {
     );
   }
 
-  /// check Email Button validation
+  /// Match email into Database
   void _checkValidation() {
-    // if validate then return true and all save() method call
-    if (_formKey.currentState!.validate()){
-      _formKey.currentState!.save();
-      // if inputted email and existence email match then return true
-      if (_forgetPasswordEmail ==
-          pefService.getPrefString(
-            key: SharedPreferencesServices.kEmailId,
-          )) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => ValidateAnswerScreen(),
-          ),
-        );
-      } else {
-        _showSnackBar(label: "Your Email Address Is Not Matching");
-      }
+    FocusScope.of(context).unfocus();
+
+    if (_formKey.currentState!.validate()) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => ValidateAnswerScreen()),
+      );
+    } else {
+      _showSnackBar(label: "Your Email Address Is Not Matching");
     }
   }
 }
