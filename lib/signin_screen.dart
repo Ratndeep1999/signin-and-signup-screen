@@ -178,7 +178,7 @@ class _SigningScreenState extends State<SigningScreen> {
                 const SizedBox(height: 24.0),
 
                 /// Login Button
-                CustomButton(label: 'Login Account', loginClick: _loginPress),
+                CustomButton(label: 'Login Account', buttonPress: _loginPress),
                 const SizedBox(height: 25.0),
 
                 /// Create New Account text Button
