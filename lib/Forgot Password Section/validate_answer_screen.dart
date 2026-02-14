@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
 import 'package:signin_and_signup_screens/Forgot%20Password%20Section/show_password_screen.dart';
-import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
 import '../Custom Widgets/custom_button.dart';
 import '../Custom Widgets/custom_clickable_text.dart';
 import '../Custom Widgets/custom_heading.dart';
@@ -53,7 +52,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
       ),
       body: SingleChildScrollView(
         child: InkWell(
-          onTap: _unfocusKeyboard,
+          onTap: () => FocusScope.of(context).unfocus(),
           child: SafeArea(
             child: Stack(
               children: [
@@ -183,7 +182,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
     return null;
   }
 
-  /// SnackBar Method
+  /// SnackBar
   void _showSnackBar({required String label}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -199,10 +198,5 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
         ),
       ),
     );
-  }
-
-  /// Navigate To Next Screen To Show Password
-  void _navigateToShowPasswordScreen() {
-
   }
 }
