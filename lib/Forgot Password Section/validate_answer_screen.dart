@@ -18,14 +18,9 @@ class ValidateAnswerScreen extends StatefulWidget {
 }
 
 class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
-  // Shared Preferences Services Object
-  SharedPreferencesServices prefService = SharedPreferencesServices();
-
-  // Controller and form key
-  late TextEditingController _securityAnswerController;
+  late TextEditingController _securityAnsController;
   final _formKey = GlobalKey<FormState>();
 
-  // Security Questions
   final List<String> _questions = [
     'What is your pet’s name?',
     'What is your mother’s maiden name?',
@@ -33,20 +28,18 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
     'What is your favorite color?',
     'What city were you born in?',
   ];
-
-  // Parameters
-  String? _userSecurityQuestion;
-  String? _userSecurityAnswer;
+  String? _userSecurityQue;
+  String? _userSecurityAns;
 
   @override
   void initState() {
-    _securityAnswerController = TextEditingController();
+    _securityAnsController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _securityAnswerController.dispose();
+    _securityAnsController.dispose();
     super.dispose();
   }
 
@@ -109,54 +102,42 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                 CustomDropdownButton(
                                   hintLabel: "example1234",
                                   dropdownMenuItems: _questions,
-                                  validation: (String? question) {
-                                    // other way to write validation function
-                                    return _securityQuestionValidation(
-                                      question,
-                                    );
-                                  },
-                                  onChanged: (String? selectedQuestion) {
-                                    _userSecurityQuestion = selectedQuestion;
-                                  },
-                                  onSaved: (String? securityQuestion) {
-                                    _userSecurityQuestion = securityQuestion;
-                                  },
+                                  validation: _securityQuestionValidation,
+                                  onChanged: (String? selQue) =>
+                                      _userSecurityQue = selQue,
+                                  onSaved: (String? secQue) =>
+                                      _userSecurityQue = secQue,
                                 ),
                                 const SizedBox(height: 8.0),
 
                                 /// Security Answer Field
                                 CustomTextField(
                                   hintText: "Your Answer...",
-                                  controller: _securityAnswerController,
+                                  controller: _securityAnsController,
                                   keyboardType: TextInputType.text,
                                   autofillHints: const [AutofillHints.name],
                                   textInputAction: TextInputAction.done,
-                                  isSuffixIcon: false,
                                   validation: _securityAnswerValidation,
                                   topPadding: 12.0,
                                   bottomPadding: 12.0,
                                   leftPadding: 20.0,
                                   hintTextFontSize: 13.0,
-                                  obscureText: false,
-                                  onSaved: (String? securityAnswer) {
-                                    _userSecurityAnswer = securityAnswer;
-                                  },
+                                  onSaved: (String? secAns) =>
+                                      _userSecurityAns = secAns,
                                 ),
                                 const SizedBox(height: 22.0),
 
                                 /// Get Password Button
                                 CustomButton(
                                   label: 'Get Password',
-                                  loginClick: _checkValidation,
+                                  buttonPress: _validateData,
                                 ),
                                 const SizedBox(height: 20.0),
 
                                 /// Back To Login Button
                                 CustomClickableText(
                                   label: 'Back to Login',
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
+                                  onTap: () => Navigator.pop(context),
                                 ),
                               ],
                             ),
@@ -175,41 +156,20 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
   }
 
   /// Get Password Button Validation
-  void _checkValidation() {
-    // If validate then return true and all save() method call
+  void _validateData() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      // If security question match then it return true
-      if (_userSecurityQuestion ==
-          prefService.getPrefString(
-            key: SharedPreferencesServices.kSecurityQue,
-          )) {
-        // If Answer match then it return true
-        if (_userSecurityAnswer ==
-            prefService.getPrefString(
-              key: SharedPreferencesServices.kSecurityAns,
-            )) {
-          // Navigate to Next...
-          _navigateToShowPasswordScreen();
-        } else {
-          // For wrong Que
-          _showSnackBar(label: "Your Answer Is Wrong");
-        }
-      } else {
-        // For wrong Ans
-        _showSnackBar(label: "Selected Question Is Wrong");
-      }
-    }
-  }
 
-  /// Method to unfocus the keyboard
-  void _unfocusKeyboard() {
-    FocusScope.of(context).unfocus();
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => ShowPasswordScreen()),
+      );
+    }
   }
 
   /// Security Questin Validation
   String? _securityQuestionValidation(question) {
-    if (question == null || question.isEmpty) return "Please select the question";
+    if (question == null || question.isEmpty)
+      return "Please select the question";
     return null;
   }
 
@@ -218,7 +178,8 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
     answer = answer?.trim();
     if (answer == null || answer.isEmpty) return "Please enter the answer";
     if (answer.length < 3) return "Answer must be at least 3 characters long";
-    if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer)) return "Only letters and numbers are allowed";
+    if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(answer))
+      return "Only letters and numbers are allowed";
     return null;
   }
 
@@ -242,8 +203,6 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
 
   /// Navigate To Next Screen To Show Password
   void _navigateToShowPasswordScreen() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => ShowPasswordScreen()),
-    );
+
   }
 }
