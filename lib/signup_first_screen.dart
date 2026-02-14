@@ -317,7 +317,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
 
   /// Email Validation Method
   String? _emailValidation(String? email) {
-    email = email?.trim();
+    email = email?.trim().toLowerCase();
     if (email == null || email.isEmpty) return 'Please enter your email';
     if (email.contains(' ')) return 'Space is not allow';
     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email)) {
