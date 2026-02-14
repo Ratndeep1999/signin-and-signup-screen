@@ -28,8 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   /// Delete user
   void _deleteUser(int id) async {
     final isUserDelete = await dbService.deleteUser(id: id);
-    if (!mounted) return;
-    if (isUserDelete) {
+    if (isUserDelete && mounted) {
       print("User deleted successfully");
       _loadUserList();
     } else {
