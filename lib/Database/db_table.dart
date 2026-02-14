@@ -2,7 +2,6 @@ import 'package:signin_and_signup_screens/Database/database_service.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBTable {
-
   /// Configure Database Table and Columns
   static const String _kUsersTable = 'users_table';
   static const String kId = "users_id";
@@ -39,7 +38,6 @@ class DBTable {
 
   /// Create User to Database
   Future<bool> insertUser({
-    required int id,
     required String fullName,
     required String email,
     required String userName,
@@ -51,7 +49,6 @@ class DBTable {
   }) async {
     final db = await DatabaseService().database;
     int user = await db.insert(_kUsersTable, {
-      kId: id,
       kFullName: fullName,
       kEmailId: email,
       kUserName: userName,
