@@ -211,7 +211,7 @@ class _SigningScreenState extends State<SigningScreen> {
 
     _navigateToHomeScreen();
 
-    // prefServices.setIsLoggedIn(value: true);
+    prefServices.setIsLoggedIn(value: true);
     _showSnackBar(label: "Login Please Wait...");
   }
 
