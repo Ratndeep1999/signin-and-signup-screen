@@ -136,7 +136,8 @@ class _SigningScreenState extends State<SigningScreen> {
                   focusNode: _emailFocus,
                   nextFocusNode: _passwordFocus,
                   autofillHints: [AutofillHints.email],
-                  onSaved: (String? email) => _email = email,
+                  onSaved: (String? email) =>
+                      _email = email!.trim().toLowerCase(),
                 ),
                 const SizedBox(height: 26.0),
 
@@ -164,7 +165,7 @@ class _SigningScreenState extends State<SigningScreen> {
                   textInputAction: TextInputAction.done,
                   focusNode: _passwordFocus,
                   autofillHints: [AutofillHints.password],
-                  onSaved: (String? password) => _password = password,
+                  onSaved: (String? password) => _password = password!.trim(),
                 ),
                 const SizedBox(height: 24.0),
 
@@ -184,9 +185,7 @@ class _SigningScreenState extends State<SigningScreen> {
                 /// Create New Account text Button
                 CustomClickableText(
                   label: 'Create New Account',
-                  onTap: () {
-                    _navigateToSignupFirstScreen();
-                  },
+                  onTap: () => _navigateToSignupFirstScreen(),
                 ),
               ],
             ),
@@ -218,7 +217,6 @@ class _SigningScreenState extends State<SigningScreen> {
 
   /// Email Validation Method
   String? _emailValidation(String? email) {
-    email = email?.trim().toLowerCase();
     if (email == null || email.isEmpty) {
       return 'Please enter your email';
     }
