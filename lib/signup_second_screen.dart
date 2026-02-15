@@ -316,13 +316,15 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   /// Creates User Account
   Future<void> _createAccount() async {
     if (validateAll()) {
+      _printSavedData();
+      _formKey.currentState!.save();
+
       final isUserAdded = await addUser();
       if (!isUserAdded) return;
       if (!mounted) return;
 
       Navigator.popUntil(context, (route) => route.isFirst);
-      _printSavedData();
-    } else {}
+    }
   }
 
   /// Insert User to Database
@@ -342,6 +344,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
   /// onSave() of PhoneNumber()
   void _onSaveNumber(PhoneNumber? num) {
+    print("onSaveNumber() called");
     // Phone no: PhoneNumber(countryISOCode: IN, countryCode: +91, number: 8551830830)
     _phoneNumber = ("${num!.countryISOCode}  ${num.countryCode} ${num.number}");
   }
