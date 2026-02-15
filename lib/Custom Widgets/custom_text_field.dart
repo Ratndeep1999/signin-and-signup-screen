@@ -5,7 +5,7 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.keyboardType,
-    required this.isSuffixIcon,
+    this.isSuffixIcon,
     required this.controller,
     required this.validation,
     required this.topPadding,
@@ -32,7 +32,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final IconData? suffixIcon;
   final bool? obscureText;
-  final bool isSuffixIcon;
+  final bool? isSuffixIcon;
   final VoidCallback? suffixTap;
   final double topPadding;
   final double bottomPadding;
@@ -42,7 +42,7 @@ class CustomTextField extends StatelessWidget {
   final FormFieldSetter<String>? onSaved;
   final ValueChanged<String>? onChanged;
 
-  // Fun. return type   Function(value of the text field might be null) variable
+  // Fun. return type   Function(value of the text field might be null)? variable
   final String? Function(String?)? validation; // type definition
   // For focus node
   final TextInputAction? textInputAction;
@@ -96,9 +96,8 @@ class CustomTextField extends StatelessWidget {
           left: leftPadding,
         ),
         // SuffixIcon it can be clickable using suffixTap
-        suffixIcon: isSuffixIcon
+        suffixIcon: (isSuffixIcon != null)
             ? IconButton(
-                // suffixIcon it can be null
                 icon: Icon(suffixIcon, size: 20, color: suffixIconColor),
                 onPressed: suffixTap,
                 splashRadius: 5,
