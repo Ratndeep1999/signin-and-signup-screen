@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
-import 'package:signin_and_signup_screens/Shared%20Preferences/shared_preferences_service.dart';
 import '../Custom Widgets/custom_clickable_text.dart';
 import '../Custom Widgets/custom_heading.dart';
 import '../Custom Widgets/custom_second_heading.dart';
@@ -15,12 +13,7 @@ class ShowPasswordScreen extends StatefulWidget {
 }
 
 class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
-  // SharedPreferencesService Object
-  SharedPreferencesServices prefService = SharedPreferencesServices();
-
-  // Parameters
   String? _userEmail;
-
   String? _userPassword;
 
   @override
@@ -38,7 +31,6 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
 
             Column(
               children: [
-                /// Heading Text
                 CustomHeading(
                   bigText: "Warning!\n",
                   smallText: "Don't Share With Anyone",
@@ -72,7 +64,7 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         const SizedBox(height: 8.0),
 
                         /// Email Address
-                        _buildText(context, label: _userEmail ?? 'Refresh'),
+                        _buildText(context, label: _userEmail ?? ''),
                         const SizedBox(height: 22.0),
 
                         /// Password Label
@@ -83,15 +75,12 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         const SizedBox(height: 8.0),
 
                         /// Password
-                        _buildText(context, label: _userPassword ?? 'Refresh'),
+                        _buildText(context, label: _userPassword ?? ''),
                         const SizedBox(height: 40.0),
 
                         /// Refresh Button
                         InkWell(
-                          onTap: () {
-                            // to update email and password values
-                            _updateDetails();
-                          },
+                          onTap: () => () {},
                           radius: 25.0,
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
@@ -151,26 +140,6 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
         ),
       ),
     );
-  }
-
-  /// Update Details method
-  void _updateDetails() {
-    _showSnackBar(label: 'Refreshed..');
-    Timer(Duration(seconds: 2), () {
-      setState(() {
-        // update email and password
-        _userEmail =
-            prefService.getPrefString(
-              key: SharedPreferencesServices.kEmailId,
-            ) ??
-            "Empty";
-        _userPassword =
-            prefService.getPrefString(
-              key: SharedPreferencesServices.kPassword,
-            ) ??
-            "Empty";
-      });
-    });
   }
 
   /// SnackBar Method
