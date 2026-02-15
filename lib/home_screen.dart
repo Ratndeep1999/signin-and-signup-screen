@@ -92,37 +92,69 @@ class _HomeScreenState extends State<HomeScreen> {
                             vertical: 8.0,
                           ),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.max,
                             children: [
                               /// Item index
                               CircleAvatar(
                                 backgroundColor: Colors.black12,
                                 child: Text("${index + 1}"),
                               ),
-                              SizedBox(width: 18.0),
+
+                              /// User Data
+                              SizedBox(
+                                width: 180,
+                                child: Column(
+                                  spacing: 2.0,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    /// Full Name
+                                    Text(
+                                      user[DBTable.kFullName].toString(),
+                                      style: TextStyle(
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+
+                                    /// Email
+                                    Text(user[DBTable.kEmailId].toString()),
+
+                                    /// Username
+                                    Text(user[DBTable.kUserName].toString()),
+
+                                    /// DOB
+                                    Text(user[DBTable.kBirthday].toString()),
+
+                                    /// Phone Number
+                                    Text(user[DBTable.kPhoneNo].toString()),
+                                  ],
+                                ),
+                              ),
+
+                              /// Edit and Delete Icon
                               Column(
-                                spacing: 2.0,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 18.0,
                                 children: [
-                                  /// Full Name
-                                  Text(
-                                    user[DBTable.kFullName].toString(),
-                                    style: TextStyle(
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.w600,
+                                  /// Edit
+                                  CircleAvatar(
+                                    radius: 16,
+                                    backgroundColor: Colors.black12,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.edit, size: 16.0),
                                     ),
                                   ),
 
-                                  /// Email
-                                  Text(user[DBTable.kEmailId].toString()),
-
-                                  /// Username
-                                  Text(user[DBTable.kUserName].toString()),
-
-                                  /// DOB
-                                  Text(user[DBTable.kBirthday].toString()),
-
-                                  /// Phone Number
-                                  Text(user[DBTable.kPhoneNo].toString()),
+                                  /// Delete
+                                  CircleAvatar(
+                                    backgroundColor: Colors.black12,
+                                    radius: 16,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.delete, size: 16.0),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
