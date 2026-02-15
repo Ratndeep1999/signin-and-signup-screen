@@ -31,8 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!mounted) return;
 
     if (isUserDelete) {
-      _loadUserList();
-      debugPrint("User deleted successfully");
+      setState(() {});
     } else {
       debugPrint("No user found with id = $id");
     }
@@ -151,7 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     backgroundColor: Colors.black12,
                                     radius: 16,
                                     child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () =>
+                                          _deleteUser(user[DBTable.kId] as int),
                                       icon: Icon(Icons.delete, size: 16.0),
                                     ),
                                   ),
