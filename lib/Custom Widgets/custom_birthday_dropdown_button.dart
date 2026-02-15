@@ -17,7 +17,6 @@ class CustomBirthdayDropdownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      // Hint label
       hint: Text(
         hintLabel,
         style: TextStyle(
@@ -26,15 +25,14 @@ class CustomBirthdayDropdownButton extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-      icon: const SizedBox.shrink(),
       decoration: InputDecoration(
         suffixIcon: Icon(
           Icons.keyboard_arrow_down_rounded,
-          size: 22,
+          size: 18,
           color: Colors.black45,
         ),
         // Text and icon width
-        suffixIconConstraints: BoxConstraints(minWidth: 22.0),
+        suffixIconConstraints: BoxConstraints(minWidth: 0.0),
         // Text and icon height
         contentPadding: EdgeInsets.only(top: 12.0, bottom: 12.0),
         errorStyle: TextStyle(
@@ -46,19 +44,19 @@ class CustomBirthdayDropdownButton extends StatelessWidget {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0)),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.transparent,
+            color: Colors.green,
           ), // default border color
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.transparent,
+            color: Colors.orange,
           ), // active border color
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent), // error state
+          borderSide: BorderSide(color: Colors.red), // error state
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
+          borderSide: BorderSide(color: Colors.pink),
         ),
       ),
       // value: selectedValue,
