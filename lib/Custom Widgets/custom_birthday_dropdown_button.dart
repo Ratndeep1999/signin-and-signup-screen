@@ -44,19 +44,19 @@ class CustomBirthdayDropdownButton extends StatelessWidget {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0)),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.green,
+            color: Colors.transparent,
           ), // default border color
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.orange,
+            color: Colors.transparent,
           ), // active border color
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red), // error state
+          borderSide: BorderSide(color: Colors.transparent), // error state
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.pink),
+          borderSide: BorderSide(color: Colors.transparent),
         ),
       ),
       // value: selectedValue,
