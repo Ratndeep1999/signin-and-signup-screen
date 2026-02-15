@@ -14,10 +14,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  SharedPreferencesServices prefServices = SharedPreferencesServices();
+  final SharedPreferencesServices prefServices = SharedPreferencesServices();
   final DBTable dbService = DBTable();
 
-  late Future<List<Map<String, Object?>>> usersList;
+  List<Map<String, Object?>> usersList = [];
 
   @override
   void initState() {
@@ -28,11 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
   /// Delete user
   void _deleteUser(int id) async {
     final isUserDelete = await dbService.deleteUser(id: id);
-    if (isUserDelete && mounted) {
-      print("User deleted successfully");
+    if (!mounted) return;
+
+    if (isUserDelete) {
       _loadUserList();
+      debugPrint("User deleted successfully");
     } else {
-      print("No user found with id = $id");
+      debugPrint("No user found with id = $id");
     }
   }
 
@@ -48,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () => _logout,
+            onPressed: () => _logout(context),
             icon: Icon(Icons.logout_outlined, semanticLabel: "Logout"),
           ),
         ],
@@ -60,73 +62,73 @@ class _HomeScreenState extends State<HomeScreen> {
             /// Background Custom Design
             const CustomClippingDesign(),
 
+            /// Card
             SizedBox(
               width: double.infinity,
-              height: 650.0,
+              height: 680.0,
               child: Card(
                 margin: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
                 elevation: 5.0,
-                child: FutureBuilder<List<Map<String, Object?>>>(
-                  future: usersList,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                    if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                    }
-                    final users = snapshot.data ?? [];
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 18.0,
+                    horizontal: 18.0,
+                  ),
+                  shrinkWrap: true,
+                  itemCount: usersList.length,
+                  itemBuilder: (_, index) {
+                    // Separate User
+                    final user = usersList[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Colors.yellow.shade400,
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 8.0,
+                          ),
+                          child: Row(
+                            children: [
+                              /// Item index
+                              CircleAvatar(
+                                backgroundColor: Colors.black12,
+                                child: Text("${index + 1}"),
+                              ),
+                              SizedBox(width: 18.0),
+                              Column(
+                                spacing: 2.0,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  /// Full Name
+                                  Text(
+                                    user[DBTable.kFullName].toString(),
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
 
-                    if (users.isEmpty) {
-                      return Center(
-                        child: Text(
-                          'No users found',
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
+                                  /// Email
+                                  Text(user[DBTable.kEmailId].toString()),
+
+                                  /// Username
+                                  Text(user[DBTable.kUserName].toString()),
+
+                                  /// DOB
+                                  Text(user[DBTable.kBirthday].toString()),
+
+                                  /// Phone Number
+                                  Text(user[DBTable.kPhoneNo].toString()),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    }
-
-                    return ListView.builder(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 10.0,
                       ),
-                      itemCount: users.length,
-                      itemBuilder: (context, index) {
-                        // Separate User
-                        final user = users[index];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              child: Text(user[DBTable.kId].toString()),
-                            ),
-                            trailing: SizedBox(
-                              width: 100,
-                              child: IconButton(
-                                onPressed: () =>
-                                    _deleteUser(user[DBTable.kId] as int),
-                                icon: Icon(Icons.delete, size: 20.0),
-                              ),
-                            ),
-                            title: Text(
-                              user[DBTable.kFullName].toString(),
-                              style: TextStyle(fontSize: 12.0),
-                            ),
-                            subtitle: Text(
-                              user[DBTable.kBirthday].toString(),
-                              style: TextStyle(fontSize: 12.0),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.0),
-                              side: BorderSide(color: Colors.black),
-                            ),
-                          ),
-                        );
-                      },
                     );
                   },
                 ),
@@ -139,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   /// Navigate to Signing Screen
-  void _logout(context) {
+  void _logout(BuildContext context) {
     prefServices.clearLoginData(); // Remove key
     _showSnackBar(label: 'Logout', context: context);
     Navigator.of(
@@ -166,8 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   /// Insert User into usersList
-  void _loadUserList() {
-    setState(() => usersList = dbService.getUsersList());
-    debugPrint(usersList.toString());
+  Future<void> _loadUserList() async {
+    usersList = await dbService.getUsersList();
   }
 }
