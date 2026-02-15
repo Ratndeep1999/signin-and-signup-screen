@@ -316,8 +316,8 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
   /// Creates User Account
   Future<void> _createAccount() async {
     if (validateAll()) {
-      _printSavedData();
       _formKey.currentState!.save();
+      _printSavedData();
 
       final isUserAdded = await addUser();
       if (!isUserAdded) return;
