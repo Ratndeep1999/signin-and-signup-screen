@@ -155,11 +155,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                       border: Border.all(color: Colors.black12, width: 1.0),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         /// Days
                         SizedBox(
-                          width: 50,
+                          width: 70,
                           child: CustomBirthdayDropdownButton(
                             hintLabel: "Day",
                             dropdownMenuItems: _generateDays(),
@@ -169,7 +169,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
                         /// Months
                         SizedBox(
-                          width: 65,
+                          width: 83,
                           child: CustomBirthdayDropdownButton(
                             hintLabel: "Month",
                             dropdownMenuItems: _generateMonths(),
@@ -180,7 +180,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
 
                         /// Years
                         SizedBox(
-                          width: 63,
+                          width: 81,
                           child: CustomBirthdayDropdownButton(
                             hintLabel: "Year",
                             dropdownMenuItems: _generateYears(),
