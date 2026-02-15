@@ -261,7 +261,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => SignupSecondScreen(
-          fullName: _firstName + _lastName,
+          fullName: "$_firstName $_lastName",
           emailAddress: _email,
           userName: _userName,
         ),
