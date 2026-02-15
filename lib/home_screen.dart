@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!mounted) return;
 
     if (isUserDelete) {
-      setState(() {});
+      _loadUserList();
     } else {
       debugPrint("No user found with id = $id");
     }
@@ -201,6 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   /// Insert User into usersList
   Future<void> _loadUserList() async {
-    usersList = await dbService.getUsersList();
+    final users = await dbService.getUsersList();
+    setState(() => usersList = users);
   }
 }
