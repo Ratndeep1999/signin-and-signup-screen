@@ -76,8 +76,6 @@ class DBTable {
     required String userName,
     required String birthday,
     required String phoneNo,
-    required String securityQue,
-    required String securityAns,
   }) async {
     final db = await DatabaseService().database;
     int user = await db.update(
@@ -88,8 +86,6 @@ class DBTable {
         kUserName: userName,
         kBirthday: birthday,
         kPhoneNo: phoneNo,
-        kSecurityQue: securityQue,
-        kSecurityAns: securityAns,
       },
       where: '$kId = ?',
       whereArgs: [id],
