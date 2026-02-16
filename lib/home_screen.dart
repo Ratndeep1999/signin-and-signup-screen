@@ -4,6 +4,7 @@ import 'package:signin_and_signup_screens/Database/db_table.dart';
 import 'package:signin_and_signup_screens/signin_screen.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
+import 'Custom Widgets/user_edit_sheet.dart';
 import 'Shared Preferences/shared_preferences_service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,18 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _loadUserList();
-  }
-
-  /// Delete user
-  void _deleteUser(int id) async {
-    final isUserDelete = await dbService.deleteUser(id: id);
-    if (!mounted) return;
-
-    if (isUserDelete) {
-      _loadUserList();
-    } else {
-      debugPrint("No user found with id = $id");
-    }
   }
 
   @override
@@ -82,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          color: Colors.yellow.shade400,
+                          color: Colors.orange.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(18.0),
                         ),
                         child: Padding(
@@ -96,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               /// Item index
                               CircleAvatar(
-                                backgroundColor: Colors.black12,
+                                backgroundColor: Color(0xFFefb744),
                                 child: Text("${index + 1}"),
                               ),
 
@@ -138,16 +127,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                   /// Edit
                                   CircleAvatar(
                                     radius: 16,
-                                    backgroundColor: Colors.black12,
+                                    backgroundColor: Color(0xFFefb744),
                                     child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () => _editUSer(
+                                        id: user[DBTable.kId] as int,
+                                        userName: user[DBTable.kUserName]
+                                            .toString(),
+                                        email: user[DBTable.kEmailId]
+                                            .toString(),
+                                        birthday: user[DBTable.kBirthday]
+                                            .toString(),
+                                        fullName: user[DBTable.kFullName]
+                                            .toString(),
+                                        phoneNo: user[DBTable.kPhoneNo]
+                                            .toString(),
+                                      ),
                                       icon: Icon(Icons.edit, size: 16.0),
                                     ),
                                   ),
 
                                   /// Delete
                                   CircleAvatar(
-                                    backgroundColor: Colors.black12,
+                                    backgroundColor: Color(0xFFefb744),
                                     radius: 16,
                                     child: IconButton(
                                       onPressed: () =>
@@ -170,6 +171,18 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  /// Delete user
+  void _deleteUser(int id) async {
+    final isUserDelete = await dbService.deleteUser(id: id);
+    if (!mounted) return;
+
+    if (isUserDelete) {
+      _loadUserList();
+    } else {
+      debugPrint("No user found with id = $id");
+    }
   }
 
   /// Navigate to Signing Screen
@@ -203,5 +216,31 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadUserList() async {
     final users = await dbService.getUsersList();
     setState(() => usersList = users);
+  }
+
+  /// Edit user
+  void _editUSer({
+    required int id,
+    required String fullName,
+    required String email,
+    required String userName,
+    required String birthday,
+    required String phoneNo,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+
+      /// ModelBottomSheet
+      builder: (_) => UserEditSheet(
+        id: id,
+        fillName: fullName,
+        email: email,
+        userName: userName,
+        birthdate: birthday,
+        phNumber: phoneNo,
+        updateUser: () => _loadUserList(),
+      ),
+    );
   }
 }
