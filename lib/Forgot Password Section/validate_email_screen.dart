@@ -165,20 +165,22 @@ class _EnterEmailScreenState extends State<ValidateEmailScreen> {
     );
   }
 
-  /// Match email into Database
-  void _checkValidation() {
+  /// Check user email in Database
+  Future<void> _checkValidation() async {
     FocusScope.of(context).unfocus();
 
-    if (_formKey.currentState!.validate()) {
+    if (!_formKey.currentState!.validate()) return;
+    final email = _emailController.text.trim().toLowerCase();
 
-      /// Match Email in Database
+    final userEmail = await dbService.getUserByEmail(email);
 
-
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => ValidateAnswerScreen()),
-      );
-    } else {
-      _showSnackBar(label: "Your Email Address Is Not Matching");
+    if (userEmail == null) {
+      _showSnackBar(label: "Email Not Found");
+      return;
     }
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => ValidateAnswerScreen()),
+    );
   }
 }
