@@ -130,4 +130,18 @@ class DBTable {
       await db.close();
     }
   }
+
+  /// Check if email exists (Forgot Password)
+  Future<Map<String, Object?>?> getUserByEmail(String email) async {
+    final db = await DatabaseService().database;
+    final result = await db.query(
+      _kUsersTable,
+      where: '$kEmailId = ?',
+      whereArgs: [email],
+      limit: 1,
+    );
+
+    if (result.isEmpty) return null;
+    return result.first;
+  }
 }
