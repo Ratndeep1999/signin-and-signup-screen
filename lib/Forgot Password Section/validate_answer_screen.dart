@@ -184,7 +184,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
       return;
     }
 
-    // Check user and
+    // Check user ans
     if (enteredAns != dbAns) {
       _showSnackBar(label: "Incorrect security answer");
       return;
@@ -192,7 +192,12 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
 
     // Success
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => ShowPasswordScreen()),
+      MaterialPageRoute(
+        builder: (context) => ShowPasswordScreen(
+          email: user[DBTable.kEmailId].toString(),
+          password: user[DBTable.kPassword].toString(),
+        ),
+      ),
     );
   }
 
