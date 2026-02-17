@@ -144,4 +144,18 @@ class DBTable {
     if (result.isEmpty) return null;
     return result.first;
   }
+
+  /// Get user by Id
+  Future<Map<String, Object?>?> getUserById(id) async {
+    final db = await DatabaseService().database;
+
+    final result = await db.query(
+      _kUsersTable,
+      where: '$kId = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+    if (result.isEmpty) return null;
+    return result.first;
+  }
 }
