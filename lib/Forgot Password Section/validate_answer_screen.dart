@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
+import 'package:signin_and_signup_screens/Database/db_table.dart';
 import 'package:signin_and_signup_screens/Forgot%20Password%20Section/show_password_screen.dart';
 import '../Custom Widgets/custom_button.dart';
 import '../Custom Widgets/custom_clickable_text.dart';
@@ -10,13 +11,16 @@ import '../Custom Widgets/custom_text_field.dart';
 import '../Custom Widgets/custom_text_field_label.dart';
 
 class ValidateAnswerScreen extends StatefulWidget {
-  const ValidateAnswerScreen({super.key});
+  const ValidateAnswerScreen({super.key, required this.userId});
+
+  final int userId;
 
   @override
   State<ValidateAnswerScreen> createState() => _ValidateAnswerScreenState();
 }
 
 class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
+  final DBTable dbService = DBTable();
   late TextEditingController _securityAnsController;
   final _formKey = GlobalKey<FormState>();
 
@@ -129,7 +133,7 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
                                 /// Get Password Button
                                 CustomButton(
                                   label: 'Get Password',
-                                  buttonPress: _validateData,
+                                  buttonPress: _validateUserAns,
                                 ),
                                 const SizedBox(height: 20.0),
 
@@ -155,14 +159,41 @@ class _ValidateAnswerScreenState extends State<ValidateAnswerScreen> {
   }
 
   /// Get Password Button Validation
-  void _validateData() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
+  Future<void> _validateUserAns() async {
+    if (!_formKey.currentState!.validate()) return;
+    _formKey.currentState!.save();
 
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => ShowPasswordScreen()),
-      );
+    // Extract user que and ans
+    final selectedQue = _userSecurityQue?.trim();
+    final enteredAns = _userSecurityAns?.trim().toLowerCase();
+
+    // Get user from DB
+    final user = await dbService.getUserById(widget.userId);
+
+    if (user == null) {
+      _showSnackBar(label: "User Not Found");
+      return;
     }
+
+    final dbQue = user[DBTable.kSecurityQue].toString().trim();
+    final dbAns = user[DBTable.kSecurityAns].toString().trim().toLowerCase();
+
+    // Check user que
+    if (selectedQue != dbQue) {
+      _showSnackBar(label: "Security question does not match");
+      return;
+    }
+
+    // Check user and
+    if (enteredAns != dbAns) {
+      _showSnackBar(label: "Incorrect security answer");
+      return;
+    }
+
+    // Success
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => ShowPasswordScreen()),
+    );
   }
 
   /// Security Questin Validation
