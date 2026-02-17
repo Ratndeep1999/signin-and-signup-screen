@@ -5,6 +5,7 @@ import 'package:signin_and_signup_screens/signin_screen.dart';
 import 'Custom Widgets/custom_clipping_design.dart';
 import 'Custom Widgets/custom_text_field_label.dart';
 import 'Custom Widgets/user_edit_sheet.dart';
+import 'Custom Widgets/user_list_item.dart';
 import 'Shared Preferences/shared_preferences_service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -67,101 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (_, index) {
                     // Separate User
                     final user = usersList[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Colors.orange.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0,
-                            vertical: 8.0,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              /// Item index
-                              CircleAvatar(
-                                backgroundColor: Color(0xFFefb744),
-                                child: Text("${index + 1}"),
-                              ),
-
-                              /// User Data
-                              SizedBox(
-                                width: 180,
-                                child: Column(
-                                  spacing: 2.0,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    /// Full Name
-                                    Text(
-                                      user[DBTable.kFullName].toString(),
-                                      style: TextStyle(
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-
-                                    /// Email
-                                    Text(user[DBTable.kEmailId].toString()),
-
-                                    /// Username
-                                    Text(user[DBTable.kUserName].toString()),
-
-                                    /// DOB
-                                    Text(user[DBTable.kBirthday].toString()),
-
-                                    /// Phone Number
-                                    Text(user[DBTable.kPhoneNo].toString()),
-                                  ],
-                                ),
-                              ),
-
-                              /// Edit and Delete Icon
-                              Column(
-                                spacing: 18.0,
-                                children: [
-                                  /// Edit
-                                  CircleAvatar(
-                                    radius: 16,
-                                    backgroundColor: Color(0xFFefb744),
-                                    child: IconButton(
-                                      onPressed: () => _editUSer(
-                                        id: user[DBTable.kId] as int,
-                                        userName: user[DBTable.kUserName]
-                                            .toString(),
-                                        email: user[DBTable.kEmailId]
-                                            .toString(),
-                                        birthday: user[DBTable.kBirthday]
-                                            .toString(),
-                                        fullName: user[DBTable.kFullName]
-                                            .toString(),
-                                        phoneNo: user[DBTable.kPhoneNo]
-                                            .toString(),
-                                      ),
-                                      icon: Icon(Icons.edit, size: 16.0),
-                                    ),
-                                  ),
-
-                                  /// Delete
-                                  CircleAvatar(
-                                    backgroundColor: Color(0xFFefb744),
-                                    radius: 16,
-                                    child: IconButton(
-                                      onPressed: () =>
-                                          _deleteUser(user[DBTable.kId] as int),
-                                      icon: Icon(Icons.delete, size: 16.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                    return UserListItem(
+                      index: index,
+                      userItem: user,
+                      onEdit: _editUser,
+                      onDelete: _deleteUser,
                     );
                   },
                 ),
@@ -173,8 +84,34 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Edit user
+  void _editUser({
+    required int id,
+    required String fullName,
+    required String email,
+    required String userName,
+    required String birthdate,
+    required String phoneNo,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+
+      /// ModelBottomSheet
+      builder: (_) => UserEditSheet(
+        id: id,
+        fillName: fullName,
+        email: email,
+        userName: userName,
+        birthdate: birthdate,
+        phNumber: phoneNo,
+        updateUser: () => _loadUserList(),
+      ),
+    );
+  }
+
   /// Delete user
-  void _deleteUser(int id) async {
+  void _deleteUser({required int id}) async {
     final isUserDelete = await dbService.deleteUser(id: id);
     if (!mounted) return;
 
@@ -216,31 +153,5 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadUserList() async {
     final users = await dbService.getUsersList();
     setState(() => usersList = users);
-  }
-
-  /// Edit user
-  void _editUSer({
-    required int id,
-    required String fullName,
-    required String email,
-    required String userName,
-    required String birthday,
-    required String phoneNo,
-  }) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-
-      /// ModelBottomSheet
-      builder: (_) => UserEditSheet(
-        id: id,
-        fillName: fullName,
-        email: email,
-        userName: userName,
-        birthdate: birthday,
-        phNumber: phoneNo,
-        updateUser: () => _loadUserList(),
-      ),
-    );
   }
 }
