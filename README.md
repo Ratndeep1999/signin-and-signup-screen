@@ -18,42 +18,28 @@ samples, guidance on mobile development, and a full API reference.
 # RAW DESIGN
 ![raw design](assets/images/raw_design.jpg)
 
-# 1) Splash Screen
-![splash screen](assets/images/splash_screen.png)
+# Splash Screen
+![splash page](assets/images/splash_screen.png)
 
-# 2) Signing Screen
-![signin screen](assets/images/signin_screen.png)
+# Signing Page
+![signin page](assets/images/signin_page.png)
 
-# 3) Signing Screen With Validation
-![signin screen with validation](assets/images/signin_screen_with_validation.png)
+# Signup First Page
+![signup first page](assets/images/signup_fir_page.png)
 
-# 4) Signup First Screen
-![signup first screen](assets/images/signup_first_screen.png)
+# Signup Second Page
+![signup second page](assets/images/signup_sec_page.png)
 
-# 5) Signup First Screen With Validation
-![signup first screen with validation](assets/images/signup_first_screen_with_validation.png)
+# Dashboard Page
+![dashboard page](assets/images/dashboard_page.png)
 
-# 6) Signup Second Screen
-![signup second screen](assets/images/signup_second_screen.png)
+# FORGET PASSWORD PAGES
 
-# 7) Signup Second Screen With Validation
-![signup second screen with validation](assets/images/signup_second_screen_with_validation.png)
+# Forget Password Page
+![validate email page](assets/images/forget_pass_page.png)
 
-# 8) Home Screen
-![home screen](assets/images/home_screen.png)
+# Secure User Page
+![validate answer page](assets/images/secure_user_page.png)
 
-# FORGET PASSWORD SECTION OF SHARED PREF
-
-# 9) Validate Email Screen (Forget Password Section)
-![validate email screen](assets/images/validate_email_screen.png)
-
-# 10) Validate Answer Screen (Forget Password Section)
-![validate answer screen](assets/images/validate_answer_screen.png)
-
-# 11) Show Password Screen Screen (Forget Password Section)
-![show password screen](assets/images/show_password_screen.png)
-
-# 12) Shown Forgotten Details Screen (Forget Password Section)
-![shown forgotten details screen (forget password section)](assets/images/shown_forgotten_details.png)
-
-# FORGET PASSWORD SECTION OF DATABASE
+# Show Password Page
+![show password page](assets/images/show_password_page.png)
