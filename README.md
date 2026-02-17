@@ -18,28 +18,28 @@ samples, guidance on mobile development, and a full API reference.
 # RAW DESIGN
 ![raw design](assets/images/raw_design.jpg)
 
-# Splash Screen
+## Splash Screen
 ![splash page](assets/images/splash_screen.png)
 
-# Signing Page
+## Signing Page
 ![signin page](assets/images/signin_page.png)
 
-# Signup First Page
+## Signup First Page
 ![signup first page](assets/images/signup_fir_page.png)
 
-# Signup Second Page
+## Signup Second Page
 ![signup second page](assets/images/signup_sec_page.png)
 
-# Dashboard Page
+## Dashboard Page
 ![dashboard page](assets/images/dashboard_page.png)
 
-# FORGET PASSWORD PAGES
+## FORGET PASSWORD PAGES
 
-# Forget Password Page
+## Forget Password Page
 ![validate email page](assets/images/forget_pass_page.png)
 
-# Secure User Page
+## Secure User Page
 ![validate answer page](assets/images/secure_user_page.png)
 
-# Show Password Page
+## Show Password Page
 ![show password page](assets/images/show_password_page.png)
