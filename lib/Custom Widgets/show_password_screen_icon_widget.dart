@@ -5,10 +5,12 @@ class ShowPasswordScreenIconWidget extends StatelessWidget {
     super.key,
     required this.isVisible,
     required this.onPress,
+    required this.onCopyPress,
   });
 
   final bool isVisible;
   final VoidCallback onPress;
+  final VoidCallback onCopyPress;
 
   @override
   Widget build(BuildContext context) => Row(
@@ -17,18 +19,15 @@ class ShowPasswordScreenIconWidget extends StatelessWidget {
       /// Show / Hide
       IconButton(
         iconSize: 30,
-        icon: Icon(_isVisible ? Icons.visibility_off : Icons.visibility),
-        onPressed: () => setState(() => _isVisible = !_isVisible),
+        icon: Icon(isVisible ? Icons.visibility_off : Icons.visibility),
+        onPressed: onPress,
       ),
       const SizedBox(width: 30),
 
       /// Copy
       IconButton(
         icon: Icon(Icons.copy),
-        onPressed: () {
-          Clipboard.setData(ClipboardData(text: _userPass));
-          _showSnackBar(label: "Password copied");
-        },
+        onPressed: onCopyPress,
       ),
     ],
   );
