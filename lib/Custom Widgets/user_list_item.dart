@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:signin_and_signup_screens/Custom%20Widgets/circular_button_widget.dart';
 import 'package:signin_and_signup_screens/Database/db_table.dart';
 
 class UserListItem extends StatelessWidget {
@@ -19,7 +20,8 @@ class UserListItem extends StatelessWidget {
     required String userName,
     required String birthdate,
     required String phoneNo,
-  }) onEdit;
+  })
+  onEdit;
 
   final void Function({required int id}) onDelete;
 
@@ -48,10 +50,7 @@ class UserListItem extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               /// Item index
-              CircleAvatar(
-                backgroundColor: Color(0xFFefb744),
-                child: Text("$userIndex"),
-              ),
+              CircularButtonWidget(child: Text("$userIndex")),
 
               /// User Data
               SizedBox(
@@ -69,16 +68,9 @@ class UserListItem extends StatelessWidget {
                       ),
                     ),
 
-                    /// Email
                     Text(email),
-
-                    /// Username
                     Text(userName),
-
-                    /// DOB
                     Text(birthdate),
-
-                    /// Phone Number
                     Text(phoneNo),
                   ],
                 ),
@@ -89,9 +81,7 @@ class UserListItem extends StatelessWidget {
                 spacing: 18.0,
                 children: [
                   /// Edit
-                  CircleAvatar(
-                    radius: 16,
-                    backgroundColor: Color(0xFFefb744),
+                  CircularButtonWidget(
                     child: IconButton(
                       onPressed: () => onEdit(
                         id: id,
@@ -106,9 +96,7 @@ class UserListItem extends StatelessWidget {
                   ),
 
                   /// Delete
-                  CircleAvatar(
-                    backgroundColor: Color(0xFFefb744),
-                    radius: 16,
+                  CircularButtonWidget(
                     child: IconButton(
                       onPressed: () => onDelete(id: id),
                       icon: Icon(Icons.delete, size: 16.0),
