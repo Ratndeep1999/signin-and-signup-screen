@@ -2,14 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Database/db_table.dart';
 
 class UserListItem extends StatelessWidget {
-  const UserListItem({super.key, required this.index, required this.userItem});
+  const UserListItem({
+    super.key,
+    required this.index,
+    required this.userItem,
+    required this.onEdit,
+    required this.onDelete,
+  });
+
   final int index;
   final Map<String, dynamic> userItem;
+  final void Function({
+    required int id,
+    required String fullName,
+    required String email,
+    required String userName,
+    required String birthdate,
+    required String phoneNo,
+  }) onEdit;
 
+  final void Function({required int id}) onDelete;
 
   @override
   Widget build(BuildContext context) {
+    /// filter userItem
     final int userIndex = index + 1;
+    final int id = userItem[DBTable.kId];
     final String fullName = userItem[DBTable.kFullName];
     final String email = userItem[DBTable.kEmailId];
     final String userName = userItem[DBTable.kUserName];
@@ -75,13 +93,13 @@ class UserListItem extends StatelessWidget {
                     radius: 16,
                     backgroundColor: Color(0xFFefb744),
                     child: IconButton(
-                      onPressed: () => _editUSer(
-                        id: user[DBTable.kId] as int,
-                        userName: user[DBTable.kUserName].toString(),
-                        email: user[DBTable.kEmailId].toString(),
-                        birthday: user[DBTable.kBirthday].toString(),
-                        fullName: user[DBTable.kFullName].toString(),
-                        phoneNo: user[DBTable.kPhoneNo].toString(),
+                      onPressed: () => onEdit(
+                        id: id,
+                        fullName: fullName,
+                        email: email,
+                        userName: userName,
+                        birthdate: birthdate,
+                        phoneNo: phoneNo,
                       ),
                       icon: Icon(Icons.edit, size: 16.0),
                     ),
@@ -92,7 +110,7 @@ class UserListItem extends StatelessWidget {
                     backgroundColor: Color(0xFFefb744),
                     radius: 16,
                     child: IconButton(
-                      onPressed: () => _deleteUser(user[DBTable.kId] as int),
+                      onPressed: () => onDelete(id: id),
                       icon: Icon(Icons.delete, size: 16.0),
                     ),
                   ),
