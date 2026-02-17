@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
+import 'package:signin_and_signup_screens/Custom%20Widgets/show_data_widget.dart';
 import '../Custom Widgets/custom_clickable_text.dart';
 import '../Custom Widgets/custom_heading.dart';
 import '../Custom Widgets/custom_second_heading.dart';
@@ -80,7 +81,7 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         const SizedBox(height: 8.0),
 
                         /// Email Address
-                        _buildText(_userEmail),
+                        ShowDataWidget(isVisible: _isVisible, value: _userEmail),
                         const SizedBox(height: 22.0),
 
                         /// Password Label
@@ -91,7 +92,7 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         const SizedBox(height: 8.0),
 
                         /// Password
-                        _buildText(_userPass),
+                        ShowDataWidget(isVisible: _isVisible, value: _userPass),
                         const SizedBox(height: 40.0),
 
                         /// Copy Password
@@ -142,24 +143,6 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
               ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  /// Custom method to Show Email and Password
-  Widget _buildText(value) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        _isVisible ? value : '**********',
-        textAlign: TextAlign.left,
-        textDirection: TextDirection.ltr,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
-          color: Colors.black54,
-          letterSpacing: 2.0,
         ),
       ),
     );
