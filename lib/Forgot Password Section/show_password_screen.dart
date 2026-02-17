@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
 import '../Custom Widgets/custom_clickable_text.dart';
 import '../Custom Widgets/custom_heading.dart';
@@ -6,15 +7,30 @@ import '../Custom Widgets/custom_second_heading.dart';
 import '../Custom Widgets/custom_text_field_label.dart';
 
 class ShowPasswordScreen extends StatefulWidget {
-  const ShowPasswordScreen({super.key});
+  final String email;
+  final String password;
+
+  const ShowPasswordScreen({
+    super.key,
+    required this.email,
+    required this.password,
+  });
 
   @override
   State<ShowPasswordScreen> createState() => _ShowPasswordScreenState();
 }
 
 class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
-  String? _userEmail;
-  String? _userPassword;
+  late String _userEmail;
+  late String _userPass;
+  bool _isVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _userEmail = widget.email;
+    _userPass = widget.password;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +80,7 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         const SizedBox(height: 8.0),
 
                         /// Email Address
-                        _buildText(context, label: _userEmail ?? ''),
+                        _buildText(_userEmail),
                         const SizedBox(height: 22.0),
 
                         /// Password Label
@@ -75,32 +91,39 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         const SizedBox(height: 8.0),
 
                         /// Password
-                        _buildText(context, label: _userPassword ?? ''),
+                        _buildText(_userPass),
                         const SizedBox(height: 40.0),
 
-                        /// Refresh Button
-                        InkWell(
-                          onTap: () => () {},
-                          radius: 25.0,
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          child: Material(
-                            shape: const CircleBorder(),
-                            elevation: 10.0,
-                            shadowColor: Colors.black87,
-                            color: const Color(0xFFefb744),
-                            child: const CircleAvatar(
-                              backgroundColor: Color(0xFFefb744),
-                              radius: 25.0,
-                              child: Icon(
-                                Icons.refresh,
-                                color: Color(0xFFf7f0fa),
-                                size: 43.0,
-                                weight: 10,
+                        /// Copy Password
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            /// Show / Hide
+                            IconButton(
+                              iconSize: 30,
+                              icon: Icon(
+                                _isVisible
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
                               ),
+                              onPressed: () =>
+                                  setState(() => _isVisible = !_isVisible),
                             ),
-                          ),
+                            const SizedBox(width: 30),
+
+                            /// Copy
+                            IconButton(
+                              icon: Icon(Icons.copy),
+                              onPressed: () {
+                                Clipboard.setData(
+                                  ClipboardData(text: _userPass),
+                                );
+                                _showSnackBar(label: "Password copied");
+                              },
+                            ),
+                          ],
                         ),
+
                         const SizedBox(height: 40.0),
 
                         /// Back To Login Button
@@ -125,11 +148,11 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
   }
 
   /// Custom method to Show Email and Password
-  Widget _buildText(BuildContext context, {required String label}) {
+  Widget _buildText(value) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Text(
-        label,
+        _isVisible ? value : '**********',
         textAlign: TextAlign.left,
         textDirection: TextDirection.ltr,
         style: TextStyle(
