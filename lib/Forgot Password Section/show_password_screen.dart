@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/show_data_widget.dart';
+import 'package:signin_and_signup_screens/Custom%20Widgets/show_password_screen_icon_widget.dart';
 import '../Custom Widgets/custom_clickable_text.dart';
 import '../Custom Widgets/custom_heading.dart';
 import '../Custom Widgets/custom_second_heading.dart';
@@ -81,7 +82,10 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         const SizedBox(height: 8.0),
 
                         /// Email Address
-                        ShowDataWidget(isVisible: _isVisible, value: _userEmail),
+                        ShowDataWidget(
+                          isVisible: _isVisible,
+                          value: _userEmail,
+                        ),
                         const SizedBox(height: 22.0),
 
                         /// Password Label
@@ -95,34 +99,11 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                         ShowDataWidget(isVisible: _isVisible, value: _userPass),
                         const SizedBox(height: 40.0),
 
-                        /// Copy Password
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            /// Show / Hide
-                            IconButton(
-                              iconSize: 30,
-                              icon: Icon(
-                                _isVisible
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                              ),
-                              onPressed: () =>
-                                  setState(() => _isVisible = !_isVisible),
-                            ),
-                            const SizedBox(width: 30),
-
-                            /// Copy
-                            IconButton(
-                              icon: Icon(Icons.copy),
-                              onPressed: () {
-                                Clipboard.setData(
-                                  ClipboardData(text: _userPass),
-                                );
-                                _showSnackBar(label: "Password copied");
-                              },
-                            ),
-                          ],
+                        /// Icons
+                        ShowPasswordScreenIconWidget(
+                          isVisible: _isVisible,
+                          onPress: () =>
+                              setState(() => _isVisible = !_isVisible),
                         ),
 
                         const SizedBox(height: 40.0),
