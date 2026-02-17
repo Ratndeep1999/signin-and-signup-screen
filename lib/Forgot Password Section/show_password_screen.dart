@@ -104,6 +104,10 @@ class _ShowPasswordScreenState extends State<ShowPasswordScreen> {
                           isVisible: _isVisible,
                           onPress: () =>
                               setState(() => _isVisible = !_isVisible),
+                          onCopyPress: () {
+                            Clipboard.setData(ClipboardData(text: _userPass));
+                            _showSnackBar(label: "Password copied");
+                          },
                         ),
 
                         const SizedBox(height: 40.0),
