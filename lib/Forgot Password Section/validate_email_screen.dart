@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signin_and_signup_screens/Custom%20Widgets/custom_clipping_design.dart';
+import 'package:signin_and_signup_screens/Database/db_table.dart';
 import 'package:signin_and_signup_screens/Forgot%20Password%20Section/validate_answer_screen.dart';
 import '../Custom Widgets/custom_button.dart';
 import '../Custom Widgets/custom_clickable_text.dart';
@@ -16,6 +17,7 @@ class ValidateEmailScreen extends StatefulWidget {
 }
 
 class _EnterEmailScreenState extends State<ValidateEmailScreen> {
+  final DBTable dbService = DBTable();
   late final TextEditingController _emailController;
   final _formKey = GlobalKey<FormState>();
 
@@ -168,6 +170,10 @@ class _EnterEmailScreenState extends State<ValidateEmailScreen> {
     FocusScope.of(context).unfocus();
 
     if (_formKey.currentState!.validate()) {
+
+      /// Match Email in Database
+
+
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => ValidateAnswerScreen()),
       );
