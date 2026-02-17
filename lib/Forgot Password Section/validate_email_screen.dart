@@ -172,15 +172,18 @@ class _EnterEmailScreenState extends State<ValidateEmailScreen> {
     if (!_formKey.currentState!.validate()) return;
     final email = _emailController.text.trim().toLowerCase();
 
-    final userEmail = await dbService.getUserByEmail(email);
+    final user = await dbService.getUserByEmail(email);
 
-    if (userEmail == null) {
+    if (user == null) {
       _showSnackBar(label: "Email Not Found");
       return;
     }
 
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => ValidateAnswerScreen()),
+      MaterialPageRoute(
+        builder: (context) =>
+            ValidateAnswerScreen(userId: user[DBTable.kId] as int),
+      ),
     );
   }
 }
